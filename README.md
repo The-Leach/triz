@@ -23,7 +23,12 @@ which set you see.
 
 ## What it does
 
-**Solve a problem** — a five-step guided flow:
+**Solve a problem** — a five-step guided flow. A session holds one problem, and a
+problem can carry **several framings** — the same trouble written as a trade-off,
+as a both-ways demand, and as open exploration — each with its own shortlist and
+concepts, compared side by side in the summary rather than overwriting each other.
+
+The five steps:
 
 1. **Frame** the problem, with prompts for the Ideal Final Result and for
    resources you already hold. As you type, it suggests which of the 39 factors
@@ -33,13 +38,20 @@ which set you see.
    one yet. Sixteen common service trade-offs are offered as one-click starting
    points.
 3. **Get principles** — from the contradiction matrix, or from the four
-   separation strategies for physical contradictions. Blank matrix cells are
-   handled explicitly rather than silently: the tool falls back to the reverse
-   pair, and says so.
+   separation strategies for physical contradictions. Blank cells are handled
+   explicitly: the tool falls back to the reverse pair and says so, and when both
+   directions are blank it stops guessing and offers the *nearby pairs the matrix
+   does cover*, plus a route into a physical contradiction instead. A dead end
+   becomes a reframing prompt rather than ten filler principles.
 4. **Develop** the shortlisted principles into concepts, scored on impact,
    effort and risk, with a prompt to name the new problem each one creates.
 5. **Summarise** — ordered by impact then ease, exportable as Markdown, a file
    or print/PDF.
+
+**Nine Windows** — the system operator: the thing, its parts and its surroundings,
+across before / now / next. Problems are stated in the centre box and usually
+caused somewhere else; this is the quickest way to find out where. Feeds into the
+exported working sheet.
 
 **40 Principles** — all forty, searchable in everyday language ("handover",
 "rework", "burnout", "bottleneck"), each with its classical wording, service
@@ -50,8 +62,10 @@ random-spark button for when you have no contradiction to work from.
 opening the recommended principles in full. Any pair can be handed straight to
 the wizard.
 
-**39 Factors** — each classical factor with its engineering meaning and its
-service reading side by side.
+**39 Factors** — each classical factor with its engineering meaning, its service
+reading, and its **polarity**: whether improving it means more or less, stated in
+plain words. For the loss and harm factors "improving" means *reducing*, which is
+the single easiest way to use the matrix backwards without noticing.
 
 **Saved work** — sessions are kept in browser storage and can be exported to and
 imported from a JSON file.
@@ -65,6 +79,7 @@ imported from a JSON file.
 | `index.html` | The entire application, and the single source of truth. Open it directly. |
 | `data/TRIZ_Contradiction_Matrix.xlsx` | Source workbook the matrix was built from. |
 | `tests/ui-test.js` | End-to-end checks (Playwright). |
+| `tests/hosted-test.js` | Checks the published-page save paths against a stubbed host. |
 | `build-artifact.py` | Derives `dist/artifact.html` from `index.html` for publishing. Never edit the output. |
 
 ## Fonts and offline use
@@ -86,11 +101,23 @@ printed.
 ```bash
 npm install playwright
 node tests/ui-test.js
+node tests/hosted-test.js
 ```
 
-The suite covers data integrity (39 factors, 40 principles, 1248 populated
-matrix cells, all references in range), each of the three solve paths, empty and
-reverse matrix cells, search, saving, export, theme switching and mobile layout.
+The suite covers data integrity (39 factors with polarity, 40 principles, 1248
+populated matrix cells, all references in range), each of the three solve paths,
+multiple framings and their isolation, migration of pre-framing saved sessions,
+dead-end reframing, Nine Windows, keyboard navigation and labelling of the
+matrix, focus management, search, saving, export, theme switching and mobile
+layout.
+
+## Accessibility
+
+The matrix is fully keyboard-operable — arrow keys move between cells, Home and
+End jump along a row, Enter opens one — with a roving tabindex, scoped row and
+column headers, and a spoken label per cell naming both factors and the
+principles it holds. Step changes move focus to the new heading. Motion respects
+`prefers-reduced-motion`.
 
 ## Provenance
 

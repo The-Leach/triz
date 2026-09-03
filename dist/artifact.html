@@ -120,6 +120,7 @@ details.help .help-body li{margin-bottom:.3em}
 .steps button .n{width:21px;height:21px;border-radius:50%;background:var(--line);color:var(--ink-2);
   display:grid;place-items:center;font-size:11px;font-weight:500;flex:none;font-family:var(--data)}
 .steps button .t{font-size:12.5px;font-weight:600;color:var(--ink-2);line-height:1.25}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 .steps button[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft)}
 .steps button[aria-current="true"] .n{background:var(--accent);color:var(--accent-ink)}
 .steps button[aria-current="true"] .t{color:var(--accent)}
@@ -225,6 +226,73 @@ pre.export{background:var(--panel-2);border:1px solid var(--line);border-radius:
 #learnBody .kv dt{white-space:nowrap}
 .pcard-body li, .asks li{max-width:78ch}
 
+/* ---------- accessibility ---------- */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+h2:focus{outline:none}
+h2:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+table.mx td[role="button"]:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;z-index:5;position:relative}
+.linkish{background:none;border:0;padding:0;color:var(--accent);cursor:pointer;font:inherit;text-decoration:underline}
+
+/* ---------- factor polarity ---------- */
+.polchip{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:600;
+  border-radius:5px;padding:1px 6px;white-space:nowrap;font-family:var(--ui)}
+.pol-less{background:var(--alt-soft);color:var(--alt)}
+.pol-more{background:var(--accent-soft);color:var(--accent)}
+.pol-either{background:var(--warn-soft);color:var(--warn)}
+.polrow{display:flex;gap:8px;align-items:baseline;margin-top:7px;flex-wrap:wrap}
+.poltext{font-size:12.2px;color:var(--ink-2);flex:1;min-width:180px}
+
+/* ---------- framings ---------- */
+.framings{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:16px;
+  padding:9px 11px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel-2)}
+.fr-lab{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+button.fr{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel);
+  border-radius:999px;padding:4px 12px;font-size:12.5px;cursor:pointer;color:var(--ink-2);max-width:340px}
+button.fr:hover{border-color:var(--accent)}
+button.fr[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.fr-n{font-family:var(--data);font-size:10.5px;background:var(--line-2);color:var(--ink-2);
+  border-radius:50%;width:17px;height:17px;display:grid;place-items:center;flex:none}
+button.fr[aria-pressed="true"] .fr-n{background:var(--accent);color:var(--accent-ink)}
+.fr-t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fr-c{font-family:var(--data);font-size:10.5px;color:var(--warn);background:var(--warn-soft);
+  border-radius:4px;padding:0 5px;flex:none}
+button.fr.add{border-style:dashed;color:var(--accent)}
+button.fr.del{color:var(--ink-3);border-style:dashed;margin-left:auto}
+button.fr.del:hover{border-color:var(--warn);color:var(--warn)}
+.fr-block{border-top:1px solid var(--line-2);padding-top:14px;margin-top:14px}
+.fr-block:first-of-type{border-top:0;padding-top:0;margin-top:0}
+.fr-head{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+
+/* ---------- nearby-pair suggestions ---------- */
+button.nearby{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--panel-2);
+  border-radius:var(--radius);padding:11px 13px;cursor:pointer}
+button.nearby:hover{border-color:var(--accent);background:var(--accent-soft)}
+.nb-t{font-size:13.2px;margin-bottom:3px}
+.nb-s{font-size:12.2px;color:var(--ink-3)}
+
+/* ---------- nine windows ---------- */
+.nw{display:grid;grid-template-columns:132px repeat(3,1fr);gap:10px;align-items:stretch}
+.nw-corner{}
+.nw-col{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
+  text-align:center;padding-bottom:2px}
+.nw-row{display:flex;flex-direction:column;justify-content:center;padding-right:6px}
+.nw-row b{font-size:13px}
+.nw-row span{font-size:11.5px;color:var(--ink-3);line-height:1.35}
+.nw-cell{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:10px}
+.nw-cell.centre{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.nw-q{display:block;font-size:12.2px;font-weight:600;margin-bottom:6px;color:var(--ink-2)}
+.nw-when{display:none;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:5px}
+.nw-cell textarea{min-height:96px;font-size:13px;background:var(--panel-2)}
+@media(max-width:900px){
+  .nw{grid-template-columns:1fr;gap:8px}
+  .nw-corner,.nw-col{display:none}
+  .nw-row{padding:10px 0 2px;border-top:1px solid var(--line);flex-direction:row;align-items:baseline;gap:8px}
+  .nw-cell .nw-when{display:block}
+}
+
 @media print{
   header.top,nav.tabs,.wizfoot,.steps,.btn,details.help{display:none!important}
   body{background:#fff}
@@ -256,6 +324,7 @@ pre.export{background:var(--panel-2);border:1px solid var(--line);border-radius:
   <div class="tabs-in" id="tabs" role="tablist">
     <button role="tab" data-view="solve" aria-selected="true">Solve a problem</button>
     <button role="tab" data-view="principles" aria-selected="false">40 Principles</button>
+    <button role="tab" data-view="windows" aria-selected="false">Nine Windows</button>
     <button role="tab" data-view="matrix" aria-selected="false">Contradiction matrix</button>
     <button role="tab" data-view="params" aria-selected="false">39 Factors</button>
     <button role="tab" data-view="saved" aria-selected="false">Saved work</button>
@@ -286,6 +355,9 @@ pre.export{background:var(--panel-2);border:1px solid var(--line);border-radius:
       </div>
       <div class="plist" id="prinList"></div>
     </section>
+
+    <!-- ============ NINE WINDOWS ============ -->
+    <section id="view-windows" hidden><div id="windowsBody"></div></section>
 
     <!-- ============ MATRIX ============ -->
     <section id="view-matrix" hidden>
@@ -361,121 +433,121 @@ pre.export{background:var(--panel-2);border:1px solid var(--line);border-radius:
 const PARAMS = [
 {n:1,name:"Weight of moving object",eng:"Mass of something that moves.",
  svc:"How much a case, order or customer has to <em>carry</em> while it travels through you — attached paperwork, evidence, forms, baggage, the size of the record being passed along.",
- kw:"weight load paperwork attachments documents baggage burden case file size carry moving"},
+ kw:"weight load paperwork attachments documents baggage burden case file size carry moving",dir:"less",pol:"Improving this means the moving item carries less &mdash; fewer attachments, less paperwork travelling with the case."},
 {n:2,name:"Weight of stationary object",eng:"Mass of something fixed in place.",
  svc:"The standing load the organisation carries whether or not work is flowing — permanent records, archives, fixed overhead, estate, legacy systems that must be maintained.",
- kw:"overhead fixed cost estate archive legacy standing burden infrastructure records"},
+ kw:"overhead fixed cost estate archive legacy standing burden infrastructure records",dir:"less",pol:"Improving this means there is less standing load &mdash; less fixed overhead, estate or legacy to maintain."},
 {n:3,name:"Length of moving object",eng:"Any linear dimension of a moving thing.",
  svc:"How long the thing in motion is — the number of steps in the journey, pages in the form, questions in the script, days from request to answer, distance a courier covers.",
- kw:"length steps journey pages questions script long process duration distance route"},
+ kw:"length steps journey pages questions script long process duration distance route",dir:"either",pol:"Improving this means usually <b>shorter</b> &mdash; fewer steps, fewer pages, less distance. Be clear which direction you mean."},
 {n:4,name:"Length of stationary object",eng:"Any linear dimension of a fixed thing.",
  svc:"The span of fixed structures — the length of a queue lane or counter, the reporting chain, the size of a standing policy document, the reach of a fixed route.",
- kw:"queue counter chain hierarchy policy length span fixed corridor"},
+ kw:"queue counter chain hierarchy policy length span fixed corridor",dir:"either",pol:"Improving this means usually <b>shorter</b> &mdash; a shorter queue lane, a shorter reporting chain."},
 {n:5,name:"Area of moving object",eng:"Surface or footprint of a moving thing.",
  svc:"The surface a moving item occupies — screen real estate in a form, area of a document, ground covered by a mobile team, breadth of a single case.",
- kw:"area surface screen form space coverage breadth footprint mobile territory"},
+ kw:"area surface screen form space coverage breadth footprint mobile territory",dir:"either",pol:"Improving this means usually a <b>smaller</b> footprint for the item in motion."},
 {n:6,name:"Area of stationary object",eng:"Surface or footprint of a fixed thing.",
  svc:"Fixed footprint — floor space, branch square metreage, desks, the geographic territory a fixed site serves, shelf space.",
- kw:"floor space branch office desks territory site premises footprint estate"},
+ kw:"floor space branch office desks territory site premises footprint estate",dir:"either",pol:"Improving this means usually <b>less</b> fixed floor space or territory."},
 {n:7,name:"Volume of moving object",eng:"Cubic capacity of a moving thing.",
  svc:"The bulk of what moves at once — batch size, shipment size, caseload a person carries, the volume of a release, size of a hand&#8209;off.",
- kw:"volume batch size shipment caseload load bulk release handover quantity moving"},
+ kw:"volume batch size shipment caseload load bulk release handover quantity moving",dir:"either",pol:"Improving this means usually <b>smaller</b> batches and lighter caseloads &mdash; though sometimes you want bigger."},
 {n:8,name:"Volume of stationary object",eng:"Cubic capacity of a fixed thing.",
  svc:"Bulk held in place — stock on hand, work sitting in a queue, storage, the size of a backlog or waiting list.",
- kw:"stock storage backlog waiting list inventory queue held wip volume"},
+ kw:"stock storage backlog waiting list inventory queue held wip volume",dir:"less",pol:"Improving this means less is held in place &mdash; less stock, a shorter backlog, a smaller waiting list."},
 {n:9,name:"Speed",eng:"Rate of a process or action.",
  svc:"How fast things move — cycle time, response time, time to answer, throughput speed, speed of decision.",
- kw:"speed fast cycle time response turnaround lead time quick throughput sla decision"},
+ kw:"speed fast cycle time response turnaround lead time quick throughput sla decision",dir:"more",pol:"Improving this means it goes <b>faster</b> &mdash; shorter cycle time, quicker response."},
 {n:10,name:"Force",eng:"Interaction that changes an object's condition.",
  svc:"The push you have to apply to make something happen — escalation, chasing, incentives, enforcement, marketing pressure, managerial insistence.",
- kw:"force push escalation chasing incentive enforcement pressure effort persuasion authority"},
+ kw:"force push escalation chasing incentive enforcement pressure effort persuasion authority",dir:"either",pol:"Improving this means usually <b>less</b> force is needed to make it happen &mdash; less chasing, less escalation."},
 {n:11,name:"Stress or pressure",eng:"Force per unit area; tension.",
  svc:"Pressure held inside the system — workload per person, demand against capacity, deadline stress, contractual or regulatory pressure.",
- kw:"pressure stress workload demand capacity deadline strain burnout tension busy"},
+ kw:"pressure stress workload demand capacity deadline strain burnout tension busy",dir:"less",pol:"Improving this means there is <b>less</b> pressure in the system &mdash; lower workload, less deadline strain."},
 {n:12,name:"Shape",eng:"External contours or form.",
  svc:"The shape of the process or offering — the flow diagram, the layout of a branch or ward, the structure of a form, the shape of the customer journey.",
- kw:"shape form layout structure flow design journey configuration arrangement"},
+ kw:"shape form layout structure flow design journey configuration arrangement",dir:"either",pol:"Improving this means the process or journey is <b>better shaped</b> &mdash; not necessarily simpler."},
 {n:13,name:"Stability of the object's composition",eng:"Integrity of the system; resistance to falling apart.",
  svc:"How well the arrangement holds together — team and structure stability, policy drift, staff turnover, consistency of a standard over time.",
- kw:"stability turnover drift consistency structure churn integrity standard holds together"},
+ kw:"stability turnover drift consistency structure churn integrity standard holds together",dir:"more",pol:"Improving this means the arrangement <b>holds together better</b> &mdash; less drift, less churn, more consistency over time."},
 {n:14,name:"Strength",eng:"Resistance to breaking under load.",
  svc:"How much load the system can take before something breaks — resilience under a demand spike, robustness of a contract, ability to absorb a shock.",
- kw:"strength resilience robust capacity withstand shock spike breaking absorb tough"},
+ kw:"strength resilience robust capacity withstand shock spike breaking absorb tough",dir:"more",pol:"Improving this means it <b>withstands more</b> before something breaks."},
 {n:15,name:"Duration of action of moving object",eng:"Working life of a moving thing.",
  svc:"How long a moving item stays good for — validity of a quote, freshness of a lead, shelf life of information, how long an in&#8209;progress case stays usable before it goes stale.",
- kw:"validity freshness shelf life expiry stale lead quote ageing duration lifespan"},
+ kw:"validity freshness shelf life expiry stale lead quote ageing duration lifespan",dir:"more",pol:"Improving this means the item in motion stays usable <b>longer</b> before it goes stale."},
 {n:16,name:"Duration of action by stationary object",eng:"Working life of a fixed thing.",
  svc:"How long fixed elements keep working — the useful life of a policy, a system, a contract, a trained skill, a piece of equipment.",
- kw:"lifespan longevity policy system contract skill durability useful life obsolescence"},
+ kw:"lifespan longevity policy system contract skill durability useful life obsolescence",dir:"more",pol:"Improving this means fixed elements stay useful for <b>longer</b>."},
 {n:17,name:"Temperature",eng:"Thermal condition.",
  svc:"The heat in the situation — emotional temperature of a conversation, urgency, conflict, escalation intensity, how &lsquo;hot&rsquo; a complaint or a market is.",
- kw:"temperature heat emotion anger urgency conflict intensity escalation tension mood hot"},
+ kw:"temperature heat emotion anger urgency conflict intensity escalation tension mood hot",dir:"either",pol:"Improving this means usually <b>cooler</b> &mdash; less heat, less conflict, less urgency."},
 {n:18,name:"Illumination intensity",eng:"Light flux; brightness.",
  svc:"How well&#8209;lit the process is — visibility of status, transparency to customers and staff, dashboards, signage, whether people can see what is going on.",
- kw:"visibility transparency clarity dashboard status signage see visible reporting light"},
+ kw:"visibility transparency clarity dashboard status signage see visible reporting light",dir:"more",pol:"Improving this means it is <b>better lit</b> &mdash; more visible status, more transparency."},
 {n:19,name:"Use of energy by moving object",eng:"Energy consumed by a moving thing.",
  svc:"Effort burned by work in progress — staff effort per case, customer effort to get served, energy spent moving a job along.",
- kw:"effort energy consumption cost per case customer effort work handling labour"},
+ kw:"effort energy consumption cost per case customer effort work handling labour",dir:"less",pol:"Improving this means <b>less</b> effort is burned per case, by staff and by the customer."},
 {n:20,name:"Use of energy by stationary object",eng:"Energy consumed by a fixed thing.",
  svc:"Standing effort that runs whether or not there is demand — always&#8209;on systems, idle staffing, maintenance of dormant capability, cost of readiness.",
- kw:"idle standby always on overhead readiness maintenance dormant fixed energy"},
+ kw:"idle standby always on overhead readiness maintenance dormant fixed energy",dir:"less",pol:"Improving this means there is <b>less</b> standing effort &mdash; less idle capacity, a lower cost of readiness."},
 {n:21,name:"Power",eng:"Rate of doing work; work per unit time.",
  svc:"How much work the system can push through per unit time — staffed capacity, processing power, the sheer horsepower available at peak.",
- kw:"power capacity throughput horsepower staffing peak resource output rate"},
+ kw:"power capacity throughput horsepower staffing peak resource output rate",dir:"more",pol:"Improving this means <b>more</b> work is pushed through per unit of time."},
 {n:22,name:"Loss of energy",eng:"Energy that does no useful work.",
  svc:"Wasted effort — rework, duplicated work, chasing, meetings that decide nothing, motion that produces no value.",
- kw:"waste rework duplication chasing wasted effort futile meetings inefficiency lost work"},
+ kw:"waste rework duplication chasing wasted effort futile meetings inefficiency lost work",dir:"less",pol:"Improving this means there is <b>less</b> wasted effort &mdash; less rework, less duplication, less chasing."},
 {n:23,name:"Loss of substance",eng:"Loss of material, parts or resources.",
  svc:"Resource leaking out of the system — customer churn, abandoned applications, drop&#8209;outs, no&#8209;shows, spoilage, budget leakage, staff attrition.",
- kw:"churn attrition drop out abandonment no show leakage loss wastage spoilage leaving"},
+ kw:"churn attrition drop out abandonment no show leakage loss wastage spoilage leaving",dir:"less",pol:"Improving this means <b>less</b> leaks out &mdash; less churn, fewer drop&#8209;outs, less wastage."},
 {n:24,name:"Loss of information",eng:"Data or signal lost.",
  svc:"Information that falls down the gaps — context lost at handover, undocumented knowledge, details the customer had to repeat, lost audit trail.",
- kw:"information handover context knowledge repeat asking again audit trail lost data silo"},
+ kw:"information handover context knowledge repeat asking again audit trail lost data silo",dir:"less",pol:"Improving this means <b>less</b> information is lost at handovers and between systems."},
 {n:25,name:"Loss of time",eng:"Time spent that adds nothing.",
  svc:"Time the work spends going nowhere — queueing, waiting for approval, delays between steps, idle time, dead time in the customer journey.",
- kw:"delay waiting queue idle time lost approval wait bottleneck slow dead time"},
+ kw:"delay waiting queue idle time lost approval wait bottleneck slow dead time",dir:"less",pol:"Improving this means <b>less</b> time is lost &mdash; shorter waits, fewer delays, less idle time."},
 {n:26,name:"Quantity of substance",eng:"Amount of material or resource used.",
  svc:"The amount of resource consumed — headcount, hours, stock, budget, consumables, licences.",
- kw:"resource headcount hours budget cost stock consumption amount quantity supplies"},
+ kw:"resource headcount hours budget cost stock consumption amount quantity supplies",dir:"either",pol:"Improving this means usually <b>less</b> is consumed &mdash; fewer hours, less budget, less stock."},
 {n:27,name:"Reliability",eng:"Ability to perform as intended, every time.",
  svc:"Doing it right first time, every time — consistency of outcome, dependability of a promise, error and defect rates.",
- kw:"reliability consistency errors defects first time right dependable quality mistakes accuracy"},
+ kw:"reliability consistency errors defects first time right dependable quality mistakes accuracy",dir:"more",pol:"Improving this means it is <b>more</b> reliable &mdash; right first time, more often."},
 {n:28,name:"Measurement accuracy",eng:"Closeness of a measurement to the true value.",
  svc:"Whether your numbers are true — data quality, correctness of records, accuracy of forecasts and reported metrics.",
- kw:"data quality accuracy measurement metrics reporting forecast correctness records true"},
+ kw:"data quality accuracy measurement metrics reporting forecast correctness records true",dir:"more",pol:"Improving this means measurement is <b>more</b> accurate and the data is better quality."},
 {n:29,name:"Manufacturing precision",eng:"How closely the output matches the specification.",
  svc:"How tightly delivery matches the standard — variance between people, sites and shifts; adherence to the agreed way of working.",
- kw:"variance variation consistency standard adherence precision tolerance compliance drift between staff"},
+ kw:"variance variation consistency standard adherence precision tolerance compliance drift between staff",dir:"more",pol:"Improving this means consistency is <b>tighter</b> &mdash; less variance between people, sites and shifts."},
 {n:30,name:"External harm affecting the object",eng:"Harmful factors acting on the system from outside.",
  svc:"Things done <em>to</em> you — regulatory change, fraud, supplier failure, weather, demand shocks, cyber attack, media pressure.",
- kw:"external risk regulation fraud supplier failure weather shock attack disruption outside threat"},
+ kw:"external risk regulation fraud supplier failure weather shock attack disruption outside threat",dir:"less",pol:"Improving this means there is <b>less</b> harm from outside &mdash; less exposure to shocks, fraud, supplier failure."},
 {n:31,name:"Object-generated harmful factors",eng:"Harm the system produces itself.",
  svc:"Harm you create yourself — complaints, staff burnout, waste, unintended consequences of a policy, side effects of a target.",
- kw:"complaints burnout side effects unintended consequence self inflicted harm waste damage perverse incentive"},
+ kw:"complaints burnout side effects unintended consequence self inflicted harm waste damage perverse incentive",dir:"less",pol:"Improving this means you cause <b>less</b> harm yourself &mdash; fewer complaints, less burnout, less waste."},
 {n:32,name:"Ease of manufacture",eng:"How easy the thing is to make.",
  svc:"How easy the service is to <em>deliver</em> — how hard it is for staff to execute, training burden, number of systems they must touch.",
- kw:"ease of delivery staff training difficulty execute complexity for staff hard to do systems"},
+ kw:"ease of delivery staff training difficulty execute complexity for staff hard to do systems",dir:"more",pol:"Improving this means it is <b>easier to deliver</b> &mdash; less difficult for staff to execute."},
 {n:33,name:"Ease of operation",eng:"How easy the thing is to use.",
  svc:"How easy it is for the customer or user — effort to self&#8209;serve, clarity of instructions, friction in the journey, accessibility.",
- kw:"usability customer experience ease of use friction self service accessibility simple intuitive"},
+ kw:"usability customer experience ease of use friction self service accessibility simple intuitive",dir:"more",pol:"Improving this means it is <b>easier to use</b> &mdash; less friction for the customer."},
 {n:34,name:"Ease of repair",eng:"How easily faults are put right.",
  svc:"How easily things get put right when they go wrong — service recovery, correcting an error, reversing a transaction, rolling back a change.",
- kw:"recovery fix correction rollback complaint handling put right repair reverse remediation"},
+ kw:"recovery fix correction rollback complaint handling put right repair reverse remediation",dir:"more",pol:"Improving this means it is <b>easier to put right</b> when it goes wrong."},
 {n:35,name:"Adaptability or versatility",eng:"Ability to respond to changed conditions or serve many uses.",
  svc:"Ability to cope with variety — personalisation, handling non&#8209;standard cases, multi&#8209;channel, flexing to a different market or regulation.",
- kw:"flexibility adaptability variety personalisation exceptions bespoke channels versatile customisation"},
+ kw:"flexibility adaptability variety personalisation exceptions bespoke channels versatile customisation",dir:"more",pol:"Improving this means it copes with <b>more</b> variety &mdash; more flexible, more personalised."},
 {n:36,name:"Device complexity",eng:"Number and variety of parts and interactions.",
  svc:"How complicated the system is — number of steps, hand&#8209;offs, systems, approvals, policies, exceptions and teams involved.",
- kw:"complexity steps handoffs systems approvals policies exceptions complicated bureaucracy layers"},
+ kw:"complexity steps handoffs systems approvals policies exceptions complicated bureaucracy layers",dir:"less",pol:"Improving this means there is <b>less</b> complexity &mdash; fewer steps, hand&#8209;offs, systems and exceptions."},
 {n:37,name:"Difficulty of detecting and measuring",eng:"How hard it is to monitor and control.",
  svc:"How hard it is to see and steer the process — can you tell where a case is, spot a problem early, control what happens next?",
- kw:"monitoring visibility control tracking detect early warning measure oversight status where is it"},
+ kw:"monitoring visibility control tracking detect early warning measure oversight status where is it",dir:"less",pol:"Improving this means it is <b>easier</b> to see and steer &mdash; easier to track status and spot problems early."},
 {n:38,name:"Extent of automation",eng:"How much happens without a person.",
  svc:"How much runs itself — straight&#8209;through processing, automated decisions, self&#8209;service, robotic or rules&#8209;based handling.",
- kw:"automation automated straight through digital self service robotic rules manual touch"},
+ kw:"automation automated straight through digital self service robotic rules manual touch",dir:"more",pol:"Improving this means <b>more</b> of it runs without a person."},
 {n:39,name:"Productivity",eng:"Useful output per unit time.",
  svc:"Output per period — cases closed per person, patients seen per session, orders fulfilled per day, revenue per head.",
- kw:"productivity output throughput cases per day efficiency per head volume completed performance"}
+ kw:"productivity output throughput cases per day efficiency per head volume completed performance",dir:"more",pol:"Improving this means there is <b>more</b> output per period."}
 ];
 
 const PRINCIPLES = [
@@ -782,20 +854,73 @@ const LS_CUR='trizNav.current', LS_SAVED='trizNav.saved', LS_PREFS='trizNav.pref
 const P_BY_N = {}; PRINCIPLES.forEach(p=>P_BY_N[p.n]=p);
 const PARAM_BY_N = {}; PARAMS.forEach(p=>PARAM_BY_N[p.n]=p);
 
+/* A session is one problem. A problem can be framed several ways -- as a
+   trade-off, as a both-ways demand, or open -- and each framing carries its own
+   shortlist and concepts, so you can compare framings instead of overwriting
+   one with the next. */
+function blankFraming(){
+  return {id:'f'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36),
+    ctype:'', imp:null, wor:null, phys:{element:'',a:'',b:'',sep:''},
+    stars:[], ideas:{}, concepts:{}, created:Date.now()};
+}
 function blankSession(){
-  return {id:'s'+Date.now().toString(36), name:'', step:1, ctype:'',
+  const f = blankFraming();
+  return {id:'s'+Date.now().toString(36), name:'', step:1,
     problem:{title:'',context:'',ifr:'',resources:''},
-    imp:null, wor:null, phys:{element:'',a:'',b:'',sep:''},
-    stars:[], ideas:{}, concepts:{}, created:Date.now(), updated:Date.now()};
+    windows:{}, framings:[f], active:f.id,
+    created:Date.now(), updated:Date.now()};
+}
+
+/* Sessions saved before framings existed keep their single contradiction. */
+function migrate(s){
+  if(!s || !s.problem) return null;
+  if(!Array.isArray(s.framings) || !s.framings.length){
+    const f = blankFraming();
+    f.ctype = s.ctype||''; f.imp = s.imp||null; f.wor = s.wor||null;
+    f.phys = Object.assign(blankFraming().phys, s.phys||{});
+    f.stars = Array.isArray(s.stars)?s.stars:[];
+    f.ideas = (s.ideas&&typeof s.ideas==='object')?s.ideas:{};
+    f.concepts = (s.concepts&&typeof s.concepts==='object')?s.concepts:{};
+    s.framings = [f]; s.active = f.id;
+  }
+  s.framings.forEach(f=>{
+    f.phys = Object.assign({element:'',a:'',b:'',sep:''}, f.phys||{});
+    if(!Array.isArray(f.stars)) f.stars = [];
+    if(!f.ideas || typeof f.ideas!=='object') f.ideas = {};
+    if(!f.concepts || typeof f.concepts!=='object') f.concepts = {};
+  });
+  if(!s.framings.some(f=>f.id===s.active)) s.active = s.framings[0].id;
+  s.problem = Object.assign({title:'',context:'',ifr:'',resources:''}, s.problem||{});
+  if(!s.windows || typeof s.windows!=='object') s.windows = {};
+  ['ctype','imp','wor','phys','stars','ideas','concepts'].forEach(k=>delete s[k]);
+  return s;
 }
 let S = blankSession();
+
+/* The framing currently being worked on. */
+function F(){
+  return S.framings.find(f=>f.id===S.active) || S.framings[0];
+}
+function framingLabel(f){
+  if(f.ctype==='technical' && f.imp && f.wor)
+    return PARAM_BY_N[f.imp].name + ' vs ' + PARAM_BY_N[f.wor].name;
+  if(f.ctype==='technical') return 'Trade-off (incomplete)';
+  if(f.ctype==='physical')
+    return (f.phys.element||'Both ways') + (f.phys.a&&f.phys.b ? ': ' + f.phys.a + ' / ' + f.phys.b : '');
+  if(f.ctype==='explore') return 'Open exploration';
+  return 'New framing';
+}
+function addFraming(){
+  const f = blankFraming();
+  S.framings.push(f); S.active = f.id; S.step = 2; persist();
+}
 let PREFS = {domain:'service', theme:'auto'};
 let VIEW = 'solve';
 let prinFilter = '', paramFilter = '', mxSel = null, sparkN = null;
 
 function loadAll(){
   try{ const p=JSON.parse(localStorage.getItem(LS_PREFS)||'null'); if(p) PREFS=Object.assign(PREFS,p); }catch(e){}
-  try{ const s=JSON.parse(localStorage.getItem(LS_CUR)||'null'); if(s&&s.problem) S=Object.assign(blankSession(),s); }catch(e){}
+  try{ const s=migrate(JSON.parse(localStorage.getItem(LS_CUR)||'null')); if(s) S=Object.assign(blankSession(),s); }catch(e){}
 }
 function persist(){ S.updated=Date.now(); try{ localStorage.setItem(LS_CUR,JSON.stringify(S)); }catch(e){} }
 function persistPrefs(){ try{ localStorage.setItem(LS_PREFS,JSON.stringify(PREFS)); }catch(e){} }
@@ -901,7 +1026,7 @@ $('#tabs').addEventListener('click',e=>{
   const b=e.target.closest('button[data-view]'); if(!b) return;
   VIEW=b.dataset.view;
   $$('#tabs button').forEach(x=>x.setAttribute('aria-selected', String(x===b)));
-  ['solve','principles','matrix','params','saved','learn'].forEach(v=>{
+  ['solve','principles','windows','matrix','params','saved','learn'].forEach(v=>{
     $('#view-'+v).hidden = (v!==VIEW);
   });
   renderAll(); window.scrollTo({top:0,behavior:'smooth'});
@@ -918,8 +1043,9 @@ function exList(items, kind){
 }
 function principleCard(p, o){
   o = o||{};
-  const starred = S.stars.includes(p.n);
-  const idea = S.ideas[p.n]||'';
+  const f = F();
+  const starred = f.stars.includes(p.n);
+  const idea = f.ideas[p.n]||'';
   return '<article class="pcard" data-p="'+p.n+'">'+
     '<div class="pcard-head">'+
       '<div class="pnum">'+p.n+'</div>'+
@@ -948,12 +1074,16 @@ const STEPS = [
   {n:4, t:'Develop ideas'},
   {n:5, t:'Summary'}
 ];
+function framingReady(f){
+  return f.ctype==='explore'
+      || (f.ctype==='technical' && f.imp && f.wor && f.imp!==f.wor)
+      || (f.ctype==='physical' && f.phys.sep);
+}
 function reachable(n){
   if(n<=1) return true;
   if(n===2) return !!S.problem.title.trim();
-  if(n===3) return reachable(2) && (S.ctype==='explore' || (S.ctype==='technical'&&S.imp&&S.wor) || (S.ctype==='physical'&&S.phys.sep));
-  if(n===4) return reachable(3);
-  if(n===5) return reachable(3);
+  if(n===3) return reachable(2) && framingReady(F());
+  if(n===4 || n===5) return reachable(3);
   return false;
 }
 function renderSteps(){
@@ -963,6 +1093,22 @@ function renderSteps(){
       ' aria-current="'+cur+'" class="'+(done?'done':'')+'">'+
       '<span class="n">'+(done?'✓':s.n)+'</span><span class="t">'+s.t+'</span></button>';
   }).join('');
+}
+function framingBar(){
+  if(S.framings.length < 2) return '';
+  return '<div class="framings" role="group" aria-label="Framings of this problem">'+
+    '<span class="fr-lab">Framings</span>'+
+    S.framings.map((f,i)=>{
+      const on = f.id===S.active;
+      return '<button class="fr" data-action="useFraming" data-id="'+f.id+'" aria-pressed="'+on+'">'+
+        '<span class="fr-n">'+(i+1)+'</span>'+
+        '<span class="fr-t">'+esc(framingLabel(f))+'</span>'+
+        (f.stars.length?'<span class="fr-c">'+f.stars.length+'</span>':'')+
+        '</button>';
+    }).join('')+
+    '<button class="fr add" data-action="addFraming" title="Frame this problem another way">+ Another framing</button>'+
+    (S.framings.length>1?'<button class="fr del" data-action="dropFraming" data-id="'+S.active+'" title="Remove the framing you are viewing">Remove this one</button>':'')+
+  '</div>';
 }
 function foot(back, next, nextLabel){
   return '<div class="wizfoot">'+
@@ -988,6 +1134,7 @@ function step1(){
       '<li>Name the thing that suffers — the customer, the case, the shift, the margin.</li>'+
       '<li>Put a number on it if you have one. It makes the contradiction obvious later.</li></ul>'+
     '</div></details>'+
+    '<div class="tiny muted" style="margin-top:-4px">Struggling to state it? <button class="linkish" data-action="goWindows">Try Nine Windows first</button> \u2014 it moves your attention off the symptom.</div>'+
     '<hr class="sep">'+
     '<label class="fld"><span class="lab">The problem, in one sentence</span>'+
       '<span class="hint">What goes wrong, to whom, and how often?</span>'+
@@ -1010,8 +1157,15 @@ function step1(){
 }
 
 /* ---------- step 2: contradiction ---------- */
+function polChip(p){
+  const cls = p.dir==='less' ? 'pol-less' : p.dir==='more' ? 'pol-more' : 'pol-either';
+  const arrow = p.dir==='less' ? '\u2193' : p.dir==='more' ? '\u2191' : '\u2195';
+  const word = p.dir==='less' ? 'lower is better' : p.dir==='more' ? 'higher is better' : 'either direction';
+  return '<span class="polchip '+cls+'" title="'+esc(word)+'">'+arrow+' '+word+'</span>';
+}
 function paramPicker(side){
-  const cur = side==='imp'?S.imp:S.wor;
+  const f = F();
+  const cur = side==='imp'?f.imp:f.wor;
   const key = side==='imp'?'pickImp':'pickWor';
   const filter = (window[key]||'').toLowerCase();
   const list = PARAMS.filter(p=>!filter || matchesSearch(p.name+' '+p.kw+' '+p.svc, filter));
@@ -1022,26 +1176,28 @@ function paramPicker(side){
     '<div class="hint tiny muted" style="margin-bottom:7px">'+hint+'</div>'+
     (cur?'<div class="selected-param" style="margin-bottom:9px"><div class="t">'+cur+'. '+esc(PARAM_BY_N[cur].name)+'</div>'+
       '<div class="s">'+PARAM_BY_N[cur].svc+'</div>'+
-      '<button class="btn ghost sm" data-action="clearparam" data-side="'+side+'" style="margin-top:8px">Change</button></div>':
+      '<div class="polrow">'+polChip(PARAM_BY_N[cur])+'<span class="poltext">'+PARAM_BY_N[cur].pol+'</span></div>'+
+      '<button class="btn ghost sm" data-action="clearparam" data-side="'+side+'" style="margin-top:9px">Change</button></div>':
      '<div class="picker">'+
-       '<div class="pk-head"><input type="text" data-action="pkfilter" data-side="'+side+'" value="'+esc(window[key]||'')+'" placeholder="Search 39 factors — delay, accuracy, cost, complexity…"></div>'+
+       '<div class="pk-head"><input type="text" data-action="pkfilter" data-side="'+side+'" value="'+esc(window[key]||'')+'" placeholder="Search 39 factors \u2014 delay, accuracy, cost, complexity\u2026"></div>'+
        '<div class="pk-list">'+ (list.length?list.map(p=>
          '<button class="pk-item" data-action="pickparam" data-side="'+side+'" data-n="'+p.n+'">'+
-         '<div class="pk-name"><span class="pk-no">'+p.n+'</span>'+esc(p.name)+'</div>'+
-         '<div class="pk-svc">'+p.svc.replace(/<em>/g,'').replace(/<\/em>/g,'')+'</div></button>').join('')
-         :'<div class="empty">Nothing matches. Try a plainer word — &ldquo;wait&rdquo;, &ldquo;error&rdquo;, &ldquo;cost&rdquo;.</div>')+
+         '<div class="pk-name"><span class="pk-no">'+p.n+'</span>'+esc(p.name)+' '+polChip(p)+'</div>'+
+         '<div class="pk-svc">'+p.svc.replace(/<\/?em>/g,'')+'</div></button>').join('')
+         :'<div class="empty">Nothing matches. Try a plainer word \u2014 &ldquo;wait&rdquo;, &ldquo;error&rdquo;, &ldquo;cost&rdquo;.</div>')+
        '</div></div>')+
   '</div>';
 }
 function step2(){
-  const t = S.ctype;
+  const f = F(), t = f.ctype;
   let body = '<div class="card pad">'+
-    '<div class="step-head"><h2>Find the contradiction</h2>'+
+    '<div class="step-head"><h2 tabindex="-1">Find the contradiction</h2>'+
     '<p>TRIZ&rsquo;s central claim: a problem worth solving contains a conflict, and the ordinary response is to trade one side against the other. TRIZ refuses the trade.</p></div>'+
+    framingBar()+
     '<details class="help"><summary>Which of these am I looking at?</summary><div class="help-body">'+
-      '<ul><li><b>A trade-off</b> — improving one thing makes a <em>different</em> thing worse. Faster but less accurate. Cheaper but less reliable. This is a <em>technical contradiction</em>, and the matrix handles it.</li>'+
-      '<li><b>A both-ways demand</b> — the <em>same</em> thing must have opposite properties. The process must be standardised and personal. The team must be specialist and generalist. This is a <em>physical contradiction</em>, and separation handles it.</li></ul>'+
-      '<p style="margin:.6em 0 0">Not sure? Most problems can be written either way, and it is often worth doing both. Physical contradictions usually give sharper answers when you can find one.</p>'+
+      '<ul><li><b>A trade-off</b> \u2014 improving one thing makes a <em>different</em> thing worse. Faster but less accurate. Cheaper but less reliable. This is a <em>technical contradiction</em>, and the matrix handles it.</li>'+
+      '<li><b>A both-ways demand</b> \u2014 the <em>same</em> thing must have opposite properties. The process must be standardised and personal. The team must be specialist and generalist. This is a <em>physical contradiction</em>, and separation handles it.</li></ul>'+
+      '<p style="margin:.6em 0 0">Not sure? Most problems can be written either way, and it is worth doing both \u2014 use <b>+ Another framing</b> to keep them side by side rather than replacing one with the other. Physical contradictions usually give sharper answers when you can find one.</p>'+
     '</div></details>'+
     '<div class="choices" style="margin-bottom:18px">'+
       '<button class="choice" data-action="ctype" data-t="technical" aria-pressed="'+(t==='technical')+'">'+
@@ -1052,38 +1208,39 @@ function step2(){
         '<div class="ex">&ldquo;The check must be thorough <em>and</em> it must be instant.&rdquo;</div></button>'+
     '</div>'+
     '<div style="margin-bottom:18px"><button class="choice" data-action="ctype" data-t="explore" aria-pressed="'+(t==='explore')+'" style="border-style:dashed">'+
-      '<h3>I cannot see a contradiction yet</h3><p>Work through the forty principles against your problem instead. Slower, but it often surfaces the contradiction you could not name.</p></button></div>';
+      '<h3>I cannot see a contradiction yet</h3><p>Work through the forty principles against your problem instead. Slower, but it often surfaces the contradiction you could not name.</p>'+
+      '<div class="ex">Or try <b>Nine Windows</b> first \u2014 it is the fastest way to find where the problem actually lives.</div></button></div>';
 
   if(t==='technical'){
-    const c = cell(S.imp,S.wor), rc = cell(S.wor,S.imp);
+    const c = cell(f.imp,f.wor), rc = cell(f.wor,f.imp);
     body += '<hr class="sep">'+
       '<div class="eyebrow" style="margin-bottom:10px">Name the two sides</div>'+
-      (PRESETS.length?'<div class="tiny muted" style="margin-bottom:8px">Common starting points — click one to load it, then adjust:</div>'+
-        '<div class="pill-row" style="margin-bottom:16px">'+PRESETS.map((p,i)=>'<button class="chip" data-action="preset" data-i="'+i+'">'+esc(p.label)+'</button>').join('')+'</div>':'')+
+      '<div class="tiny muted" style="margin-bottom:8px">Common starting points \u2014 click one to load it, then adjust:</div>'+
+      '<div class="pill-row" style="margin-bottom:16px">'+PRESETS.map((p,i)=>'<button class="chip" data-action="preset" data-i="'+i+'">'+esc(p.label)+'</button>').join('')+'</div>'+
       '<div class="grid2">'+paramPicker('imp')+paramPicker('wor')+'</div>'+
-      (S.imp&&S.wor&&S.imp===S.wor?'<div class="tiny" style="color:var(--warn);margin-top:10px">Those are the same factor. A contradiction needs two different ones — or it is a physical contradiction, not a trade-off.</div>':'')+
-      (c.length?'<div class="tiny muted" style="margin-top:12px">✓ The matrix has '+c.length+' principle'+(c.length>1?'s':'')+' for this pair. Continue to see them.</div>':
-        (S.imp&&S.wor&&S.imp!==S.wor?'<div class="tiny" style="color:var(--warn);margin-top:12px">The classical matrix is blank for this pair'+(rc.length?', but the reverse pair is populated and will be offered':'')+'. Continue anyway — the next step explains what to do.</div>':''));
+      (f.imp&&f.wor&&f.imp===f.wor?'<div class="tiny" style="color:var(--warn);margin-top:10px">Those are the same factor. A contradiction needs two different ones \u2014 or it is a physical contradiction, not a trade-off.</div>':'')+
+      (c.length?'<div class="tiny muted" style="margin-top:12px">\u2713 The matrix has '+c.length+' principle'+(c.length>1?'s':'')+' for this pair. Continue to see them.</div>':
+        (f.imp&&f.wor&&f.imp!==f.wor?'<div class="tiny" style="color:var(--warn);margin-top:12px">The classical matrix is blank for this pair'+(rc.length?', but the reverse pair is populated and will be offered':'')+'. Continue anyway \u2014 the next step suggests nearby pairs that are populated.</div>':''));
   }
   if(t==='physical'){
     body += '<hr class="sep">'+
       '<div class="eyebrow" style="margin-bottom:10px">State the both-ways demand</div>'+
       '<div class="grid2">'+
         '<label class="fld"><span class="lab">The element in conflict</span><span class="hint">The one thing that is being pulled two ways.</span>'+
-          '<input type="text" data-action="ph" data-k="element" value="'+esc(S.phys.element)+'" placeholder="e.g. the identity check"></label>'+
+          '<input type="text" data-action="ph" data-k="element" value="'+esc(f.phys.element)+'" placeholder="e.g. the identity check"></label>'+
         '<div></div></div>'+
       '<div class="grid2">'+
-        '<label class="fld"><span class="lab">It must be…</span>'+
-          '<input type="text" data-action="ph" data-k="a" value="'+esc(S.phys.a)+'" placeholder="thorough"></label>'+
-        '<label class="fld"><span class="lab">…and it must also be the opposite:</span>'+
-          '<input type="text" data-action="ph" data-k="b" value="'+esc(S.phys.b)+'" placeholder="instant"></label>'+
+        '<label class="fld"><span class="lab">It must be\u2026</span>'+
+          '<input type="text" data-action="ph" data-k="a" value="'+esc(f.phys.a)+'" placeholder="thorough"></label>'+
+        '<label class="fld"><span class="lab">\u2026and it must also be the opposite:</span>'+
+          '<input type="text" data-action="ph" data-k="b" value="'+esc(f.phys.b)+'" placeholder="instant"></label>'+
       '</div>'+
       '<div class="eyebrow" style="margin:16px 0 8px">Now choose how to separate the two demands</div>'+
       '<div class="tiny muted" style="margin-bottom:12px">Work down the list and stop at the first one that could plausibly be true. Time and space are the most commonly overlooked.</div>'+
-      '<div class="choices">'+SEPARATIONS.map(s=>
-        '<button class="choice" data-action="sep" data-id="'+s.id+'" aria-pressed="'+(S.phys.sep===s.id)+'">'+
-        '<h3>'+esc(s.name)+'</h3><p>'+s.q+'</p>'+
-        '<div class="ex">'+(showSvc()?s.svc:s.mfg)+'</div></button>').join('')+'</div>';
+      '<div class="choices">'+SEPARATIONS.map(x=>
+        '<button class="choice" data-action="sep" data-id="'+x.id+'" aria-pressed="'+(f.phys.sep===x.id)+'">'+
+        '<h3>'+esc(x.name)+'</h3><p>'+x.q+'</p>'+
+        '<div class="ex">'+(showSvc()?x.svc:x.mfg)+'</div></button>').join('')+'</div>';
   }
   if(t==='explore'){
     body += '<hr class="sep"><p class="muted tiny" style="margin:0">Fine. Continue and you will get all forty principles against your problem, ordered so the broadly useful ones come first. Shortlist anything that produces a flicker of an idea.</p>';
@@ -1092,86 +1249,137 @@ function step2(){
   return body;
 }
 
-/* ---------- step 3: principles ---------- */
+/* ---------- reframing help for a pair the matrix does not cover ---------- */
+function relatedFactors(n, limit){
+  const src = PARAM_BY_N[n];
+  const terms = new Set(normSearch(src.kw).split(/\s+/).filter(w=>w.length>3));
+  return PARAMS.filter(p=>p.n!==n).map(p=>{
+    const words = new Set(normSearch(p.kw).split(/\s+/).filter(w=>w.length>3));
+    let overlap = 0; terms.forEach(t=>{ if(words.has(t)) overlap++; });
+    return {p, overlap};
+  }).filter(x=>x.overlap>0).sort((a,b)=>b.overlap-a.overlap).slice(0,limit||8).map(x=>x.p);
+}
+function nearbyPairs(imp, wor, limit){
+  const out = [], seen = {};
+  const push = (i,j,why)=>{
+    const k=i+'x'+j; if(seen[k]||i===j) return;
+    const c = cell(i,j); if(!c.length) return;
+    seen[k]=1; out.push({imp:i, wor:j, ps:c, why:why});
+  };
+  /* same worsening factor, a neighbouring thing to improve -- and the reverse */
+  relatedFactors(imp,8).forEach(p=>push(p.n, wor, 'a neighbouring factor to improve'));
+  relatedFactors(wor,8).forEach(p=>push(imp, p.n, 'a neighbouring factor that worsens'));
+  return out.slice(0, limit||6);
+}
 function recommended(){
-  /* returns {list:[{n,rank,why}], mode, notes:[]} */
-  const notes = [];
-  if(S.ctype==='technical'){
-    const c = cell(S.imp,S.wor);
-    if(c.length){
-      return {mode:'matrix', notes,
-        list:c.map((n,i)=>({n, rank:'Matrix rank '+(i+1)}))};
-    }
-    const rc = cell(S.wor,S.imp);
+  const f = F(), notes = [];
+  if(f.ctype==='technical'){
+    const c = cell(f.imp,f.wor);
+    if(c.length) return {mode:'matrix', notes, list:c.map((n,i)=>({n, rank:'Matrix rank '+(i+1)}))};
+    const rc = cell(f.wor,f.imp);
     if(rc.length){
-      notes.push('The matrix has nothing for <b>'+esc(PARAM_BY_N[S.imp].name)+' → '+esc(PARAM_BY_N[S.wor].name)+'</b>, so these come from the <b>reverse</b> pair. They are still worth reading: the same pair of forces is at work, just described from the other end.');
+      notes.push('The matrix has nothing for <b>'+esc(PARAM_BY_N[f.imp].name)+' \u2192 '+esc(PARAM_BY_N[f.wor].name)+'</b>, so these come from the <b>reverse</b> pair. They are still worth reading: the same two forces are at work, described from the other end.');
       return {mode:'reverse', notes, list:rc.map((n,i)=>({n, rank:'Reverse rank '+(i+1)}))};
     }
-    notes.push('The classical matrix records no pattern for this pair in either direction. That usually means the contradiction is not quite right yet. Try a neighbouring factor, or restate the problem as a physical contradiction. In the meantime, here are the principles that resolve contradictions most often across the whole matrix.');
-    return {mode:'fallback', notes, list:FREQ_RANK.slice(0,10).map(n=>({n, rank:'Most used overall'}))};
+    return {mode:'deadend', notes, list:[]};
   }
-  if(S.ctype==='physical'){
-    const s = SEPARATIONS.find(x=>x.id===S.phys.sep);
-    if(s) return {mode:'separation', notes, list:s.ps.map(n=>({n, rank:s.name}))};
+  if(f.ctype==='physical'){
+    const sp = SEPARATIONS.find(x=>x.id===f.phys.sep);
+    if(sp) return {mode:'separation', notes, list:sp.ps.map(n=>({n, rank:sp.name}))};
   }
-  return {mode:'explore', notes, list:PRINCIPLES.map(p=>({n:p.n, rank:''})).sort((a,b)=>(FREQ[b.n]||0)-(FREQ[a.n]||0))};
+  return {mode:'explore', notes, list:PRINCIPLES.map(p=>({n:p.n, rank:''})).sort((x,y)=>(FREQ[y.n]||0)-(FREQ[x.n]||0))};
 }
+
+/* A blank cell in both directions is not a result. Rather than hand back the
+   same ten general-purpose principles every time, offer the nearby pairs the
+   matrix does cover, so the user can reframe rather than settle. */
+function deadEndPanel(){
+  const f = F(), near = nearbyPairs(f.imp, f.wor, 6);
+  return '<div class="card pad" style="margin-bottom:18px">'+
+    '<div class="step-head"><h2 tabindex="-1">No pattern for this pair</h2>'+
+    '<p>The classical matrix records nothing for <b>'+esc(PARAM_BY_N[f.imp].name)+'</b> against <b>'+esc(PARAM_BY_N[f.wor].name)+'</b>, in either direction. That is a signal about the framing, not a verdict on your problem.</p></div>'+
+    framingBar()+
+    (near.length?
+      '<div class="eyebrow" style="margin:16px 0 8px">Nearby pairs the matrix does cover</div>'+
+      '<div class="tiny muted" style="margin-bottom:12px">One of these is often what you actually meant. Click to use it \u2014 it replaces the pair in this framing.</div>'+
+      '<div class="stack">'+near.map(x=>
+        '<button class="nearby" data-action="useNearby" data-i="'+x.imp+'" data-j="'+x.wor+'">'+
+          '<div class="nb-t"><b>'+x.imp+'. '+esc(PARAM_BY_N[x.imp].name)+'</b> <span class="muted">worsens</span> <b>'+x.wor+'. '+esc(PARAM_BY_N[x.wor].name)+'</b></div>'+
+          '<div class="nb-s">'+esc(x.why)+' &middot; '+x.ps.length+' principle'+(x.ps.length>1?'s':'')+': '+x.ps.map(n=>esc(P_BY_N[n].name)).join(', ')+'</div>'+
+        '</button>').join('')+'</div>'
+      :'<div class="empty">No closely related pair is populated either.</div>')+
+    '<hr class="sep">'+
+    '<div class="eyebrow" style="margin-bottom:8px">Or change the kind of contradiction</div>'+
+    '<p class="tiny muted">A trade-off the matrix cannot see is often a both-ways demand in disguise. &ldquo;Improving X worsens Y&rdquo; becomes &ldquo;this one thing must be both X and not&#8209;X&rdquo;, which separation handles without needing the matrix at all.</p>'+
+    '<div class="row">'+
+      '<button class="btn primary" data-action="toPhysical">State it as a both-ways demand</button>'+
+      '<button class="btn" data-action="step" data-n="2">Pick a different pair</button>'+
+      '<button class="btn ghost" data-action="toExplore">Work through all forty instead</button>'+
+    '</div>'+
+    foot(2, null)+
+  '</div>';
+}
+
 function step3(){
-  const r = recommended();
+  const f = F(), r = recommended();
+  if(r.mode==='deadend') return deadEndPanel();
   let head = '';
-  if(S.ctype==='technical'){
+  if(f.ctype==='technical'){
     head = '<div class="kv" style="margin-bottom:14px">'+
-      '<dt>Improving</dt><dd><b>'+S.imp+'. '+esc(PARAM_BY_N[S.imp].name)+'</b> — '+PARAM_BY_N[S.imp].svc+'</dd>'+
-      '<dt>Worsening</dt><dd><b>'+S.wor+'. '+esc(PARAM_BY_N[S.wor].name)+'</b> — '+PARAM_BY_N[S.wor].svc+'</dd></div>';
-  } else if(S.ctype==='physical'){
-    const s = SEPARATIONS.find(x=>x.id===S.phys.sep);
+      '<dt>Improving</dt><dd><b>'+f.imp+'. '+esc(PARAM_BY_N[f.imp].name)+'</b> \u2014 '+PARAM_BY_N[f.imp].svc+
+        '<div class="polrow">'+polChip(PARAM_BY_N[f.imp])+'<span class="poltext">'+PARAM_BY_N[f.imp].pol+'</span></div></dd>'+
+      '<dt>Worsening</dt><dd><b>'+f.wor+'. '+esc(PARAM_BY_N[f.wor].name)+'</b> \u2014 '+PARAM_BY_N[f.wor].svc+'</dd></div>';
+  } else if(f.ctype==='physical'){
+    const sp = SEPARATIONS.find(x=>x.id===f.phys.sep);
     head = '<div class="kv" style="margin-bottom:14px">'+
-      '<dt>The conflict</dt><dd><b>'+esc(S.phys.element||'This element')+'</b> must be <b>'+esc(S.phys.a||'one way')+'</b> and also <b>'+esc(S.phys.b||'the opposite')+'</b></dd>'+
-      '<dt>Strategy</dt><dd><b>'+esc(s.name)+'</b> — '+s.how+'</dd></div>';
+      '<dt>The conflict</dt><dd><b>'+esc(f.phys.element||'This element')+'</b> must be <b>'+esc(f.phys.a||'one way')+'</b> and also <b>'+esc(f.phys.b||'the opposite')+'</b></dd>'+
+      '<dt>Strategy</dt><dd><b>'+esc(sp.name)+'</b> \u2014 '+sp.how+'</dd></div>';
   }
   return '<div class="card pad" style="margin-bottom:18px">'+
-    '<div class="step-head"><h2>'+(r.list.length)+' principles to work with</h2>'+
-    '<p>Read each one, then answer the &ldquo;ask yourself&rdquo; questions <em>about your problem</em>. Star anything that produces even a half-formed idea — you will develop them next.</p></div>'+
-    head +
+    '<div class="step-head"><h2 tabindex="-1">'+(r.list.length)+' principles to work with</h2>'+
+    '<p>Read each one, then answer the &ldquo;ask yourself&rdquo; questions <em>about your problem</em>. Star anything that produces even a half-formed idea \u2014 you will develop them next.</p></div>'+
+    framingBar()+ head +
     (r.notes.length?r.notes.map(n=>'<div class="asks" style="border-color:var(--warn);background:var(--warn-soft)"><div class="eh" style="color:var(--warn)">Note</div><div class="tiny">'+n+'</div></div>').join(''):'')+
     '<details class="help" style="margin:14px 0 0"><summary>How to use these well</summary><div class="help-body"><ul>'+
       '<li>The principle is an <em>analogy</em>, not an instruction. &ldquo;Pneumatics&rdquo; in a call centre means fluid capacity, not compressed air.</li>'+
       '<li>Force yourself to write something for at least the first three, even if it is bad. The bad idea is usually the doorway.</li>'+
       '<li>If a principle seems absurd, ask what would have to be true for it to work. That question does most of the work.</li>'+
-      '<li>Order matters a little — the matrix lists the historically strongest first — but a lower-ranked principle that sparks something beats a top-ranked one that does not.</li>'+
+      '<li>Order matters a little \u2014 the matrix lists the historically strongest first \u2014 but a lower-ranked principle that sparks something beats a top-ranked one that does not.</li>'+
     '</ul></div></details>'+
-    '<div class="row" style="margin-top:14px"><span class="tiny muted">Shortlisted: <b id="starCount">'+S.stars.length+'</b></span></div>'+
+    '<div class="row" style="margin-top:14px"><span class="tiny muted">Shortlisted in this framing: <b id="starCount">'+f.stars.length+'</b></span>'+
+      '<button class="btn ghost sm" data-action="addFraming" style="margin-left:auto">+ Frame it another way</button></div>'+
     foot(2, 4, 'Develop shortlisted ideas')+
     '</div>'+
     '<div class="plist">'+ r.list.map(x=>principleCard(P_BY_N[x.n], {rank:x.rank})).join('') +'</div>';
 }
 
-/* ---------- step 4: develop ---------- */
 function step4(){
-  if(!S.stars.length){
-    return '<div class="card pad"><div class="step-head"><h2>Develop ideas</h2>'+
-      '<p>Nothing shortlisted yet.</p></div>'+
+  const f = F();
+  if(!f.stars.length){
+    return '<div class="card pad"><div class="step-head"><h2 tabindex="-1">Develop ideas</h2>'+
+      '<p>Nothing shortlisted in this framing yet.</p></div>'+ framingBar()+
       '<div class="empty">Go back to the principles and star the ones that gave you something.<br>Three or four is plenty.</div>'+
       foot(3,5,'Skip to summary')+'</div>';
   }
   const opts = (v,list)=>list.map(x=>'<option value="'+x+'"'+(v===x?' selected':'')+'>'+x+'</option>').join('');
   return '<div class="card pad" style="margin-bottom:18px">'+
-    '<div class="step-head"><h2>Develop and sift</h2>'+
-    '<p>Turn each spark into something a colleague could act on, then score it. Be honest about effort — a cheap idea that ships beats a brilliant one that does not.</p></div>'+
+    '<div class="step-head"><h2 tabindex="-1">Develop and sift</h2>'+
+    '<p>Turn each spark into something a colleague could act on, then score it. Be honest about effort \u2014 a cheap idea that ships beats a brilliant one that does not.</p></div>'+
+    framingBar()+
     '<details class="help"><summary>Turning a principle into a concept</summary><div class="help-body"><ul>'+
-      '<li>Write it as a change, not a wish: &ldquo;approve under £500 automatically and sample 10% weekly&rdquo;, not &ldquo;be faster&rdquo;.</li>'+
+      '<li>Write it as a change, not a wish: &ldquo;approve under \u00a3500 automatically and sample 10% weekly&rdquo;, not &ldquo;be faster&rdquo;.</li>'+
       '<li>Name who does something differently on Monday morning.</li>'+
-      '<li>Check it against your Ideal Final Result — does it move towards the thing happening by itself?</li>'+
+      '<li>Check it against your Ideal Final Result \u2014 does it move towards the thing happening by itself?</li>'+
       '<li>Ask what new problem it creates. If that new problem is smaller, you have a solution; if it is the same size, you have a trade-off and should go back a step.</li>'+
     '</ul></div></details>'+
     (S.problem.ifr?'<div class="asks"><div class="eh">Your Ideal Final Result</div><div>'+esc(S.problem.ifr)+'</div></div>':'')+
     foot(3,5,'Summary')+'</div>'+
-    S.stars.slice().sort((a,b)=>a-b).map(n=>{
-      const p=P_BY_N[n], c=S.concepts[n]||{};
+    f.stars.slice().sort((x,y)=>x-y).map(n=>{
+      const p=P_BY_N[n], c=f.concepts[n]||{};
       return '<div class="card pad" style="margin-bottom:14px">'+
         '<div class="row" style="margin-bottom:10px"><span class="badge num">'+p.n+'</span><b>'+esc(p.name)+'</b>'+
           '<button class="btn ghost sm" data-action="star" data-p="'+p.n+'" style="margin-left:auto">Remove</button></div>'+
-        (S.ideas[n]?'<div class="tiny muted" style="margin-bottom:10px;padding-left:11px;border-left:2px solid var(--line)">'+esc(S.ideas[n])+'</div>':'')+
+        (f.ideas[n]?'<div class="tiny muted" style="margin-bottom:10px;padding-left:11px;border-left:2px solid var(--line)">'+esc(f.ideas[n])+'</div>':'')+
         '<label class="fld"><span class="lab">The concept</span>'+
           '<textarea data-action="concept" data-p="'+p.n+'" data-k="text" placeholder="What changes, who does it, and what happens differently as a result.">'+esc(c.text||'')+'</textarea></label>'+
         '<div class="row">'+
@@ -1184,8 +1392,85 @@ function step4(){
       '</div>';
     }).join('');
 }
+/* Nine Windows -- the system operator. For process problems the cause is
+   usually one cell away from the one everybody is staring at. */
+const WINDOWS = [
+  {k:'subPast',   row:'sub',   col:'past',    q:'What were the parts doing before?',
+   svc:'The individual steps, people and systems earlier: what did the handover, the form, the team look like before this became a problem?'},
+  {k:'sysPast',   row:'sys',   col:'past',    q:'What was the whole thing before?',
+   svc:'The process or service as a whole, earlier. When did it last work? What changed?'},
+  {k:'supPast',   row:'sup',   col:'past',    q:'What was going on around it before?',
+   svc:'The organisation, the market, the regulation, the customer\u2019s life before this point.'},
+  {k:'subNow',    row:'sub',   col:'now',     q:'What are the parts doing now?',
+   svc:'The individual steps, roles, systems and documents as they are today.'},
+  {k:'sysNow',    row:'sys',   col:'now',     q:'What is the whole thing doing now?',
+   svc:'The process end to end \u2014 this is where the problem is usually stated, and rarely where it is caused.'},
+  {k:'supNow',    row:'sup',   col:'now',     q:'What is going on around it now?',
+   svc:'The wider organisation, the customer\u2019s situation, suppliers, regulators, competitors.'},
+  {k:'subFuture', row:'sub',   col:'future',  q:'What will the parts do next?',
+   svc:'What happens to each step downstream, and what does it do to the next one?'},
+  {k:'sysFuture', row:'sys',   col:'future',  q:'What will the whole thing do next?',
+   svc:'Where is this process heading if nothing changes? What does it look like after your fix?'},
+  {k:'supFuture', row:'sup',   col:'future',  q:'What will be going on around it?',
+   svc:'Where are the organisation, the market and the customer heading? What will make this worse or irrelevant?'}
+];
+const WIN_ROWS = [
+  {id:'sup', label:'Around it',  hint:'Super-system \u2014 organisation, market, customer, regulator'},
+  {id:'sys', label:'The thing',  hint:'System \u2014 the process or service itself'},
+  {id:'sub', label:'Its parts',  hint:'Sub-system \u2014 steps, people, documents, tools'}
+];
+const WIN_COLS = [{id:'past',label:'Before'},{id:'now',label:'Now'},{id:'future',label:'Next'}];
 
-/* ---------- step 5: summary ---------- */
+function renderWindows(){
+  const filled = WINDOWS.filter(w=>(S.windows[w.k]||'').trim()).length;
+  $('#windowsBody').innerHTML =
+    '<div class="card pad" style="margin-bottom:18px">'+
+      '<div class="eyebrow" style="margin-bottom:6px">Nine Windows &middot; the system operator</div>'+
+      '<p class="muted tiny" style="margin:0 0 10px">Problems get stated in one box \u2014 the thing, now \u2014 and are almost always caused in another. Filling these nine moves your attention off the symptom. It is the fastest way to find out that the queue is not the problem, what happens upstream of it is.</p>'+
+      '<details class="help" style="margin:0"><summary>How to fill it in</summary><div class="help-body"><ul>'+
+        '<li>Start in the middle (<b>The thing &middot; Now</b>) with the problem as you would normally state it.</li>'+
+        '<li>Then go <b>up</b>: what in the wider organisation or the customer\u2019s life makes this happen?</li>'+
+        '<li>Then go <b>left</b>: what was true before? Most process problems are a fossil of an earlier decision.</li>'+
+        '<li>You do not need all nine. Three or four honest ones beat nine tidy ones.</li>'+
+      '</ul></div></details>'+
+      '<div class="row tiny muted" style="margin-top:12px">'+filled+' of 9 filled'+
+        (filled?'<button class="btn ghost sm" data-action="clearWindows" style="margin-left:auto">Clear all</button>':'')+'</div>'+
+    '</div>'+
+    '<div class="nw">'+
+      '<div class="nw-corner"></div>'+
+      WIN_COLS.map(c=>'<div class="nw-col">'+esc(c.label)+'</div>').join('')+
+      WIN_ROWS.map(r=>
+        '<div class="nw-row"><b>'+esc(r.label)+'</b><span>'+r.hint+'</span></div>'+
+        WIN_COLS.map(c=>{
+          const w = WINDOWS.find(x=>x.row===r.id && x.col===c.id);
+          const isCentre = (r.id==='sys' && c.id==='now');
+          return '<div class="nw-cell'+(isCentre?' centre':'')+'">'+
+            '<span class="nw-when">'+esc(r.label)+' &middot; '+esc(c.label)+'</span>'+
+            '<label class="nw-q" for="nw-'+w.k+'">'+esc(w.q)+'</label>'+
+            '<textarea id="nw-'+w.k+'" data-action="win" data-k="'+w.k+'" placeholder="'+esc(w.svc)+'">'+esc(S.windows[w.k]||'')+'</textarea>'+
+          '</div>';
+        }).join('')
+      ).join('')+
+    '</div>';
+}
+
+function framingSummary(f){
+  const L=[];
+  if(f.ctype==='technical' && f.imp && f.wor){
+    L.push('Trade-off: improving **'+f.imp+'. '+PARAM_BY_N[f.imp].name+'** worsens **'+f.wor+'. '+PARAM_BY_N[f.wor].name+'**');
+    const c=cell(f.imp,f.wor), rc=cell(f.wor,f.imp);
+    L.push('Matrix principles: '+(c.length?c.map(n=>n+' ('+P_BY_N[n].name+')').join(', ')
+      :(rc.length?'none forward; reverse pair gives '+rc.map(n=>n+' ('+P_BY_N[n].name+')').join(', ')
+      :'none recorded in either direction')));
+  } else if(f.ctype==='physical'){
+    const sp=SEPARATIONS.find(x=>x.id===f.phys.sep);
+    L.push('Physical contradiction: **'+(f.phys.element||'?')+'** must be **'+(f.phys.a||'?')+'** and also **'+(f.phys.b||'?')+'**');
+    if(sp) L.push('Strategy: **'+sp.name+'**');
+  } else {
+    L.push('Open exploration across all forty principles.');
+  }
+  return L;
+}
 function exportMarkdown(){
   const L=[];
   L.push('# TRIZ working sheet');
@@ -1194,73 +1479,87 @@ function exportMarkdown(){
   if(S.problem.context) L.push('\n**Context:** '+S.problem.context);
   if(S.problem.ifr) L.push('\n**Ideal Final Result:** '+S.problem.ifr);
   if(S.problem.resources) L.push('\n**Resources available:** '+S.problem.resources);
-  L.push('');
-  L.push('## Contradiction');
-  if(S.ctype==='technical'&&S.imp&&S.wor){
-    L.push('Technical contradiction (trade-off).');
+
+  const wf = WINDOWS.filter(w=>(S.windows[w.k]||'').trim());
+  if(wf.length){
     L.push('');
-    L.push('- Improving: **'+S.imp+'. '+PARAM_BY_N[S.imp].name+'**');
-    L.push('- Worsening: **'+S.wor+'. '+PARAM_BY_N[S.wor].name+'**');
-    const c=cell(S.imp,S.wor);
-    L.push('- Matrix principles: '+(c.length?c.map(n=>n+' ('+P_BY_N[n].name+')').join(', '):'none recorded'));
-  } else if(S.ctype==='physical'){
-    const s=SEPARATIONS.find(x=>x.id===S.phys.sep);
-    L.push('Physical contradiction.');
-    L.push('');
-    L.push('- Element: **'+(S.phys.element||'?')+'**');
-    L.push('- Must be: **'+(S.phys.a||'?')+'** and also **'+(S.phys.b||'?')+'**');
-    if(s) L.push('- Strategy: **'+s.name+'**');
-  } else {
-    L.push('Open exploration across all forty principles.');
+    L.push('## Nine Windows');
+    WIN_ROWS.forEach(r=>WIN_COLS.forEach(c=>{
+      const w = WINDOWS.find(x=>x.row===r.id&&x.col===c.id);
+      const v = (S.windows[w.k]||'').trim();
+      if(v) L.push('\n**'+r.label+' \u00b7 '+c.label+'** \u2014 '+v);
+    }));
   }
-  L.push('');
-  L.push('## Concepts');
-  const stars=S.stars.slice().sort((a,b)=>a-b);
-  if(!stars.length){ L.push('_Nothing shortlisted._'); }
-  stars.forEach(n=>{
-    const c=S.concepts[n]||{}, p=P_BY_N[n];
+
+  S.framings.forEach((f,i)=>{
     L.push('');
-    L.push('### Principle '+n+' — '+p.name);
-    L.push('_'+p.ess+'_');
-    if(S.ideas[n]) L.push('\nFirst thought: '+S.ideas[n]);
-    if(c.text) L.push('\nConcept: '+c.text);
-    const sc=[c.impact?'Impact '+c.impact:null,c.effort?'Effort '+c.effort:null,c.risk?'Risk '+c.risk:null].filter(Boolean);
-    if(sc.length) L.push('\nScoring: '+sc.join(' · '));
-    if(c.newprob) L.push('\nNew problem created: '+c.newprob);
+    L.push('## Framing '+(i+1)+(S.framings.length>1?' of '+S.framings.length:'')+' \u2014 '+framingLabel(f));
+    L.push('');
+    framingSummary(f).forEach(x=>L.push(x));
+    const stars=f.stars.slice().sort((a,b)=>a-b);
+    L.push('');
+    if(!stars.length){ L.push('_Nothing shortlisted in this framing._'); return; }
+    stars.forEach(n=>{
+      const c=f.concepts[n]||{}, p=P_BY_N[n];
+      L.push('');
+      L.push('### Principle '+n+' \u2014 '+p.name);
+      L.push('_'+p.ess+'_');
+      if(f.ideas[n]) L.push('\nFirst thought: '+f.ideas[n]);
+      if(c.text) L.push('\nConcept: '+c.text);
+      const sc=[c.impact?'Impact '+c.impact:null,c.effort?'Effort '+c.effort:null,c.risk?'Risk '+c.risk:null].filter(Boolean);
+      if(sc.length) L.push('\nScoring: '+sc.join(' \u00b7 '));
+      if(c.newprob) L.push('\nNew problem created: '+c.newprob);
+    });
   });
   L.push('');
   L.push('---');
-  L.push('Generated with TRIZ Navigator · '+new Date().toLocaleString());
+  L.push('Generated with TRIZ Navigator \u00b7 '+new Date().toLocaleString());
   return L.join('\n');
 }
+
 function step5(){
   const md = exportMarkdown();
-  const stars=S.stars.slice().sort((a,b)=>a-b);
-  const ranked = stars.map(n=>({n,c:S.concepts[n]||{}}))
-    .sort((a,b)=>{
-      const v=x=>({High:3,Medium:2,Low:1}[x]||0);
-      return (v(b.c.impact)-v(a.c.impact)) || (v(a.c.effort)-v(b.c.effort));
-    });
+  const rank = f => f.stars.map(n=>({n,c:f.concepts[n]||{}}))
+    .sort((a,b)=>{ const v=x=>({High:3,Medium:2,Low:1}[x]||0);
+      return (v(b.c.impact)-v(a.c.impact)) || (v(a.c.effort)-v(b.c.effort)); });
+  const total = S.framings.reduce((n,f)=>n+f.stars.length,0);
   return '<div class="card pad" style="margin-bottom:18px">'+
-    '<div class="step-head"><h2>Summary</h2><p>Your working sheet, ordered by impact then by ease. Copy it into a document, a ticket or an email.</p></div>'+
-    (ranked.length?'<div class="stack" style="margin-bottom:16px">'+ranked.map(x=>{
-      const p=P_BY_N[x.n];
-      return '<div style="border-left:3px solid var(--accent);padding-left:12px">'+
-        '<div class="row" style="gap:7px"><span class="badge num">'+p.n+'</span><b>'+esc(p.name)+'</b>'+
-        (x.c.impact?'<span class="badge alt">Impact '+esc(x.c.impact)+'</span>':'')+
-        (x.c.effort?'<span class="chip static tiny">Effort '+esc(x.c.effort)+'</span>':'')+
-        (x.c.risk?'<span class="chip static tiny">Risk '+esc(x.c.risk)+'</span>':'')+'</div>'+
-        '<div class="tiny" style="margin-top:5px">'+esc(x.c.text||S.ideas[x.n]||'(no concept written)')+'</div></div>';
-    }).join('')+'</div>':'<div class="empty">Nothing shortlisted yet — go back and star a few principles.</div>')+
-    '<div class="row">'+
+    '<div class="step-head"><h2 tabindex="-1">Summary</h2>'+
+    '<p>'+(S.framings.length>1
+      ? 'All '+S.framings.length+' framings of this problem, each ordered by impact then by ease. Comparing them is the point \u2014 the sharpest idea often comes from the framing you nearly did not try.'
+      : 'Your working sheet, ordered by impact then by ease. Copy it into a document, a ticket or an email.')+'</p></div>'+
+    (total? S.framings.map((f,i)=>{
+      const rows = rank(f);
+      return '<div class="fr-block">'+
+        '<div class="fr-head"><span class="fr-n">'+(i+1)+'</span><b>'+esc(framingLabel(f))+'</b>'+
+          '<span class="tiny muted">'+(f.ctype==='technical'?'trade-off':f.ctype==='physical'?'physical contradiction':'exploration')+'</span>'+
+          '<button class="btn ghost sm" data-action="openFraming" data-id="'+f.id+'" style="margin-left:auto">Open</button></div>'+
+        (rows.length? '<div class="stack">'+rows.map(x=>{
+          const p=P_BY_N[x.n];
+          return '<div style="border-left:3px solid var(--accent);padding-left:12px">'+
+            '<div class="row" style="gap:7px"><span class="badge num">'+p.n+'</span><b>'+esc(p.name)+'</b>'+
+            (x.c.impact?'<span class="badge alt">Impact '+esc(x.c.impact)+'</span>':'')+
+            (x.c.effort?'<span class="chip static tiny">Effort '+esc(x.c.effort)+'</span>':'')+
+            (x.c.risk?'<span class="chip static tiny">Risk '+esc(x.c.risk)+'</span>':'')+'</div>'+
+            '<div class="tiny" style="margin-top:5px">'+esc(x.c.text||f.ideas[x.n]||'(no concept written)')+'</div></div>';
+        }).join('')+'</div>' : '<div class="tiny muted" style="padding-left:12px">Nothing shortlisted in this framing.</div>')+
+      '</div>';
+    }).join('') : '<div class="empty">Nothing shortlisted yet \u2014 go back and star a few principles.</div>')+
+    '<div class="row" style="margin-top:16px">'+
       '<button class="btn primary" data-action="copyMd">Copy working sheet</button>'+
       (canDownload()?'<button class="btn" data-action="downloadMd">Download .md</button>':'')+
       '<button class="btn" data-action="printIt">Print / PDF</button>'+
       '<button class="btn" data-action="saveNow">Save session</button>'+
+      '<button class="btn ghost" data-action="addFraming">+ Frame it another way</button>'+
     '</div>'+
     foot(4,null)+
     '</div>'+
     '<div class="card pad"><div class="eyebrow" style="margin-bottom:8px">Working sheet</div><pre class="export" id="mdOut">'+esc(md)+'</pre></div>';
+}
+/* Move focus to the new step heading so keyboard and screen-reader users are
+   not left stranded on <body> after the page repaints. */
+function focusStep(){
+  const h = $('#stepBody h2'); if(h) h.focus({preventScroll:true});
 }
 function renderSolve(){
   renderSteps();
@@ -1287,23 +1586,32 @@ function renderPrinciples(){
       + list.map(p=>principleCard(p,{})).join('')
     : '<div class="card empty">No principle matches &ldquo;'+esc(prinFilter)+'&rdquo;. Try a plainer word.</div>';
 }
+let mxFocus = [1,1];
+function mxCellLabel(i,j){
+  const c = MATRIX[i-1][j-1];
+  return 'Improving ' + PARAMS[i-1].name + ', worsening ' + PARAMS[j-1].name + '. ' +
+    (c.length ? 'Principles ' + c.join(', ') : 'No recommendation');
+}
 function renderMatrix(){
   const sel = $('#mxRowJump');
   if(!sel.options.length){
-    sel.innerHTML = '<option value="">Jump to a row (factor to improve)…</option>'+
+    sel.innerHTML = '<option value="">Jump to a row (factor to improve)\u2026</option>'+
       PARAMS.map(p=>'<option value="'+p.n+'">'+p.n+'. '+esc(p.name)+'</option>').join('');
   }
-  let h = '<table class="mx"><thead><tr><th>Improve ↓ &nbsp; Worsens →</th>'+
-    PARAMS.map(p=>'<th title="'+esc(p.n+'. '+p.name)+'">'+p.n+'</th>').join('')+'</tr></thead><tbody>';
-  for(let i=0;i<39;i++){
-    h += '<tr><th title="'+esc(PARAMS[i].name)+'">'+(i+1)+'. '+esc(PARAMS[i].name)+'</th>';
-    for(let j=0;j<39;j++){
-      if(i===j){ h += '<td class="diag"></td>'; continue; }
-      const c = MATRIX[i][j];
-      const isSel = mxSel && mxSel[0]===i+1 && mxSel[1]===j+1;
-      h += '<td class="'+(c.length?'has':'')+(isSel?' sel':'')+'" data-action="mxcell" data-i="'+(i+1)+'" data-j="'+(j+1)+'" '+
-        (c.length?'title="'+esc(PARAMS[i].name+' vs '+PARAMS[j].name+': '+c.join(', '))+'"':'')+'>'+
-        (c.length?c.join(' '):'')+'</td>';
+  if(mxFocus[0]===mxFocus[1]) mxFocus = [mxFocus[0], mxFocus[1]===39?38:mxFocus[1]+1];
+  let h = '<table class="mx"><caption class="sr-only">Contradiction matrix. Rows are the factor to improve, columns the factor that worsens. Use the arrow keys to move between cells and Enter to open one.</caption>'+
+    '<thead><tr><th scope="col">Improve \u2193 &nbsp; Worsens \u2192</th>'+
+    PARAMS.map(p=>'<th scope="col" title="'+esc(p.n+'. '+p.name)+'"><span aria-hidden="true">'+p.n+'</span><span class="sr-only">'+esc(p.name)+'</span></th>').join('')+'</tr></thead><tbody>';
+  for(let i=1;i<=39;i++){
+    h += '<tr><th scope="row" title="'+esc(PARAMS[i-1].name)+'">'+i+'. '+esc(PARAMS[i-1].name)+'</th>';
+    for(let j=1;j<=39;j++){
+      if(i===j){ h += '<td class="diag" aria-hidden="true"></td>'; continue; }
+      const c = MATRIX[i-1][j-1];
+      const isSel = mxSel && mxSel[0]===i && mxSel[1]===j;
+      const isFoc = mxFocus[0]===i && mxFocus[1]===j;
+      h += '<td class="'+(c.length?'has':'')+(isSel?' sel':'')+'" data-action="mxcell" data-i="'+i+'" data-j="'+j+'"'+
+        ' role="button" tabindex="'+(isFoc?0:-1)+'" aria-label="'+esc(mxCellLabel(i,j))+'"'+
+        (isSel?' aria-current="true"':'')+'>'+(c.length?c.join(' '):'')+'</td>';
     }
     h += '</tr>';
   }
@@ -1314,7 +1622,8 @@ function renderMatrix(){
     const [i,j]=mxSel, c=cell(i,j);
     d.innerHTML = '<div class="card pad" style="margin-bottom:16px">'+
       '<div class="kv" style="margin-bottom:12px">'+
-      '<dt>Improving</dt><dd><b>'+i+'. '+esc(PARAM_BY_N[i].name)+'</b><br><span class="tiny">'+PARAM_BY_N[i].svc+'</span></dd>'+
+      '<dt>Improving</dt><dd><b>'+i+'. '+esc(PARAM_BY_N[i].name)+'</b><br><span class="tiny">'+PARAM_BY_N[i].svc+'</span>'+
+        '<div class="polrow">'+polChip(PARAM_BY_N[i])+'<span class="poltext">'+PARAM_BY_N[i].pol+'</span></div></dd>'+
       '<dt>Worsening</dt><dd><b>'+j+'. '+esc(PARAM_BY_N[j].name)+'</b><br><span class="tiny">'+PARAM_BY_N[j].svc+'</span></dd></div>'+
       (c.length
         ? '<div class="pill-row">'+c.map(n=>'<span class="chip static"><b>'+n+'</b>&nbsp;'+esc(P_BY_N[n].name)+'</span>').join('')+'</div>'+
@@ -1323,6 +1632,34 @@ function renderMatrix(){
       '<div class="row" style="margin-top:14px"><button class="btn primary" data-action="useCell" data-i="'+i+'" data-j="'+j+'">Use this pair in Solve</button>'+
       '<button class="btn ghost" data-action="mxclear">Close</button></div></div>';
   } else d.innerHTML='';
+}
+/* Arrow keys move the roving focus; Enter or Space opens the cell. */
+function mxKey(e){
+  const td = e.target.closest('td[data-action="mxcell"]'); if(!td) return;
+  let [i,j] = [+td.dataset.i, +td.dataset.j];
+  const step = (di,dj)=>{ let ni=i, nj=j;
+    do { ni = Math.min(39, Math.max(1, ni+di)); nj = Math.min(39, Math.max(1, nj+dj));
+         if(ni===i && nj===j) return null; i=ni; j=nj; } while(ni===nj);
+    return [ni,nj]; };
+  let next=null;
+  switch(e.key){
+    case 'ArrowRight': next=step(0,1); break;
+    case 'ArrowLeft':  next=step(0,-1); break;
+    case 'ArrowDown':  next=step(1,0); break;
+    case 'ArrowUp':    next=step(-1,0); break;
+    case 'Home':       next=[+td.dataset.i, (+td.dataset.i)===1?2:1]; break;
+    case 'End':        next=[+td.dataset.i, (+td.dataset.i)===39?38:39]; break;
+    case 'Enter': case ' ':
+      e.preventDefault(); mxSel=[+td.dataset.i,+td.dataset.j]; mxFocus=mxSel.slice(); renderMatrix();
+      focusCell(); $('#mxDetail').scrollIntoView({behavior:'smooth',block:'nearest'}); return;
+    default: return;
+  }
+  if(!next) return;
+  e.preventDefault(); mxFocus=next; renderMatrix(); focusCell();
+}
+function focusCell(){
+  const el = $('#mxScroll td[data-i="'+mxFocus[0]+'"][data-j="'+mxFocus[1]+'"]');
+  if(el){ el.focus({preventScroll:true}); el.scrollIntoView({block:'nearest', inline:'nearest'}); }
 }
 function renderParams(){
   const f = paramFilter.trim().toLowerCase();
@@ -1343,8 +1680,10 @@ function renderSaved(){
   $('#savedList').innerHTML = list.length ? list.map(s=>
     '<div class="saved-item"><div class="si-t"><b>'+esc(s.name||s.problem.title||'Untitled session')+'</b>'+
       '<span>'+new Date(s.updated).toLocaleString()+' · '+
-      (s.ctype==='technical'?'trade-off':s.ctype==='physical'?'physical contradiction':'exploration')+
-      ' · '+(s.stars||[]).length+' shortlisted</span></div>'+
+      ((s.framings&&s.framings.length>1)? s.framings.length+' framings'
+        : (((s.framings&&s.framings[0])||s).ctype==='technical'?'trade-off'
+          :(((s.framings&&s.framings[0])||s).ctype==='physical'?'physical contradiction':'exploration')))+
+      ' · '+((s.framings? s.framings.reduce((n,f)=>n+((f.stars||[]).length),0) : (s.stars||[]).length))+' shortlisted</span></div>'+
       '<button class="btn sm" data-action="loadSaved" data-id="'+esc(s.id)+'">Open</button>'+
       '<button class="btn ghost sm" data-action="delSaved" data-id="'+esc(s.id)+'">Delete</button></div>').join('')
     : '<div class="card empty">Nothing saved yet. Your current session is kept automatically in this browser; use <b>Save current session</b> to keep a named copy alongside it.</div>';
@@ -1363,6 +1702,10 @@ function renderLearn(){
       '<dt>3. Abstract it</dt><dd>Map your specific problem onto the general one — the 39 factors, or a separation strategy. This is the step people skip, and it is the one that does the work.</dd>'+
       '<dt>4. Come back down</dt><dd>Take the general principles you are handed and translate them into something specific to you. A principle is an analogy, never an instruction.</dd>'+
     '</div>'+
+    '<h3 style="font-size:15px;margin-bottom:8px">Nine Windows</h3>'+
+    '<p class="muted">Before hunting for a contradiction, it is often worth asking <em>where the problem actually lives</em>. Nine Windows sets the thing you are looking at against its parts and its surroundings, at three points in time. Problems are almost always stated in one box \u2014 the thing, now \u2014 and caused in another. In service work the answer is very often one cell up (something in the wider organisation) or one cell left (a decision made earlier that nobody has revisited).</p>'+
+    '<h3 style="font-size:15px;margin-bottom:8px">More than one framing</h3>'+
+    '<p class="muted">The same problem can nearly always be written as a trade-off <em>and</em> as a both-ways demand, and the two produce different principles. That is a feature, not an inconsistency \u2014 so this tool keeps framings side by side rather than making you overwrite one with the next. The sharpest idea often comes from the framing you nearly did not bother with.</p>'+
     '<h3 style="font-size:15px;margin-bottom:8px">Ideal Final Result</h3>'+
     '<p class="muted">Before solving anything, describe the outcome occurring <em>by itself</em>: no cost, no new resource, no downside. It sounds like a fantasy exercise and it is the single most useful habit in TRIZ. It stops you optimising a step that should not exist, and it gives you a direction to measure ideas against.</p>'+
     '<h3 style="font-size:15px;margin-bottom:8px">Resources</h3>'+
@@ -1372,6 +1715,7 @@ function renderLearn(){
       '<li>The matrix is a lookup of historical patterns from engineering patents, not a proof. Treat a recommendation as a strong prompt, not an answer.</li>'+
       '<li>Blank cells are common and mean only that no pattern was recorded. They are not a verdict on your problem.</li>'+
       '<li>If the principles feel irrelevant, the usual cause is a badly framed contradiction, not a failure of TRIZ. Go back and restate it.</li>'+
+      '<li>Watch the direction of each factor. For the loss and harm factors, &ldquo;improving&rdquo; means <em>reducing</em> \u2014 improving <em>Loss of time</em> means losing less of it. Getting that backwards returns the wrong principles and gives you no warning.</li>'+
       '<li>Physical contradictions and separation generally give sharper answers than the matrix. If you can state your problem that way, do.</li>'+
     '</ul>'+
     '<hr class="sep">'+
@@ -1380,6 +1724,7 @@ function renderLearn(){
 function renderAll(){
   if(VIEW==='solve') renderSolve();
   else if(VIEW==='principles') renderPrinciples();
+  else if(VIEW==='windows') renderWindows();
   else if(VIEW==='matrix') renderMatrix();
   else if(VIEW==='params') renderParams();
   else if(VIEW==='saved') renderSaved();
@@ -1393,35 +1738,54 @@ document.addEventListener('click', e=>{
   const t = e.target.closest('[data-action]'); if(!t) return;
   const a = t.dataset.action;
 
-  if(a==='step'){ const n=+t.dataset.n; if(reachable(n)){ S.step=n; persist(); renderSolve(); window.scrollTo({top:0,behavior:'smooth'}); } }
+  if(a==='step'){ const n=+t.dataset.n; if(reachable(n)){ S.step=n; persist(); renderSolve(); focusStep(); window.scrollTo({top:0,behavior:'smooth'}); } }
 
-  else if(a==='ctype'){ S.ctype = (S.ctype===t.dataset.t?'':t.dataset.t); persist(); renderSolve(); }
+  else if(a==='ctype'){ const f=F(); f.ctype = (f.ctype===t.dataset.t?'':t.dataset.t); persist(); renderSolve(); }
 
   else if(a==='pickparam'){ const n=+t.dataset.n;
-    if(t.dataset.side==='imp'){ S.imp=n; window.pickImp=''; } else { S.wor=n; window.pickWor=''; }
+    if(t.dataset.side==='imp'){ F().imp=n; window.pickImp=''; } else { F().wor=n; window.pickWor=''; }
     persist(); renderSolve(); }
 
-  else if(a==='clearparam'){ if(t.dataset.side==='imp') S.imp=null; else S.wor=null; persist(); renderSolve(); }
+  else if(a==='clearparam'){ if(t.dataset.side==='imp') F().imp=null; else F().wor=null; persist(); renderSolve(); }
 
-  else if(a==='sugImp'){ S.ctype='technical'; S.imp=+t.dataset.n; S.step=2; persist(); renderSolve();
+  else if(a==='sugImp'){ const f=F(); f.ctype='technical'; f.imp=+t.dataset.n; S.step=2; persist(); renderSolve();
     window.scrollTo({top:0,behavior:'smooth'}); toast('Set as the factor to improve'); }
 
-  else if(a==='preset'){ const p=PRESETS[+t.dataset.i]; S.imp=p.imp; S.wor=p.wor; persist(); renderSolve(); }
+  else if(a==='preset'){ const p=PRESETS[+t.dataset.i], f=F(); f.imp=p.imp; f.wor=p.wor; persist(); renderSolve(); }
 
-  else if(a==='sep'){ S.phys.sep = (S.phys.sep===t.dataset.id?'':t.dataset.id); persist(); renderSolve(); }
+  else if(a==='sep'){ const f=F(); f.phys.sep = (f.phys.sep===t.dataset.id?'':t.dataset.id); persist(); renderSolve(); }
 
-  else if(a==='star'){ const n=+t.dataset.p; const i=S.stars.indexOf(n);
-    if(i<0) S.stars.push(n); else S.stars.splice(i,1);
+  else if(a==='star'){ const n=+t.dataset.p, f=F(); const i=f.stars.indexOf(n);
+    if(i<0) f.stars.push(n); else f.stars.splice(i,1);
     persist();
     if(VIEW==='solve' && S.step===4){ renderSolve(); }
     else { t.setAttribute('aria-pressed', String(i<0)); if(t.classList.contains('star')) t.textContent = i<0?'★':'☆';
-           const sc=$('#starCount'); if(sc) sc.textContent=S.stars.length; } }
+           const sc=$('#starCount'); if(sc) sc.textContent=f.stars.length; } }
 
   else if(a==='mxcell'){ mxSel=[+t.dataset.i, +t.dataset.j]; renderMatrix(); $('#mxDetail').scrollIntoView({behavior:'smooth',block:'start'}); }
   else if(a==='mxclear'){ mxSel=null; renderMatrix(); }
-  else if(a==='useCell'){ S.ctype='technical'; S.imp=+t.dataset.i; S.wor=+t.dataset.j; S.step=3; persist(); goView('solve'); }
-  else if(a==='paramImp'){ S.ctype='technical'; S.imp=+t.dataset.n; S.step=2; persist(); goView('solve'); toast('Set as the factor to improve'); }
-  else if(a==='paramWor'){ S.ctype='technical'; S.wor=+t.dataset.n; S.step=2; persist(); goView('solve'); toast('Set as the factor that worsens'); }
+  else if(a==='useCell'){ const f=F(); f.ctype='technical'; f.imp=+t.dataset.i; f.wor=+t.dataset.j; S.step=3; persist(); goView('solve'); }
+  else if(a==='paramImp'){ const f=F(); f.ctype='technical'; f.imp=+t.dataset.n; S.step=2; persist(); goView('solve'); toast('Set as the factor to improve'); }
+  else if(a==='paramWor'){ const f=F(); f.ctype='technical'; f.wor=+t.dataset.n; S.step=2; persist(); goView('solve'); toast('Set as the factor that worsens'); }
+
+  /* framings */
+  else if(a==='addFraming'){ addFraming(); renderSolve(); focusStep(); toast('New framing \u2014 same problem, different angle'); }
+  else if(a==='useFraming'){ S.active=t.dataset.id; if(!reachable(S.step)) S.step=2; persist(); renderSolve(); focusStep(); }
+  else if(a==='openFraming'){ S.active=t.dataset.id; S.step=reachable(3)?3:2; persist(); renderSolve(); focusStep(); }
+  else if(a==='dropFraming'){
+    if(S.framings.length<2) return;
+    const f=F();
+    if((f.stars.length||f.imp||f.phys.element) && !confirm('Remove this framing and everything shortlisted in it?')) return;
+    S.framings = S.framings.filter(x=>x.id!==t.dataset.id);
+    S.active = S.framings[0].id; if(!reachable(S.step)) S.step=2;
+    persist(); renderSolve(); toast('Framing removed'); }
+
+  /* reframing out of a dead end */
+  else if(a==='useNearby'){ const f=F(); f.imp=+t.dataset.i; f.wor=+t.dataset.j; persist(); renderSolve(); focusStep(); }
+  else if(a==='toPhysical'){ const f=F(); f.ctype='physical'; S.step=2; persist(); renderSolve(); focusStep(); }
+  else if(a==='toExplore'){ const f=F(); f.ctype='explore'; S.step=3; persist(); renderSolve(); focusStep(); }
+  else if(a==='goWindows'){ goView('windows'); }
+  else if(a==='clearWindows'){ if(!confirm('Clear all nine windows?')) return; S.windows={}; persist(); renderWindows(); }
 
   else if(a==='copyMd'){ const md=exportMarkdown();
     (navigator.clipboard?navigator.clipboard.writeText(md):Promise.reject())
@@ -1433,7 +1797,7 @@ document.addEventListener('click', e=>{
   else if(a==='printIt'){ window.print(); }
   else if(a==='saveNow'){ saveSession(); }
   else if(a==='loadSaved'){ const s=savedList().find(x=>x.id===t.dataset.id);
-    if(s){ S=Object.assign(blankSession(), JSON.parse(JSON.stringify(s))); persist(); goView('solve'); toast('Session opened'); } }
+    if(s){ const m=migrate(JSON.parse(JSON.stringify(s))); if(m){ S=Object.assign(blankSession(), m); persist(); goView('solve'); toast('Session opened'); } } }
   else if(a==='delSaved'){ writeSaved(savedList().filter(x=>x.id!==t.dataset.id)); renderSaved(); toast('Deleted'); }
 });
 
@@ -1442,9 +1806,10 @@ document.addEventListener('input', e=>{
   const a = t.dataset.action;
   if(a==='pf'){ S.problem[t.dataset.k]=t.value; persist(); refreshFooterState();
     const box=$('#sugBox'); if(box) box.innerHTML=suggestionHtml(); }
-  else if(a==='ph'){ S.phys[t.dataset.k]=t.value; persist(); }
-  else if(a==='idea'){ S.ideas[+t.dataset.p]=t.value; persist(); }
-  else if(a==='concept'){ const n=+t.dataset.p; S.concepts[n]=S.concepts[n]||{}; S.concepts[n][t.dataset.k]=t.value; persist(); }
+  else if(a==='ph'){ F().phys[t.dataset.k]=t.value; persist(); }
+  else if(a==='win'){ S.windows[t.dataset.k]=t.value; persist(); }
+  else if(a==='idea'){ F().ideas[+t.dataset.p]=t.value; persist(); }
+  else if(a==='concept'){ const f=F(), n=+t.dataset.p; f.concepts[n]=f.concepts[n]||{}; f.concepts[n][t.dataset.k]=t.value; persist(); }
   else if(a==='pkfilter'){ if(t.dataset.side==='imp') window.pickImp=t.value; else window.pickWor=t.value;
     /* re-render only the picker list, so the field keeps focus */
     const box=t.closest('.picker').querySelector('.pk-list'); const f=t.value.toLowerCase();
@@ -1456,7 +1821,7 @@ document.addEventListener('input', e=>{
 });
 document.addEventListener('change', e=>{
   const t=e.target.closest('[data-action]'); if(!t) return;
-  if(t.dataset.action==='concept'){ const n=+t.dataset.p; S.concepts[n]=S.concepts[n]||{}; S.concepts[n][t.dataset.k]=t.value; persist(); }
+  if(t.dataset.action==='concept'){ const f=F(), n=+t.dataset.p; f.concepts[n]=f.concepts[n]||{}; f.concepts[n][t.dataset.k]=t.value; persist(); }
 });
 function refreshFooterState(){
   $$('#stepBody [data-action="step"]').forEach(b=>{ b.disabled = !reachable(+b.dataset.n); });
@@ -1475,6 +1840,7 @@ $('#mxRowJump').addEventListener('change', e=>{
   if(row) row.scrollIntoView({behavior:'smooth',block:'center'});
 });
 $('#mxClear').addEventListener('click',()=>{ mxSel=null; renderMatrix(); });
+$('#mxScroll').addEventListener('keydown', mxKey);
 
 /* saved-work actions */
 function saveSession(){
@@ -1536,7 +1902,8 @@ $('#importFile').addEventListener('change', e=>{
         d.saved.concat(savedList()).forEach(s=>{ if(s&&s.id&&!seen[s.id]){ seen[s.id]=1; merged.push(s); } });
         writeSaved(merged.slice(0,60));
       }
-      if(d.current&&d.current.problem){ S=Object.assign(blankSession(), d.current); persist(); }
+      const cur = d.current ? migrate(d.current) : null;
+      if(cur){ S=Object.assign(blankSession(), cur); persist(); }
       renderSaved(); toast('Imported');
     }catch(err){ toast('That file could not be read'); }
   };

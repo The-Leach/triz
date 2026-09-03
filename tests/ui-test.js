@@ -97,7 +97,7 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('session survives a reload', (await p.textContent('#mdOut')).includes('Approve automatically below'));
 
   /* ---------- physical contradiction ---------- */
-  await p.evaluate(() => { S.ctype = 'physical'; S.phys = {element: 'the identity check', a: 'thorough', b: 'instant', sep: ''}; S.step = 2; renderSolve(); });
+  await p.evaluate(() => { const f = F(); f.ctype = 'physical'; f.phys = {element: 'the identity check', a: 'thorough', b: 'instant', sep: ''}; S.step = 2; renderSolve(); });
   await p.waitForTimeout(300);
   await p.click('[data-action="sep"][data-id="time"]'); await p.waitForTimeout(250);
   await p.click('#stepBody [data-action="step"][data-n="3"]'); await p.waitForTimeout(350);
@@ -105,17 +105,103 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('chosen separation strategy is shown', (await p.textContent('#stepBody .kv')).includes('Separate in time'));
 
   /* ---------- open exploration ---------- */
-  await p.evaluate(() => { S.ctype = 'explore'; S.step = 3; renderSolve(); }); await p.waitForTimeout(450);
+  await p.evaluate(() => { const f = F(); f.ctype = 'explore'; S.step = 3; renderSolve(); }); await p.waitForTimeout(450);
   ok('exploration returns all 40 principles', await p.locator('#view-solve .pcard').count() === 40);
 
-  /* ---------- empty and reverse matrix cells ---------- */
-  await p.evaluate(() => { S.ctype = 'technical'; S.imp = 29; S.wor = 35; S.step = 3; renderSolve(); });
+  /* ---------- dead-end pair offers reframing, not filler ---------- */
+  await p.evaluate(() => { const f = F(); f.ctype = 'technical'; f.imp = 29; f.wor = 35; S.step = 3; renderSolve(); });
   await p.waitForTimeout(300);
-  ok('empty cell explains itself and still offers principles',
-    /no pattern|reverse/i.test(await p.textContent('#stepBody')) && await p.locator('#view-solve .pcard').count() > 0);
-  await p.evaluate(() => { S.ctype = 'technical'; S.imp = 8; S.wor = 33; S.step = 3; renderSolve(); });
+  const nearby = await p.locator('[data-action="useNearby"]').count();
+  ok('dead-end pair offers nearby populated pairs (' + nearby + ')', nearby > 0);
+  ok('dead-end pair does not pad with generic principles', await p.locator('#view-solve .pcard').count() === 0);
+  ok('dead-end pair offers a physical reframing', await p.locator('[data-action="toPhysical"]').count() === 1);
+  const nearbyPair = await p.evaluate(() => {
+    const b = document.querySelector('[data-action="useNearby"]');
+    return {i: +b.dataset.i, j: +b.dataset.j, populated: MATRIX[b.dataset.i - 1][b.dataset.j - 1].length > 0};
+  });
+  ok('every offered nearby pair is actually populated', nearbyPair.populated);
+  await p.click('[data-action="useNearby"]'); await p.waitForTimeout(350);
+  ok('choosing a nearby pair returns real principles', await p.locator('#view-solve .pcard').count() > 0);
+  ok('choosing a nearby pair updates the framing',
+    await p.evaluate(() => F().imp) === nearbyPair.i && await p.evaluate(() => F().wor) === nearbyPair.j);
+
+  await p.evaluate(() => { const f = F(); f.ctype = 'technical'; f.imp = 8; f.wor = 33; S.step = 3; renderSolve(); });
   await p.waitForTimeout(300);
   ok('forward-empty pair falls back to the reverse cell', (await p.textContent('#stepBody')).includes('reverse'));
+
+  /* ---------- factor polarity ---------- */
+  ok('polarity is shown on the chosen factors', await p.locator('#stepBody .polchip').count() > 0);
+  const pol = await p.evaluate(() => ({
+    less: PARAM_BY_N[25].dir, more: PARAM_BY_N[27].dir, either: PARAM_BY_N[3].dir,
+    text: PARAM_BY_N[25].pol.replace(/<[^>]+>/g, ''), all: PARAMS.every(x => x.dir && x.pol)
+  }));
+  ok('every factor declares a direction and a polarity note', pol.all);
+  ok('loss-type factors read "lower is better"', pol.less === 'less');
+  ok('reliability reads "higher is better"', pol.more === 'more');
+  ok('ambiguous factors are marked as such', pol.either === 'either');
+  ok('polarity text explains what improving means', /less time is lost/i.test(pol.text));
+
+  /* ---------- framings: several angles on one problem ---------- */
+  await p.evaluate(() => { S.framings = [S.framings[0]]; S.active = S.framings[0].id;
+    const f = F(); f.ctype = 'technical'; f.imp = 25; f.wor = 27; f.stars = [10]; f.ideas = {10: 'first framing idea'};
+    S.step = 3; renderSolve(); });
+  await p.waitForTimeout(300);
+  ok('a single framing hides the switcher', await p.locator('.framings').count() === 0);
+  await p.click('[data-action="addFraming"]'); await p.waitForTimeout(350);
+  ok('adding a framing shows the switcher', await p.locator('.framings').count() === 1);
+  ok('a new framing starts empty', await p.evaluate(() => F().stars.length) === 0);
+  ok('the new framing is the active one', await p.evaluate(() => S.framings[1].id === S.active));
+  await p.evaluate(() => { const f = F(); f.ctype = 'physical';
+    f.phys = {element: 'the check', a: 'thorough', b: 'instant', sep: 'time'};
+    f.stars = [15]; S.step = 3; renderSolve(); });
+  await p.waitForTimeout(300);
+  ok('framings keep separate shortlists',
+    await p.evaluate(() => S.framings[0].stars.join()) === '10' &&
+    await p.evaluate(() => S.framings[1].stars.join()) === '15');
+  await p.click('.framings button.fr'); await p.waitForTimeout(350);
+  ok('switching back restores the first framing',
+    await p.evaluate(() => F().imp) === 25 && await p.evaluate(() => F().stars.join()) === '10');
+  await p.evaluate(() => { S.step = 5; renderSolve(); }); await p.waitForTimeout(350);
+  const sheet = await p.textContent('#mdOut');
+  ok('the summary covers every framing', await p.locator('.fr-block').count() === 2);
+  ok('the export names both framings', /Framing 1 of 2/.test(sheet) && /Framing 2 of 2/.test(sheet));
+  ok('the export keeps each framing\'s own work', sheet.includes('first framing idea') && /Separate in time/.test(sheet));
+
+  /* ---------- nine windows ---------- */
+  await p.click('#tabs button[data-view="windows"]'); await p.waitForTimeout(400);
+  ok('nine windows renders nine cells', await p.locator('.nw-cell').count() === 9);
+  ok('the present system cell is highlighted as the starting point', await p.locator('.nw-cell.centre').count() === 1);
+  await p.fill('#nw-supPast', 'The regulator changed the evidence rules in March');
+  await p.fill('#nw-sysNow', 'Applications wait nine days for approval');
+  await p.waitForTimeout(350);
+  ok('window text persists to the session',
+    await p.evaluate(() => S.windows.supPast) === 'The regulator changed the evidence rules in March');
+  await p.click('#tabs button[data-view="solve"]'); await p.waitForTimeout(300);
+  await p.evaluate(() => { S.step = 5; renderSolve(); }); await p.waitForTimeout(350);
+  const sheet2 = await p.textContent('#mdOut');
+  ok('nine windows appear in the working sheet',
+    sheet2.includes('## Nine Windows') && sheet2.includes('The regulator changed the evidence rules in March'));
+
+  /* ---------- migration of pre-framing sessions ---------- */
+  const migrated = await p.evaluate(() => {
+    const old = {id: 'sOld', name: 'Legacy', step: 3, ctype: 'technical', imp: 9, wor: 27,
+      problem: {title: 'Old shape session', context: '', ifr: '', resources: ''},
+      phys: {element: '', a: '', b: '', sep: ''}, stars: [10, 35], ideas: {10: 'kept'},
+      concepts: {10: {text: 'kept concept'}}, created: 1, updated: 2};
+    const m = migrate(JSON.parse(JSON.stringify(old)));
+    return {framings: m.framings.length, imp: m.framings[0].imp, stars: m.framings[0].stars.join(),
+      idea: m.framings[0].ideas[10], concept: m.framings[0].concepts[10].text,
+      title: m.problem.title, active: m.active === m.framings[0].id,
+      stripped: m.ctype === undefined && m.stars === undefined};
+  });
+  ok('an old session migrates into one framing', migrated.framings === 1 && migrated.active);
+  ok('migration keeps the contradiction', migrated.imp === 9);
+  ok('migration keeps shortlist, ideas and concepts',
+    migrated.stars === '10,35' && migrated.idea === 'kept' && migrated.concept === 'kept concept');
+  ok('migration keeps the problem statement', migrated.title === 'Old shape session');
+  ok('migration removes the old top-level fields', migrated.stripped);
+  ok('migration tolerates junk', await p.evaluate(() =>
+    migrate({problem: {title: 'x'}, stars: null, framings: 'nonsense'}).framings.length === 1));
 
   /* ---------- every tab renders ---------- */
   for (const v of ['principles', 'matrix', 'params', 'saved', 'learn']) {
@@ -132,6 +218,37 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('clicking a cell opens its detail', await p.locator('#mxDetail .card').count() === 1);
   await p.click('[data-action="useCell"]'); await p.waitForTimeout(400);
   ok('"use this pair" hands off to the wizard', await p.isVisible('#view-solve'));
+
+  /* ---------- matrix keyboard access ---------- */
+  await p.click('#tabs button[data-view="matrix"]'); await p.waitForTimeout(450);
+  const roving = await p.evaluate(() => document.querySelectorAll('#mxScroll td[tabindex="0"]').length);
+  ok('exactly one matrix cell is in the tab order', roving === 1);
+  ok('matrix cells carry a descriptive label', /Improving .*worsening .*(Principles|No recommendation)/.test(
+    await p.evaluate(() => document.querySelector('#mxScroll td[tabindex="0"]').getAttribute('aria-label'))));
+  ok('row and column headers are scoped', await p.evaluate(() =>
+    document.querySelectorAll('#mxScroll th[scope="row"]').length === 39 &&
+    document.querySelectorAll('#mxScroll th[scope="col"]').length === 40));
+  await p.evaluate(() => document.querySelector('#mxScroll td[tabindex="0"]').focus());
+  const before = await p.evaluate(() => { const e = document.activeElement; return e.dataset.i + ',' + e.dataset.j; });
+  await p.keyboard.press('ArrowRight'); await p.waitForTimeout(200);
+  const afterRight = await p.evaluate(() => { const e = document.activeElement; return e.dataset.i + ',' + e.dataset.j; });
+  ok('arrow key moves matrix focus (' + before + ' -> ' + afterRight + ')', before !== afterRight);
+  await p.keyboard.press('ArrowDown'); await p.waitForTimeout(200);
+  const afterDown = await p.evaluate(() => { const e = document.activeElement; return e.dataset.i + ',' + e.dataset.j; });
+  ok('arrow keys move in both axes', afterDown !== afterRight);
+  ok('keyboard navigation skips the diagonal', await p.evaluate(() => {
+    const e = document.activeElement; return e.dataset.i !== e.dataset.j; }));
+  await p.keyboard.press('Enter'); await p.waitForTimeout(400);
+  ok('Enter opens the focused cell', await p.locator('#mxDetail .card').count() === 1);
+  ok('focus is not lost when the cell opens', await p.evaluate(() =>
+    document.activeElement && document.activeElement.tagName === 'TD'));
+
+  /* ---------- focus management in the wizard ---------- */
+  await p.click('#tabs button[data-view="solve"]'); await p.waitForTimeout(300);
+  await p.evaluate(() => { S.step = 1; renderSolve(); }); await p.waitForTimeout(250);
+  await p.click('#steps [data-action="step"][data-n="2"]'); await p.waitForTimeout(350);
+  ok('changing step moves focus to the new heading', await p.evaluate(() =>
+    document.activeElement === document.querySelector('#stepBody h2')));
 
   /* ---------- search ---------- */
   await p.click('#tabs button[data-view="principles"]'); await p.waitForTimeout(300);
