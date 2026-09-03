@@ -1,0 +1,88 @@
+[
+ {
+  "id": "time",
+  "name": "Separate in time",
+  "q": "Can the two opposite demands be satisfied at <b>different times</b>?",
+  "how": "Have the thing be one way now and the other way later. Most 'we need both' problems in a service dissolve the moment you ask <em>when</em> each is needed.",
+  "mfg": "A jig that is loose during loading and rigid during machining.",
+  "svc": "Underwriting must be fast <em>and</em> thorough: decide fast now on the 80% that fit the rules, and thoroughly later on the sample and the exceptions.",
+  "ps": [
+   9,
+   10,
+   11,
+   15,
+   16,
+   18,
+   19,
+   20,
+   21,
+   24,
+   26,
+   27,
+   29,
+   34,
+   37
+  ]
+ },
+ {
+  "id": "space",
+  "name": "Separate in space",
+  "q": "Can the two opposite demands live in <b>different places</b>, or different parts of the system?",
+  "how": "Let one part or one location be one way, and another be the opposite. Nothing says the whole system has to have a single setting.",
+  "mfg": "A drill bit hard at the tip and tough in the shank.",
+  "svc": "Service must be standardised <em>and</em> personal: standardise the back office completely, personalise only the customer-facing edge.",
+  "ps": [
+   1,
+   2,
+   3,
+   4,
+   7,
+   13,
+   17,
+   24,
+   26,
+   30
+  ]
+ },
+ {
+  "id": "condition",
+  "name": "Separate on condition",
+  "q": "Can the two opposite demands apply under <b>different conditions</b> — for different cases, customers or triggers?",
+  "how": "Make the behaviour depend on a condition, so the system is one way when the condition holds and the other way when it does not.",
+  "mfg": "A filter that passes liquid but blocks solids.",
+  "svc": "Refunds must be instant <em>and</em> controlled: instant under £50 or for customers with clean history, reviewed otherwise.",
+  "ps": [
+   3,
+   17,
+   19,
+   22,
+   23,
+   25,
+   28,
+   31,
+   32,
+   35,
+   36,
+   38,
+   39,
+   40
+  ]
+ },
+ {
+  "id": "system",
+  "name": "Separate between the parts and the whole",
+  "q": "Can the demand be true of the <b>whole system</b> but not of its <b>parts</b> — or the reverse?",
+  "how": "Move up or down a level. Individual parts can be rigid while the assembly is flexible; individual people can be specialists while the team is a generalist.",
+  "mfg": "A bicycle chain: every link is rigid, the chain as a whole is flexible.",
+  "svc": "Teams must be specialist <em>and</em> able to cover anything: every individual is a deep specialist, while the team as a unit covers the full range.",
+  "ps": [
+   1,
+   5,
+   6,
+   7,
+   12,
+   33,
+   40
+  ]
+ }
+]

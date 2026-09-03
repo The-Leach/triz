@@ -1,0 +1,1012 @@
+[
+ {
+  "n": 1,
+  "name": "Segmentation",
+  "ess": "Break it into independent pieces — and make the pieces smaller.",
+  "subs": [
+   "Divide an object into independent parts",
+   "Make it easy to take apart",
+   "Increase the degree of fragmentation"
+  ],
+  "mfg": [
+   "Modular tooling and fixtures instead of one dedicated machine",
+   "Sectional conveyor that can be reconfigured",
+   "Granulated or powdered feedstock instead of solid blocks"
+  ],
+  "svc": [
+   "Split a 40-question onboarding form into six short screens that each save on completion",
+   "Replace the annual appraisal with short weekly check-ins",
+   "Break one general enquiry queue into independent skill-based lanes so a slow case cannot block a fast one",
+   "Sell insurance or software as separable modules rather than one all-or-nothing bundle",
+   "Divide a year-long transformation into fortnightly slices that each deliver something usable"
+  ],
+  "ask": [
+   "What is the smallest useful unit of this service — and could we deliver just that?",
+   "Which step could run entirely on its own, without waiting for the others?",
+   "Could the customer receive part of the value before the rest is finished?"
+  ]
+ },
+ {
+  "n": 2,
+  "name": "Taking out",
+  "ess": "Extract the one troublesome part — or extract only the part you actually need.",
+  "subs": [
+   "Separate an interfering part or property",
+   "Single out the only necessary part or property"
+  ],
+  "mfg": [
+   "Site the noisy compressor outside the production hall",
+   "Move inspection out of the line into a dedicated cell"
+  ],
+  "svc": [
+   "Take identity verification out of the branch appointment and do it in the app beforehand",
+   "Remove the single approval step that causes most of the delay, and control it by sampling instead",
+   "Route the small number of genuinely angry callers to a specialist team so they are not queued behind routine enquiries",
+   "Extract the 'advice' part of a professional service and sell it separately from the 'processing' part",
+   "Strip the one legally required paragraph out of a long letter nobody reads"
+  ],
+  "ask": [
+   "Which single element causes most of the trouble — can it be removed, relocated or done elsewhere?",
+   "What property do we actually need here, without the thing that currently carries it?",
+   "If this step vanished tomorrow, what would genuinely break?"
+  ]
+ },
+ {
+  "n": 3,
+  "name": "Local quality",
+  "ess": "Stop treating everything the same. Let each part do its own job, in its own best conditions.",
+  "subs": [
+   "Change from uniform to non-uniform structure",
+   "Change the environment so each part is in the best conditions for it",
+   "Make each part perform a different, useful function"
+  ],
+  "mfg": [
+   "Harden only the surfaces that actually wear",
+   "Local cooling at the cutting point rather than chilling the whole machine"
+  ],
+  "svc": [
+   "Give complex cases a different route, a different SLA and a different skill set from simple ones, instead of one process for all",
+   "Vary branch opening hours by local footfall rather than a national standard",
+   "Tailor the call script to what you already know about that customer's history",
+   "Put the strongest coach on the shift that struggles, not evenly across all shifts",
+   "Different induction depth for a contractor, a graduate and an experienced hire"
+  ],
+  "ask": [
+   "Where are we treating everything identically when it plainly is not identical?",
+   "Which 10% of cases deserve a completely different process?",
+   "Is each part of this team or system in the conditions that suit it best?"
+  ]
+ },
+ {
+  "n": 4,
+  "name": "Asymmetry",
+  "ess": "Where symmetry is costing you, deliberately make the two sides different.",
+  "subs": [
+   "Replace a symmetrical form with an asymmetrical one",
+   "If already asymmetrical, increase the asymmetry"
+  ],
+  "mfg": [
+   "A connector keyed so it can only be inserted one way",
+   "Asymmetric hopper that stops material bridging"
+  ],
+  "svc": [
+   "Refund instantly below a threshold, review above it — rather than one policy for every amount",
+   "Staff heavily on Monday morning and lightly on Friday afternoon instead of an even rota",
+   "Build deliberate one-way doors into a process — after this point there is no going back — to kill rework loops",
+   "Give new customers a different (richer) contact model from established ones",
+   "Make it very easy to join and deliberately deliberate to cancel — or the reverse, as a trust signal"
+  ],
+  "ask": [
+   "Where is 'fair and equal treatment' actually just uniformity that costs us?",
+   "What if the two sides of this exchange were not mirror images?",
+   "Which direction of flow should be easy, and which should be hard?"
+  ]
+ },
+ {
+  "n": 5,
+  "name": "Merging",
+  "ess": "Bring like things together, or make operations happen at the same moment.",
+  "subs": [
+   "Bring identical or related objects closer together, or merge them",
+   "Make operations parallel, or contiguous in time"
+  ],
+  "mfg": [
+   "Multi-spindle head drilling every hole in one pass",
+   "Batch heat treatment of a full trolley rather than one part at a time"
+  ],
+  "svc": [
+   "One hospital visit that combines bloods, scan and consultation instead of three separate trips",
+   "Merge the identity checks of three products into a single customer check reused across all of them",
+   "Run the credit check and the property search in parallel rather than in sequence",
+   "Combine the team huddle, the safety brief and the shift handover into one five-minute event",
+   "One field visit that services, inspects and upsells in the same appointment"
+  ],
+  "ask": [
+   "What does the customer currently do or receive several times that could happen once?",
+   "Which two steps could happen in the same moment rather than one after the other?",
+   "Where are we visiting, checking or asking twice?"
+  ]
+ },
+ {
+  "n": 6,
+  "name": "Universality",
+  "ess": "Make one thing do several jobs, so other things can be deleted.",
+  "subs": [
+   "Make an object perform multiple functions",
+   "Eliminate the need for other objects"
+  ],
+  "mfg": [
+   "A pallet that is also the retail display unit",
+   "A single fixture that locates, clamps and gauges"
+  ],
+  "svc": [
+   "The delivery driver also collects returns and takes meter readings",
+   "The invoice doubles as the warranty certificate and the returns label",
+   "One 'front door' number that handles every enquiry type instead of eight departmental lines",
+   "Cross-train staff so any adviser can handle any product, removing internal transfers",
+   "The booking confirmation also serves as the entry pass and the receipt"
+  ],
+  "ask": [
+   "What else could this person, document or touchpoint do while they are already here?",
+   "What could we delete entirely because something else now covers it?",
+   "Which single asset is nearest to doing two jobs already?"
+  ]
+ },
+ {
+  "n": 7,
+  "name": "Nested doll",
+  "ess": "Put one thing inside another, rather than beside it.",
+  "subs": [
+   "Place one object inside another, and that inside a third",
+   "Pass one part through a cavity in another"
+  ],
+  "mfg": [
+   "Telescoping mast or nested packaging that ships flat",
+   "Tooling stored inside the machine it serves"
+  ],
+  "svc": [
+   "Embed training inside the actual work — the guidance appears in the system at the moment of the decision",
+   "Put the feedback question inside the confirmation screen instead of emailing a survey later",
+   "Nest a specialist opinion inside the GP appointment by video, rather than a separate referral",
+   "Deliver your service inside a partner's app where the customer already is",
+   "Fold the compliance check into a step the customer wants to do anyway"
+  ],
+  "ask": [
+   "Where could this be embedded inside something the customer is already doing?",
+   "What could nest inside capacity we already pay for?",
+   "Does this need to be a separate event at all?"
+  ]
+ },
+ {
+  "n": 8,
+  "name": "Anti-weight",
+  "ess": "If something is too heavy to carry, pair it with something that lifts.",
+  "subs": [
+   "Compensate weight by joining with something that provides lift",
+   "Compensate weight by interaction with the environment"
+  ],
+  "mfg": [
+   "Counterweight on a crane jib",
+   "Buoyancy or air support for heavy handling"
+  ],
+  "svc": [
+   "Pair a burdensome disclosure with the moment the customer receives the discount, so the weight is offset by something wanted",
+   "Balance a heavy admin task by pairing a junior with a senior who makes it quick",
+   "Offset seasonal troughs with counter-seasonal work for a different market",
+   "Carry an unpopular change on the back of a popular one announced at the same time",
+   "Let a strong partner brand carry the credibility weight your new service cannot yet carry"
+  ],
+  "ask": [
+   "What could carry the weight of this burden for us?",
+   "Is there an opposing force in the environment we can borrow rather than fight?",
+   "What does the customer actually want, that we could attach this to?"
+  ]
+ },
+ {
+  "n": 9,
+  "name": "Preliminary anti-action",
+  "ess": "If an action will cause harm, apply the opposite in advance.",
+  "subs": [
+   "Apply a counter-action in advance of a harmful action",
+   "Create stresses in advance that oppose the stresses to come"
+  ],
+  "mfg": [
+   "Pre-stressed concrete and pre-tensioned bolts",
+   "Pre-cool a part that is about to be heated"
+  ],
+  "svc": [
+   "Before a price rise, deliver a visible improvement first so goodwill is already banked",
+   "Deliberately set a low expectation before a phase you know is painful — 'this will take six weeks, here is why'",
+   "Pre-empt the three objections you know are coming, inside the proposal itself",
+   "Brief the frontline before the campaign lands, so the first complaint is not the first they hear of it",
+   "Build a small deliberate buffer of goodwill or budget ahead of a known-disruptive change"
+  ],
+  "ask": [
+   "What harm will this action cause — can we apply its opposite beforehand?",
+   "What could we say or do first that absorbs the coming shock?",
+   "Who will be hit hardest, and what could we give them in advance?"
+  ]
+ },
+ {
+  "n": 10,
+  "name": "Preliminary action",
+  "ess": "Do it before it is needed, and set things up so the moment itself is trivial.",
+  "subs": [
+   "Perform the required change before it is needed",
+   "Pre-arrange things so they can act without losing time waiting"
+  ],
+  "mfg": [
+   "Pre-drilled and pre-tapped components",
+   "Kitting all parts to the line before the shift starts"
+  ],
+  "svc": [
+   "Pre-fill every form field with data you already hold, and ask only for what is genuinely new",
+   "Pre-approve a credit limit so the customer's application is a confirmation, not an assessment",
+   "Prepare theatre packs and case notes the night before the list",
+   "Book the follow-up appointment at the end of the current one, while the person is still in front of you",
+   "Have the contract, the onboarding pack and the first invoice drafted before the deal is signed"
+  ],
+  "ask": [
+   "What could be done before the customer arrives — or before the clock starts?",
+   "What information are we asking for that we already hold?",
+   "What would make the actual moment of service take thirty seconds?"
+  ]
+ },
+ {
+  "n": 11,
+  "name": "Beforehand cushioning",
+  "ess": "Assume it will fail, and put the remedy in place now.",
+  "subs": [
+   "Prepare emergency means beforehand to compensate for relatively low reliability"
+  ],
+  "mfg": [
+   "Standby power and spare tooling on the shelf",
+   "Safety stock ahead of a known-fragile supply"
+  ],
+  "svc": [
+   "A standing surge rota that activates on a defined trigger, not on a manager's judgement",
+   "A service-recovery budget frontline staff can spend without asking anyone",
+   "Pre-written holding statements and comms for the four incidents you know will recur",
+   "A named deputy for every single-point-of-failure role, exercised not just nominated",
+   "Pre-agreed escalation route with the supplier, signed before you need it"
+  ],
+  "ask": [
+   "What will go wrong here, and what is already in place for when it does?",
+   "Can we pre-authorise the fix so nobody has to ask permission mid-crisis?",
+   "Where is our single point of failure, and what is the standby?"
+  ]
+ },
+ {
+  "n": 12,
+  "name": "Equipotentiality",
+  "ess": "Change the conditions so nothing has to be lifted up and down at all.",
+  "subs": [
+   "Change operating conditions to eliminate the need to raise or lower"
+  ],
+  "mfg": [
+   "Transfer between machines at a single common height",
+   "Roller decks that remove all lifting from the operation"
+  ],
+  "svc": [
+   "Give frontline staff the authority to decide, so nothing has to be lifted to a manager and back",
+   "One shared record so information is never re-keyed from one system into another",
+   "Keep the customer in a single channel rather than transferring them between three teams",
+   "Flatten a three-stage sign-off to one, with sampling instead of serial approval",
+   "Bring the decision-maker to the work rather than sending the work up to the decision-maker"
+  ],
+  "ask": [
+   "Where are we lifting things up and down levels — approvals, hand-offs, re-keying?",
+   "Could the decision be made where the work actually happens?",
+   "What would have to be true for this never to need escalation?"
+  ]
+ },
+ {
+  "n": 13,
+  "name": "The other way round",
+  "ess": "Invert it. Do the opposite, or swap who moves and who stays still.",
+  "subs": [
+   "Invert the action used to solve the problem",
+   "Make movable parts fixed, and fixed parts movable",
+   "Turn the object upside down"
+  ],
+  "mfg": [
+   "Move the workpiece past a fixed tool instead of the tool past the work",
+   "Rotate the assembly rather than the operator"
+  ],
+  "svc": [
+   "Instead of the customer coming to the service, send the service to them — mobile clinics, home visits, field engineers",
+   "Instead of chasing customers for a document, redesign so the document is not needed",
+   "Instead of training people to use a complicated system, simplify it until training is unnecessary",
+   "Let the customer serve themselves and have staff supervise the exceptions, rather than the reverse",
+   "Instead of forecasting demand and building capacity, shape the demand to fit the capacity you have"
+  ],
+  "ask": [
+   "What if we did the exact opposite of what we do now?",
+   "Who else could do this — the customer, the supplier, the system?",
+   "Which part should be moving, and which should be standing still?"
+  ]
+ },
+ {
+  "n": 14,
+  "name": "Spheroidality — curvature",
+  "ess": "Trade straight lines for curves, and linear motion for rotation.",
+  "subs": [
+   "Replace linear parts with curved, flat surfaces with spherical",
+   "Use rollers, balls, spirals, domes",
+   "Replace linear motion with rotary; use centrifugal force"
+  ],
+  "mfg": [
+   "Ball bearings and roller conveyors instead of sliding",
+   "Spiral accumulators to buffer product without a long straight run"
+  ],
+  "svc": [
+   "Replace a linear stage-gate programme with a short repeating loop that revisits the same questions",
+   "Circulate work around a small cell where everyone can pick it up, rather than passing it down a line",
+   "Rotate duties on a cycle instead of fixing people in posts",
+   "Replace sequential sign-off with one round-table where all parties decide together",
+   "A recurring review rhythm rather than a one-off launch and hope"
+  ],
+  "ask": [
+   "Does this really have to be a straight line from A to B?",
+   "Would a loop beat a sequence here — coming round again rather than getting it right once?",
+   "What could be made to rotate rather than travel?"
+  ]
+ },
+ {
+  "n": 15,
+  "name": "Dynamics",
+  "ess": "Make the fixed things adjustable, so they can be optimal at every stage.",
+  "subs": [
+   "Allow characteristics to change to be optimal at each stage",
+   "Divide into elements that can change relative position",
+   "If rigid, make it movable or adaptive"
+  ],
+  "mfg": [
+   "Variable-speed drives and adjustable jigs",
+   "Tooling that reconfigures between variants without a changeover"
+  ],
+  "svc": [
+   "Staff to the demand curve hour by hour rather than a fixed shift pattern",
+   "Pricing that flexes by time, channel or load",
+   "A policy with an adjustable threshold rather than one fixed rule set annually",
+   "A conversation script that branches on the customer's answers instead of running fixed",
+   "Team composition that changes across the phases of a project"
+  ],
+  "ask": [
+   "What is fixed today that could flex with conditions?",
+   "What would 'adjustable' look like here — and who would turn the dial?",
+   "Are we optimised for an average that never actually occurs?"
+  ]
+ },
+ {
+  "n": 16,
+  "name": "Partial or excessive actions",
+  "ess": "If you cannot have exactly 100%, take slightly less or slightly more — it is usually easier.",
+  "subs": [
+   "If 100% is hard to achieve, do slightly less or slightly more and simplify the problem"
+  ],
+  "mfg": [
+   "Overspray then wipe back to a clean edge",
+   "Overfill and level rather than dose precisely"
+  ],
+  "svc": [
+   "Send the imperfect draft early rather than the perfect one late",
+   "Pay 90% of the claim immediately and investigate only the disputed remainder",
+   "Deliberately over-staff the first week of a launch, then taper",
+   "Give a partial answer now with a committed follow-up, instead of silence until you are certain",
+   "Approve everything under a threshold without checks, and check hard above it"
+  ],
+  "ask": [
+   "Is 'all or nothing' really the constraint, or just habit?",
+   "What does 80% now buy us that 100% later does not?",
+   "Would deliberately overshooting be cheaper than hitting it exactly?"
+  ]
+ },
+ {
+  "n": 17,
+  "name": "Another dimension",
+  "ess": "If it will not work in one dimension, add another.",
+  "subs": [
+   "Move into two or three dimensions instead of one",
+   "Use a multi-storey arrangement instead of a single layer",
+   "Tilt or re-orient the object",
+   "Use the other side of a given area"
+  ],
+  "mfg": [
+   "Vertical carousel storage instead of floor racking",
+   "Multi-level conveyors crossing over each other"
+  ],
+  "svc": [
+   "Triage on two axes — urgency and complexity — instead of a single priority number",
+   "Add an asynchronous channel alongside the live one, so the queue is not the only dimension",
+   "Move a meeting into a shared document, where people contribute in parallel rather than in turn",
+   "Use the back of the appointment card, the footer of the receipt, the space you already own",
+   "Segment the customer base by behaviour as well as by value"
+  ],
+  "ask": [
+   "What second axis are we ignoring in this decision?",
+   "Could this happen in a different plane — asynchronous instead of live, written instead of spoken?",
+   "What surface do we already have that we are not using?"
+  ]
+ },
+ {
+  "n": 18,
+  "name": "Mechanical vibration",
+  "ess": "Oscillate it. Raise the frequency. Find the natural rhythm and ride it.",
+  "subs": [
+   "Cause the object to oscillate",
+   "Increase the frequency, up to ultrasonic",
+   "Use resonant frequency",
+   "Use piezoelectric instead of mechanical vibrators"
+  ],
+  "mfg": [
+   "Vibratory bowl feeders that orient parts automatically",
+   "Ultrasonic cleaning reaching where brushes cannot"
+  ],
+  "svc": [
+   "Replace the annual engagement survey with a weekly two-question pulse",
+   "Many small nudges beat one big campaign — raise the frequency, lower the amplitude",
+   "Short daily huddles instead of a long weekly meeting",
+   "Match the customer's own rhythm — bill when they get paid, call when they are free — that is resonance",
+   "Continuous small price adjustments instead of one annual jolt"
+  ],
+  "ask": [
+   "Would more, smaller, more frequent beats work better than one big event?",
+   "What natural rhythm does the customer or the work already have, that we could ride?",
+   "What are we doing annually that ought to be weekly?"
+  ]
+ },
+ {
+  "n": 19,
+  "name": "Periodic action",
+  "ess": "Stop doing it continuously. Pulse it — and use the gaps.",
+  "subs": [
+   "Replace continuous action with periodic or pulsed action",
+   "If already periodic, change the frequency",
+   "Use pauses between impulses to perform another action"
+  ],
+  "mfg": [
+   "Pulsed welding to control heat input",
+   "Intermittent lubrication rather than constant flow"
+  ],
+  "svc": [
+   "Batch interruptions — handle email in three defined windows rather than continuously",
+   "Published 'office hours' for internal support instead of always-on availability",
+   "Scheduled release trains instead of continuous unplanned change",
+   "Use the quiet periods deliberately for improvement work, training and maintenance",
+   "Concentrate outbound calling into blocks so the rest of the day is uninterrupted"
+  ],
+  "ask": [
+   "Does this genuinely have to be continuous?",
+   "What useful thing could we do in the pauses?",
+   "Would a defined rhythm protect the work better than constant availability?"
+  ]
+ },
+ {
+  "n": 20,
+  "name": "Continuity of useful action",
+  "ess": "Never let the valuable thing sit idle.",
+  "subs": [
+   "Work continuously, with all parts always at full load",
+   "Remove idle and intermediate motion"
+  ],
+  "mfg": [
+   "Lights-out running of the bottleneck machine",
+   "Eliminating machine idle during changeover with external set-up"
+  ],
+  "svc": [
+   "Keep the case moving on everything that does not depend on the missing input, rather than stopping the whole file",
+   "Use the customer's waiting time for something useful — complete the details while they wait",
+   "Follow-the-sun coverage so work progresses across time zones overnight",
+   "Remove the queue between two steps so work never rests between them",
+   "Keep the scarce expert working on scarce-expert problems only"
+  ],
+  "ask": [
+   "Where does the work sit still, and why?",
+   "Can something useful happen during that wait?",
+   "Is our most expensive resource ever idle — or ever doing cheap work?"
+  ]
+ },
+ {
+  "n": 21,
+  "name": "Skipping",
+  "ess": "If a stage is harmful mainly because it lasts, go through it fast.",
+  "subs": [
+   "Conduct a process, or certain stages of it, at high speed"
+  ],
+  "mfg": [
+   "High-speed cutting that removes material before heat can build up",
+   "Flash heating or rapid quench to skip an unwanted phase"
+  ],
+  "svc": [
+   "A single two-hour decision workshop instead of six weeks of circulated email",
+   "A big-bang cutover rather than a long, expensive period of dual running",
+   "Move a redundancy or restructure announcement through quickly — a slow one does more damage than a fast one",
+   "Push a change through the window while political support is open, rather than consulting it to death",
+   "Compress diligence into a focused week with everyone in the room"
+  ],
+  "ask": [
+   "Which stage here is harmful mainly because of how long it lasts?",
+   "What if we did it so fast that the harm never had time to develop?",
+   "What are we drawing out that we should be ripping off?"
+  ]
+ },
+ {
+  "n": 22,
+  "name": "Blessing in disguise",
+  "ess": "Turn the harm into the resource. Make lemons into lemonade.",
+  "subs": [
+   "Use harmful factors to achieve a positive effect",
+   "Eliminate a harmful factor by combining it with another harmful factor",
+   "Amplify a harmful factor until it stops being harmful"
+  ],
+  "mfg": [
+   "Recover waste heat to preheat incoming material",
+   "Use process scrap as feedstock for a lower grade product"
+  ],
+  "svc": [
+   "Treat complaints as your best-funded, most honest source of improvement ideas — and say so publicly",
+   "Use the outage as the forcing event that finally retires the legacy process",
+   "Let a backlog of waiting customers become the test population for a new channel",
+   "Use peak demand as the business case that unlocks automation funding",
+   "A visible, well-handled failure can build more trust than a service that never failed"
+  ],
+  "ask": [
+   "What harm here could become a resource if we turned it round?",
+   "Which two problems, put together, might cancel each other out?",
+   "What is this failure giving us that success never would?"
+  ]
+ },
+ {
+  "n": 23,
+  "name": "Feedback",
+  "ess": "Close the loop — and if there is a loop already, change its speed or strength.",
+  "subs": [
+   "Introduce feedback to improve a process or action",
+   "If feedback already exists, change its magnitude or influence"
+  ],
+  "mfg": [
+   "Closed-loop process control and statistical process control",
+   "In-line gauging that adjusts the machine automatically"
+  ],
+  "svc": [
+   "Tell the person who took the decision what happened as a result — most frontline staff never find out",
+   "Close the loop with the customer after a complaint: what changed because of you",
+   "Live queue and wait-time displays that let people self-regulate",
+   "Change the loop from a monthly report to a same-day signal, and watch behaviour change",
+   "Feed audit findings back to the team that generated them, not only upwards"
+  ],
+  "ask": [
+   "Who acts here, and do they ever learn what happened?",
+   "How fast is the loop — could it be same-day instead of monthly?",
+   "Is the feedback going to the people with the power to act on it?"
+  ]
+ },
+ {
+  "n": 24,
+  "name": "Intermediary",
+  "ess": "Put something in between — and let it disappear once the job is done.",
+  "subs": [
+   "Use an intermediary carrier or intermediary process",
+   "Merge one object temporarily with another that is easily removed"
+  ],
+  "mfg": [
+   "Carriers and pallets that take the part through the process",
+   "Sacrificial layers and temporary coatings"
+  ],
+  "svc": [
+   "A named case coordinator who owns the customer across every hand-off",
+   "A translation layer between two systems that cannot talk to each other, rather than replacing either",
+   "A broker, aggregator or comparison service that stands between supply and demand",
+   "A neutral facilitator for a contentious decision between two departments",
+   "A transitional account manager who holds the relationship through a migration, then steps away"
+  ],
+  "ask": [
+   "Who or what could carry this across the gap?",
+   "Is there a temporary go-between that could be removed later?",
+   "Would an intermediary be cheaper than making the two ends fit?"
+  ]
+ },
+ {
+  "n": 25,
+  "name": "Self-service",
+  "ess": "Make it serve itself, and make its by-products do work.",
+  "subs": [
+   "Make an object serve itself by performing auxiliary helpful functions",
+   "Use waste resources, energy or substances"
+  ],
+  "mfg": [
+   "Self-lubricating bearings and self-cleaning filters",
+   "Using process off-cuts to fire the plant"
+  ],
+  "svc": [
+   "Customer self-service for the routine 80%, with humans reserved for the exceptions",
+   "Teams that inspect their own work instead of a separate QA gate downstream",
+   "A process that produces its own audit trail as a by-product of doing the work",
+   "Peer-to-peer support communities where customers answer each other",
+   "Use data you already generate for free as the input to the next improvement"
+  ],
+  "ask": [
+   "What could this do for itself, without us?",
+   "What by-product of the work could be fed straight back into the work?",
+   "Why is there a separate function doing something the doer could do?"
+  ]
+ },
+ {
+  "n": 26,
+  "name": "Copying",
+  "ess": "Do not use the expensive original when a cheap copy will do.",
+  "subs": [
+   "Use a simple, inexpensive copy instead of a fragile or expensive object",
+   "Replace an object with optical copies, at a suitable scale",
+   "If visible copies are used, move to infrared or ultraviolet"
+  ],
+  "mfg": [
+   "Digital twin used for trials instead of stopping the real line",
+   "Master gauge copied to cheap working gauges"
+  ],
+  "svc": [
+   "Simulate the redesigned process on paper or in a model before rebuilding anything",
+   "Record the expert once, instead of booking the expert forty times",
+   "Train on a masked copy of live data rather than on live data itself",
+   "Mystery-shop your own journey to see the copy the customer actually experiences",
+   "Templates and worked examples instead of drafting each document from scratch"
+  ],
+  "ask": [
+   "Do we need the real thing here, or would a copy, model or recording do?",
+   "Who is a scarce original that we should be copying?",
+   "What could we test on a replica before we touch production?"
+  ]
+ },
+ {
+  "n": 27,
+  "name": "Cheap short-living objects",
+  "ess": "Replace one expensive, durable thing with many cheap, disposable ones.",
+  "subs": [
+   "Replace an expensive object with several cheap ones, giving up some qualities such as longevity"
+  ],
+  "mfg": [
+   "Disposable tooling and single-use consumables",
+   "Cheap cardboard fixtures for a short production run"
+  ],
+  "svc": [
+   "Run ten cheap disposable experiments instead of one large irreversible programme",
+   "A pop-up desk or temporary site to test a location before signing a lease",
+   "Throwaway landing pages to test demand before building the service",
+   "Short-term contracted capacity for a known spike, rather than permanent headcount",
+   "A deliberately temporary policy with a built-in expiry date"
+  ],
+  "ask": [
+   "What are we over-engineering for permanence that could be deliberately disposable?",
+   "Could we learn the same thing with something cheap and throwaway?",
+   "What are we committing to for years that we only need for weeks?"
+  ]
+ },
+ {
+  "n": 28,
+  "name": "Mechanics substitution",
+  "ess": "Replace the physical mechanism with an informational or sensory one.",
+  "subs": [
+   "Replace a mechanical means with a sensory means",
+   "Use electric, magnetic or electromagnetic fields to interact",
+   "Replace static fields with moving, structured or time-varying ones",
+   "Use fields in conjunction with responsive particles"
+  ],
+  "mfg": [
+   "Electronic control replacing a mechanical linkage",
+   "Magnetic clamping instead of bolts and clamps"
+  ],
+  "svc": [
+   "Digital signature replacing the posted, wet-signed form",
+   "An automated nudge replacing the manual chase call",
+   "A virtual queue — go away, we will text you — replacing the physical one",
+   "Sensors and dashboards replacing supervisory walk-rounds",
+   "A rule in the system replacing a paragraph in a policy nobody reads"
+  ],
+  "ask": [
+   "Which physical or manual mechanism could be replaced by an information one?",
+   "What if the 'thing' became a signal?",
+   "Where are we moving atoms when we could be moving bits?"
+  ]
+ },
+ {
+  "n": 29,
+  "name": "Pneumatics and hydraulics",
+  "ess": "Use something that flows and cushions instead of something rigid.",
+  "subs": [
+   "Replace solid parts with gas or liquid ones — inflatable, hydrostatic, air cushion"
+  ],
+  "mfg": [
+   "Air-cushion transport for heavy or delicate loads",
+   "Hydraulic clamping that self-equalises across an uneven surface"
+  ],
+  "svc": [
+   "A flexible pool of on-call or bank staff that inflates at peak and deflates after",
+   "A levelling buffer of work released at a steady rate, smoothing flow rather than rigid daily targets",
+   "Budget held centrally as 'float' that flows to wherever the pressure is",
+   "Cash-flow float or a facility that cushions the shock instead of a rigid payment schedule",
+   "Cloud-style elastic capacity rather than owned fixed capacity"
+  ],
+  "ask": [
+   "What could be made fluid rather than solid here — capacity, budget, roles, rules?",
+   "Where do we need a cushion that inflates only when the pressure comes?",
+   "What is rigid because nobody has questioned it?"
+  ]
+ },
+ {
+  "n": 30,
+  "name": "Flexible shells and thin films",
+  "ess": "A thin flexible layer can do the job of a heavy structure.",
+  "subs": [
+   "Use flexible shells and thin films instead of three-dimensional structures",
+   "Isolate the object from its environment with flexible shells and thin films"
+  ],
+  "mfg": [
+   "Shrink wrap replacing a rigid crate",
+   "Membranes and liners protecting a vessel instead of thicker walls"
+  ],
+  "svc": [
+   "A lightweight digital wrapper over a legacy system, instead of a multi-year replacement",
+   "A one-page policy summary that fronts a hundred pages of detailed rules",
+   "A simple front-end experience over a complicated back office — the customer never sees the machinery",
+   "Ring-fence a risky pilot inside a thin governance boundary so it can move fast without endangering the core",
+   "A thin service layer that lets partners integrate without exposing your internals"
+  ],
+  "ask": [
+   "Could a thin layer do the job of the heavy structure we are planning?",
+   "What needs a membrane around it rather than a wall?",
+   "Can we wrap this rather than replace it?"
+  ]
+ },
+ {
+  "n": 31,
+  "name": "Porous materials",
+  "ess": "Build in deliberate gaps — then use them.",
+  "subs": [
+   "Make an object porous, or add porous elements",
+   "If already porous, fill the pores with a useful substance"
+  ],
+  "mfg": [
+   "Sintered porous filters and vacuum chucks",
+   "Porous carriers used to introduce a lubricant exactly where needed"
+  ],
+  "svc": [
+   "Deliberately plan schedules to less than 100% so the system can absorb variation instead of collapsing at the first delay",
+   "Permeable team boundaries that let information and people flow between them",
+   "Open days, secondments and embedded customers — deliberate holes in the organisational wall",
+   "Then fill those gaps with something useful: improvement work, training, cover, thinking time",
+   "Slack in the timetable that absorbs the emergency case without cancelling the routine list"
+  ],
+  "ask": [
+   "Is our system too solid to absorb ordinary variation?",
+   "What deliberate gaps would let things flow — and what should fill them?",
+   "Are we running at 100% utilisation and calling the resulting chaos bad luck?"
+  ]
+ },
+ {
+  "n": 32,
+  "name": "Colour changes",
+  "ess": "Change what can be seen, and by whom.",
+  "subs": [
+   "Change the colour of an object or its surroundings",
+   "Change the transparency of an object or its surroundings",
+   "Use coloured additives or luminescent tracers to observe hard-to-see things"
+  ],
+  "mfg": [
+   "Colour-coded parts and tooling that make the wrong one obvious",
+   "UV tracer dye to find a leak"
+  ],
+  "svc": [
+   "Red-amber-green visual boards that show status at a glance, with no report required",
+   "Colour-coded triage bands, wristbands or file covers that carry the instruction without words",
+   "Make pricing genuinely transparent as a competitive weapon",
+   "Publish the backlog and the wait time — change who can see it, and behaviour changes",
+   "Add a visible marker to the cases that have been waiting longest, so they cannot be quietly ignored"
+  ],
+  "ask": [
+   "What is invisible here that ought to be obvious at a glance?",
+   "Could colour or position carry the instruction instead of text?",
+   "Who currently cannot see this, and what would change if they could?"
+  ]
+ },
+ {
+  "n": 33,
+  "name": "Homogeneity",
+  "ess": "Let things interact with things of their own kind.",
+  "subs": [
+   "Make objects interact with objects of the same material, or of similar properties"
+  ],
+  "mfg": [
+   "Same-material joints so the assembly can be recycled whole",
+   "Matching thermal properties to stop differential movement"
+  ],
+  "svc": [
+   "One shared data standard end to end, so nothing has to be translated between teams",
+   "One vocabulary across departments — the same word meaning the same thing in ops, finance and sales",
+   "Match the adviser to the customer's language, sector or circumstance",
+   "Use the same tool and format from intake to closure, rather than converting at each stage",
+   "Recruit for the same underlying capability across a team so work can move freely within it"
+  ],
+  "ask": [
+   "Where do mismatches — of format, language, system or culture — create friction?",
+   "What would 'same nature' look like across this hand-off?",
+   "How many translations does one piece of information go through here?"
+  ]
+ },
+ {
+  "n": 34,
+  "name": "Discarding and recovering",
+  "ess": "Design things to disappear when their job is done — and to renew themselves while running.",
+  "subs": [
+   "Discard, dissolve or evaporate portions that have completed their function",
+   "Restore consumable parts during operation"
+  ],
+  "mfg": [
+   "Dissolvable cores and consumable fixtures",
+   "Automatic tool replenishment without stopping the machine"
+  ],
+  "svc": [
+   "Put an expiry date on every new rule and control, so it dies unless actively renewed",
+   "Task forces that are chartered to disband on a fixed date",
+   "Remove a control once the risk it was created for has genuinely passed",
+   "Replenish trained staff continuously through a rolling programme rather than periodic campaigns",
+   "Retire the temporary workaround at the same moment the permanent fix lands — plan it in"
+  ],
+  "ask": [
+   "What should have been switched off by now, and why is it still running?",
+   "What could be designed to expire on its own?",
+   "What is being consumed here that should be replenished continuously rather than in bursts?"
+  ]
+ },
+ {
+  "n": 35,
+  "name": "Parameter changes",
+  "ess": "Turn a dial. Change a setting rather than the design.",
+  "subs": [
+   "Change the physical state",
+   "Change the concentration or consistency",
+   "Change the degree of flexibility",
+   "Change the temperature or volume"
+  ],
+  "mfg": [
+   "Change viscosity, concentration or temperature rather than redesign the process",
+   "Change batch size to change everything downstream"
+  ],
+  "svc": [
+   "Change the concentration of an intervention — four deep sessions rather than twenty light ones",
+   "Change the temperature of a dispute by moving it from a live call to a written exchange",
+   "Change the degree of flexibility in a rule — from mandatory to advisory, or the reverse",
+   "Change the batch size of work released to a team, and the queue behaves completely differently",
+   "Change the formality of a meeting and you change who really speaks"
+  ],
+  "ask": [
+   "Which dial could we simply turn — size, frequency, concentration, flexibility, formality?",
+   "Are we redesigning something when we could just change a setting?",
+   "What happens at half the batch size, or twice the frequency?"
+  ]
+ },
+ {
+  "n": 36,
+  "name": "Phase transitions",
+  "ess": "Use the energy released at the moment something changes state.",
+  "subs": [
+   "Use phenomena that occur during phase transitions — volume change, heat loss or absorption"
+  ],
+  "mfg": [
+   "Latent heat storage and shape-memory alloys",
+   "Freeze or melt to grip, release or separate"
+  ],
+  "svc": [
+   "Target the transition moments — moving house, a new baby, onboarding, promotion, renewal — behaviour changes most at the phase change",
+   "The moment a prospect becomes a customer, everything about the relationship changes state: design deliberately for that instant",
+   "Use go-live as the point of maximum available energy for change that would be impossible six months later",
+   "A merger, a reorganisation or a new regulation releases energy — spend it before it dissipates",
+   "Handle the transition from 'patient' to 'discharged' as an event in its own right, not an afterthought"
+  ],
+  "ask": [
+   "Where are the transition moments here, and are we using their energy?",
+   "What changes state in this process, and what does that release?",
+   "What could we only do in the first thirty days?"
+  ]
+ },
+ {
+  "n": 37,
+  "name": "Thermal expansion",
+  "ess": "Use the fact that different things respond differently to the same load.",
+  "subs": [
+   "Use expansion or contraction of materials under heat",
+   "Use several materials with different coefficients of expansion"
+  ],
+  "mfg": [
+   "Shrink fits and interference joints made with temperature",
+   "Bimetallic strips that sense and act at once"
+  ],
+  "svc": [
+   "Design capacity that expands under demand and contracts after it, rather than sized for the peak all year",
+   "Two teams or partners that respond at different rates to the same pressure — use the difference to create movement",
+   "Let interest expand a pilot naturally: heat it and it grows, cool it and it shrinks back with no sunk cost",
+   "Pair a fast-moving unit with a slow-moving one deliberately, so the tension does useful work",
+   "Elastic pricing or staffing that grows with the load it experiences"
+  ],
+  "ask": [
+   "What in our system naturally expands under pressure — can we harness that instead of fighting it?",
+   "Which two parts respond differently to the same load, and what could that difference do for us?",
+   "What should be sized for the average and allowed to stretch?"
+  ]
+ },
+ {
+  "n": 38,
+  "name": "Strong oxidants",
+  "ess": "Enrich the environment so the reaction goes faster.",
+  "subs": [
+   "Replace normal air with enriched air",
+   "Replace enriched air with pure oxygen",
+   "Expose to ionising radiation or use ionised oxygen"
+  ],
+  "mfg": [
+   "Oxygen-enriched combustion for a hotter, faster process",
+   "Ozone or plasma treatment to activate a surface"
+  ],
+  "svc": [
+   "Concentrate talent and attention into a short burst — a war room, a tiger team, a hackathon — instead of spreading it thin for months",
+   "Enrich the information environment before a decision: better data, the real customer in the room, the actual numbers",
+   "Put the strongest coach with the weakest team for two intense weeks rather than everyone for an hour",
+   "Raise the intensity deliberately for a bounded period, then return to normal atmosphere",
+   "Bring an external expert in at full strength for a fortnight rather than a day a month for a year"
+  ],
+  "ask": [
+   "Where would a concentrated dose of energy or expertise change the reaction entirely?",
+   "Can we enrich the environment rather than push harder on the people?",
+   "What would we do differently if we had two weeks of everyone's full attention?"
+  ]
+ },
+ {
+  "n": 39,
+  "name": "Inert atmosphere",
+  "ess": "Some things only survive if you shield them from the normal environment.",
+  "subs": [
+   "Replace a normal environment with an inert one",
+   "Add neutral parts or inert additives to an object"
+  ],
+  "mfg": [
+   "Nitrogen blanketing to stop oxidation",
+   "Inert packaging to extend shelf life"
+  ],
+  "svc": [
+   "A sandbox or pilot deliberately shielded from normal governance so it can survive its first weeks",
+   "A genuinely no-blame review, so learning is not burnt off by politics",
+   "Neutral facilitation, or a neutral venue, for a decision two departments cannot make together",
+   "Protected time — quiet hours, no-meeting days — so deep work is not oxidised by interruption",
+   "Ring-fence a new team's funding so it is not consumed by the existing organisation's priorities"
+  ],
+  "ask": [
+   "What here needs shielding from the normal environment in order to survive?",
+   "Who is a neutral party that would stop this reaction going wrong?",
+   "What are we exposing to an atmosphere that will destroy it?"
+  ]
+ },
+ {
+  "n": 40,
+  "name": "Composite materials",
+  "ess": "A blend can have properties that no single ingredient has.",
+  "subs": [
+   "Change from uniform to composite materials"
+  ],
+  "mfg": [
+   "Composite panels — light and stiff, which neither constituent is alone",
+   "Hybrid materials tuned for two conflicting demands at once"
+  ],
+  "svc": [
+   "Blended teams — clinical plus administrative plus analytical — solving what none could solve alone",
+   "Hybrid delivery: digital for scale, human for the moments that matter",
+   "A composite measure instead of a single KPI that people will game",
+   "A workforce blending permanent, flexible and partner capacity for both stability and surge",
+   "Multi-channel journeys that use each channel for what it is genuinely best at"
+  ],
+  "ask": [
+   "Where is a single, pure approach limiting us?",
+   "What blend would give us properties that neither part has alone?",
+   "Which two capabilities have we been treating as alternatives rather than ingredients?"
+  ]
+ }
+]

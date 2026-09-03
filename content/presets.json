@@ -1,0 +1,82 @@
+[
+ {
+  "label": "Faster, but quality suffers",
+  "imp": 9,
+  "wor": 27
+ },
+ {
+  "label": "Faster, but it costs more resource",
+  "imp": 9,
+  "wor": 26
+ },
+ {
+  "label": "Cut the waiting time, but errors go up",
+  "imp": 25,
+  "wor": 27
+ },
+ {
+  "label": "More automation, but less flexibility",
+  "imp": 38,
+  "wor": 35
+ },
+ {
+  "label": "More flexible, but more complicated",
+  "imp": 35,
+  "wor": 36
+ },
+ {
+  "label": "Simplify the process, but lose control",
+  "imp": 36,
+  "wor": 37
+ },
+ {
+  "label": "More productive, but people burn out",
+  "imp": 39,
+  "wor": 31
+ },
+ {
+  "label": "Better customer experience, but harder for staff",
+  "imp": 33,
+  "wor": 32
+ },
+ {
+  "label": "Cheaper to run, but less reliable",
+  "imp": 26,
+  "wor": 27
+ },
+ {
+  "label": "More reliable, but slower",
+  "imp": 27,
+  "wor": 9
+ },
+ {
+  "label": "Handle more variety, but productivity drops",
+  "imp": 35,
+  "wor": 39
+ },
+ {
+  "label": "Better data quality, but more effort to collect",
+  "imp": 28,
+  "wor": 19
+ },
+ {
+  "label": "Keep it consistent, but lose flexibility",
+  "imp": 13,
+  "wor": 35
+ },
+ {
+  "label": "Less rework, but more up-front checking",
+  "imp": 22,
+  "wor": 25
+ },
+ {
+  "label": "More capacity, but it eats more resource",
+  "imp": 21,
+  "wor": 26
+ },
+ {
+  "label": "Stop losing information, but it costs time",
+  "imp": 24,
+  "wor": 25
+ }
+]

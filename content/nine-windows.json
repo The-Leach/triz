@@ -1,0 +1,98 @@
+{
+ "windows": [
+  {
+   "k": "subPast",
+   "row": "sub",
+   "col": "past",
+   "q": "What were the parts doing before?",
+   "svc": "The individual steps, people and systems earlier: what did the handover, the form, the team look like before this became a problem?"
+  },
+  {
+   "k": "sysPast",
+   "row": "sys",
+   "col": "past",
+   "q": "What was the whole thing before?",
+   "svc": "The process or service as a whole, earlier. When did it last work? What changed?"
+  },
+  {
+   "k": "supPast",
+   "row": "sup",
+   "col": "past",
+   "q": "What was going on around it before?",
+   "svc": "The organisation, the market, the regulation, the customer’s life before this point."
+  },
+  {
+   "k": "subNow",
+   "row": "sub",
+   "col": "now",
+   "q": "What are the parts doing now?",
+   "svc": "The individual steps, roles, systems and documents as they are today."
+  },
+  {
+   "k": "sysNow",
+   "row": "sys",
+   "col": "now",
+   "q": "What is the whole thing doing now?",
+   "svc": "The process end to end — this is where the problem is usually stated, and rarely where it is caused."
+  },
+  {
+   "k": "supNow",
+   "row": "sup",
+   "col": "now",
+   "q": "What is going on around it now?",
+   "svc": "The wider organisation, the customer’s situation, suppliers, regulators, competitors."
+  },
+  {
+   "k": "subFuture",
+   "row": "sub",
+   "col": "future",
+   "q": "What will the parts do next?",
+   "svc": "What happens to each step downstream, and what does it do to the next one?"
+  },
+  {
+   "k": "sysFuture",
+   "row": "sys",
+   "col": "future",
+   "q": "What will the whole thing do next?",
+   "svc": "Where is this process heading if nothing changes? What does it look like after your fix?"
+  },
+  {
+   "k": "supFuture",
+   "row": "sup",
+   "col": "future",
+   "q": "What will be going on around it?",
+   "svc": "Where are the organisation, the market and the customer heading? What will make this worse or irrelevant?"
+  }
+ ],
+ "rows": [
+  {
+   "id": "sup",
+   "label": "Around it",
+   "hint": "Super-system — organisation, market, customer, regulator"
+  },
+  {
+   "id": "sys",
+   "label": "The thing",
+   "hint": "System — the process or service itself"
+  },
+  {
+   "id": "sub",
+   "label": "Its parts",
+   "hint": "Sub-system — steps, people, documents, tools"
+  }
+ ],
+ "cols": [
+  {
+   "id": "past",
+   "label": "Before"
+  },
+  {
+   "id": "now",
+   "label": "Now"
+  },
+  {
+   "id": "future",
+   "label": "Next"
+  }
+ ]
+}

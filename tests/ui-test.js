@@ -321,6 +321,95 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('a reopened session restores its content', (await p.inputValue('[data-action="pf"][data-k="title"]')).length > 0);
   await ctx.close();
 
+  /* ---------- storage failure must never look like success ---------- */
+  const ctx2 = await browser.newContext({viewport: {width: 1280, height: 900}});
+  const q = await ctx2.newPage();
+  const qerrs = [];
+  q.on('pageerror', e => qerrs.push(e.message));
+  await q.goto(APP); await q.waitForTimeout(500);
+  ok('no storage warning while saving works', !(await q.isVisible('#saveWarn')));
+  const saveResult = await q.evaluate(() => {
+    localStorage.setItem = () => { const e = new Error('quota'); e.name = 'QuotaExceededError'; throw e; };
+    return persist();
+  });
+  await q.waitForTimeout(200);
+  ok('persist() reports failure rather than claiming success', saveResult === false);
+  ok('a failed save warns the user', await q.isVisible('#saveWarn'));
+  ok('the warning says the work is not being saved',
+    /not being saved/i.test(await q.textContent('#saveWarn')));
+  ok('the warning offers a way to keep the work',
+    await q.locator('#saveWarn [data-action="copyMd"]').count() === 1);
+  await q.click('#saveWarn [data-action="dismissSaveWarn"]'); await q.waitForTimeout(200);
+  ok('the warning can be dismissed', !(await q.isVisible('#saveWarn')));
+  const recovered = await q.evaluate(() => {
+    const store = {};
+    localStorage.setItem = (k, v) => { store[k] = v; };
+    return persist();
+  });
+  await q.waitForTimeout(200);
+  ok('saving recovers cleanly once storage works again', recovered === true && !(await q.isVisible('#saveWarn')));
+  ok('storage failure raises no JavaScript error', qerrs.length === 0);
+  await ctx2.close();
+
+  /* ---------- worked examples ---------- */
+  const ctx3 = await browser.newContext({viewport: {width: 1280, height: 900}});
+  const w = await ctx3.newPage();
+  const werrs = [];
+  w.on('pageerror', e => werrs.push(e.message));
+  await w.goto(APP); await w.waitForTimeout(500);
+  ok('an empty session offers worked examples', await w.locator('#stepBody .excard').count() === 3);
+  await w.click('#stepBody .excard'); await w.waitForTimeout(500);
+  const exState = await w.evaluate(() => ({
+    example: S.example, framings: S.framings.length, step: S.step,
+    title: S.problem.title, ifr: !!S.problem.ifr,
+    windows: Object.keys(S.windows).length,
+    starred: S.framings.reduce((n, f) => n + f.stars.length, 0),
+    concepts: S.framings.reduce((n, f) => n + Object.keys(f.concepts).length, 0)
+  }));
+  ok('opening an example loads a complete session',
+    !!exState.example && exState.framings >= 2 && exState.title.length > 20 && exState.ifr);
+  ok('the example carries Nine Windows content', exState.windows >= 4);
+  ok('the example carries shortlisted principles and written concepts',
+    exState.starred >= 4 && exState.concepts >= 4);
+  ok('the example opens at the finished working sheet', exState.step === 5);
+  ok('the example is labelled as one', await w.locator('#exampleBar .exbar').count() === 1);
+  ok('its working sheet is complete', /Framing 1 of/.test(await w.textContent('#mdOut')));
+  ok('every example is reachable and valid', await w.evaluate(() => EXAMPLES.every(x => {
+    const m = migrate(JSON.parse(JSON.stringify(x.session)));
+    return m && m.framings.length >= 1 && !!m.problem.title;
+  })));
+  w.once('dialog', d => d.accept());
+  await w.click('#exampleBar [data-action="newSession"]'); await w.waitForTimeout(500);
+  ok('"start my own" clears the example', await w.evaluate(() => !S.example && !S.problem.title));
+  ok('worked examples raise no JavaScript error', werrs.length === 0);
+
+  /* ---------- Nine Windows feeds the contradiction step ---------- */
+  await w.click('#tabs button[data-view="windows"]'); await w.waitForTimeout(400);
+  ok('the bridge stays hidden until something is written',
+    await w.locator('[data-action="winToSolve"]').count() === 0);
+  await w.fill('#nw-sysNow', 'Applications wait nine days for approval and errors rise when we rush them');
+  await w.fill('#nw-supPast', 'The regulator changed the evidence rules last March');
+  await w.waitForTimeout(400);
+  await w.click('#tabs button[data-view="solve"]'); await w.waitForTimeout(200);
+  await w.click('#tabs button[data-view="windows"]'); await w.waitForTimeout(400);
+  ok('the bridge appears once windows are filled',
+    await w.locator('[data-action="winToSolve"]').count() === 2);
+  const chips = await w.locator('[data-action="winFactor"]').count();
+  ok('the bridge suggests factors from what was written (' + chips + ')', chips > 0);
+  ok('a note in the super-system row is called out',
+    /Around it/.test(await w.textContent('#windowsBody')));
+  await w.click('[data-action="winFactor"]'); await w.waitForTimeout(500);
+  const bridged = await w.evaluate(() => ({
+    view: document.querySelector('#view-solve').hidden === false,
+    ctype: F().ctype, imp: F().imp, step: S.step, title: S.problem.title
+  }));
+  ok('choosing a factor moves to the contradiction step', bridged.view && bridged.step === 2);
+  ok('it starts a trade-off on that factor', bridged.ctype === 'technical' && bridged.imp >= 1);
+  ok('it seeds the problem line from the centre window',
+    bridged.title.startsWith('Applications wait nine days'));
+  ok('the bridge raises no JavaScript error', werrs.length === 0);
+  await ctx3.close();
+
   /* ---------- mobile layout ---------- */
   const m = await browser.newContext({viewport: {width: 390, height: 844}, isMobile: true, hasTouch: true});
   const mp = await m.newPage();

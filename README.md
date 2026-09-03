@@ -50,8 +50,17 @@ The five steps:
 
 **Nine Windows** — the system operator: the thing, its parts and its surroundings,
 across before / now / next. Problems are stated in the centre box and usually
-caused somewhere else; this is the quickest way to find out where. Feeds into the
-exported working sheet.
+caused somewhere else; this is the quickest way to find out where. What you write
+feeds the exported working sheet, and can be turned straight into a starting
+contradiction — it suggests the factors your notes point at, flags when the cause
+appears to sit outside the process or in the past, and seeds the problem line from
+the centre window.
+
+**Worked examples** — three complete sessions (an insurance claims backlog, a
+hospital discharge delay, an onboarding drop-off), each framed more than one way
+so you can see where different framings lead. Open one, read the finished working
+sheet, then edit it into your own. Offered on the empty first step, because
+reading a solved problem beats being taught the vocabulary.
 
 **40 Principles** — all forty, searchable in everyday language ("handover",
 "rework", "burnout", "bottleneck"), each with its classical wording, service
@@ -76,12 +85,36 @@ imported from a JSON file.
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | The entire application, and the single source of truth. Open it directly. |
+| `index.html` | The built application — open it directly. **Generated; do not edit.** |
+| `content/*.json` | The content: factor readings, principle examples, matrix, prompts, worked examples. **Edit here.** |
+| `src/app.html` | The template: markup, styles and logic, with one content placeholder. |
+| `build.py` | Validates the content, then builds `index.html` and `dist/artifact.html`. |
 | `data/TRIZ_Contradiction_Matrix.xlsx` | Source workbook the matrix was built from. |
 | `data/matrix-crosscheck.md` | Cell-by-cell comparison against an independent published copy. |
 | `tests/ui-test.js` | End-to-end checks (Playwright). |
 | `tests/hosted-test.js` | Checks the published-page save paths against a stubbed host. |
-| `build-artifact.py` | Derives `dist/artifact.html` from `index.html` for publishing. Never edit the output. |
+| `tests/content-test.py` | Proves the content validator rejects malformed content. |
+
+## Editing the content
+
+The content is the part worth changing — the service reading of each factor, the
+worked examples, the Nine Windows prompts, the search synonyms. It lives in
+`content/*.json` as plain data, so it can be edited without touching JavaScript.
+
+```bash
+python3 build.py --check    # validate the content, write nothing
+python3 build.py            # validate, then rebuild index.html and dist/artifact.html
+```
+
+Nothing is written unless every check passes, so a malformed edit cannot reach a
+published page. The validator enforces, among other things: 39 factors and 40
+principles correctly numbered; every principle carrying at least two service
+examples, two manufacturing examples and two prompt questions; no example reused
+across two principles; every matrix reference resolving to a principle 1-40 with
+no cell repeating one; an empty diagonal; the landmark and corrected matrix cells
+unchanged; every quick-start preset landing on a populated cell; and every worked
+example referencing real factors and recording something for each principle it
+shortlists.
 
 ## Fonts and offline use
 
@@ -101,8 +134,9 @@ printed.
 
 ```bash
 npm install playwright
-node tests/ui-test.js
-node tests/hosted-test.js
+node tests/ui-test.js       # 126 end-to-end checks
+node tests/hosted-test.js   # 12 published-page save checks
+python3 tests/content-test.py   # 15 checks that bad content is rejected
 ```
 
 The suite covers data integrity (39 factors with polarity, 40 principles, 1248
@@ -111,6 +145,12 @@ multiple framings and their isolation, migration of pre-framing saved sessions,
 dead-end reframing, Nine Windows, keyboard navigation and labelling of the
 matrix, focus management, search, saving, export, theme switching and mobile
 layout.
+
+## If the browser will not save
+
+Storage can refuse the app — a private window, blocked site data, a full quota.
+Rather than silently dropping the work, the page says so at the top of every
+view and offers to download or copy it before anything is lost.
 
 ## Accessibility
 

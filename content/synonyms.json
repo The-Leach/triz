@@ -1,0 +1,180 @@
+{
+ "handover": [
+  "hand-off",
+  "handoff",
+  "transfer",
+  "pass"
+ ],
+ "handoff": [
+  "hand-off",
+  "handover",
+  "transfer"
+ ],
+ "wait": [
+  "queue",
+  "idle",
+  "delay",
+  "waiting"
+ ],
+ "waiting": [
+  "queue",
+  "idle",
+  "delay"
+ ],
+ "queue": [
+  "wait",
+  "backlog",
+  "idle"
+ ],
+ "backlog": [
+  "queue",
+  "waiting list",
+  "wip"
+ ],
+ "delay": [
+  "wait",
+  "queue",
+  "slow",
+  "idle"
+ ],
+ "bottleneck": [
+  "constraint",
+  "queue",
+  "capacity"
+ ],
+ "rework": [
+  "waste",
+  "error",
+  "defect",
+  "duplicate"
+ ],
+ "waste": [
+  "rework",
+  "wasted",
+  "loss"
+ ],
+ "churn": [
+  "attrition",
+  "loss",
+  "drop-out",
+  "leaving"
+ ],
+ "attrition": [
+  "churn",
+  "turnover"
+ ],
+ "headcount": [
+  "staff",
+  "resource",
+  "people",
+  "capacity"
+ ],
+ "staffing": [
+  "staff",
+  "capacity",
+  "rota",
+  "headcount"
+ ],
+ "cost": [
+  "resource",
+  "budget",
+  "expense",
+  "quantity"
+ ],
+ "budget": [
+  "cost",
+  "resource"
+ ],
+ "error": [
+  "defect",
+  "mistake",
+  "reliability",
+  "accuracy"
+ ],
+ "mistake": [
+  "error",
+  "defect"
+ ],
+ "complaint": [
+  "harm",
+  "feedback",
+  "customer"
+ ],
+ "burnout": [
+  "harm",
+  "pressure",
+  "workload"
+ ],
+ "automation": [
+  "automate",
+  "automated",
+  "digital",
+  "self-service"
+ ],
+ "bureaucracy": [
+  "complexity",
+  "approval",
+  "steps",
+  "policy"
+ ],
+ "approval": [
+  "sign-off",
+  "authorisation",
+  "escalation",
+  "decision"
+ ],
+ "signoff": [
+  "approval",
+  "sign-off"
+ ],
+ "onboarding": [
+  "induction",
+  "joining",
+  "new customer"
+ ],
+ "sla": [
+  "speed",
+  "response",
+  "deadline"
+ ],
+ "triage": [
+  "prioritise",
+  "sort",
+  "routing"
+ ],
+ "flexibility": [
+  "adaptability",
+  "versatility",
+  "flex"
+ ],
+ "variety": [
+  "adaptability",
+  "variation",
+  "exceptions"
+ ],
+ "visibility": [
+  "transparency",
+  "monitoring",
+  "see"
+ ],
+ "paperwork": [
+  "forms",
+  "documents",
+  "admin"
+ ],
+ "admin": [
+  "paperwork",
+  "overhead",
+  "administration"
+ ],
+ "training": [
+  "skill",
+  "learning",
+  "induction"
+ ],
+ "escalation": [
+  "approval",
+  "force",
+  "level"
+ ]
+}

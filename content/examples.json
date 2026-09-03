@@ -1,0 +1,155 @@
+[
+{
+ "id":"claims",
+ "title":"Claims settle slowly, and rushing them causes reopens",
+ "sector":"Insurance",
+ "blurb":"A classic speed-versus-quality trade-off, worked twice: once through the matrix, then again as a both-ways demand. The second framing produced the sharper answer.",
+ "session":{
+  "name":"Example · Household claims backlog",
+  "step":5,
+  "problem":{
+   "title":"Household claims take 19 days to settle on average, and when we push the team to go faster the reopen rate climbs from 6% to 11%",
+   "context":"Three teams touch a claim: first notification, assessment, payments. Time-in-motion said roughly 4 hours of actual work spread across 19 days, so most of it is waiting rather than working. We have run overtime twice. Both times it cleared the queue for about a fortnight and pushed reopens up, because the checks that get skipped under pressure are the ones that prevent a reopen.",
+   "ifr":"The claim settles itself the moment the evidence is complete, and an assessor only ever sees the ones that genuinely need human judgement.",
+   "resources":"We already hold the policy history and any prior claims. 70% of customers send photos within the first hour. There is a natural two-day wait while the supplier quote comes back, and nothing uses it. The evening shift is quiet."
+  },
+  "windows":{
+   "supPast":"Before 2019 we settled under £1,000 on the phone, at the point of the call. That authority was withdrawn after an audit finding, and nobody has revisited it since.",
+   "sysPast":"The 19 days is not a gradual drift. It stepped up when the single settlement decision was split into an assessment stage and a separate payment authorisation.",
+   "sysNow":"A claim moves through three teams, each with its own queue. Every queue is first-in-first-out regardless of how simple the claim is.",
+   "subNow":"The assessor opens the file, finds the supplier quote has not arrived, sets it down, and picks it up two days later having lost all context. That re-reading is most of the 4 hours.",
+   "supNow":"Customers now expect same-day resolution because that is what their bank and their retailer give them. The 19 days is measured against that, not against our competitors.",
+   "sysFuture":"If nothing changes, volume rises 15% next year and the backlog compounds; overtime stops working entirely once the queue never empties."
+  },
+  "framings":[
+   {"id":"fx1","ctype":"technical","imp":9,"wor":27,
+    "phys":{"element":"","a":"","b":"","sep":""},
+    "stars":[11,35,28],
+    "ideas":{
+     "11":"Pre-authorise the things that currently need asking for.",
+     "35":"Stop treating every claim as one size. Turn the threshold dial.",
+     "28":"The chasing is manual and it does not need to be."
+    },
+    "concepts":{
+     "11":{"text":"Give every claims handler a standing settlement authority up to £750 with no second approval, funded from a pre-agreed recovery pot. The control moves from approving each claim to sampling 10% weekly and reviewing the pot monthly.","impact":"High","effort":"Low","risk":"Medium","newprob":"Sampling has to be real and staffed, or the control is theatre. Needs a named owner and a standing slot, not goodwill."},
+     "35":{"text":"Split the queue by evidence completeness rather than arrival order: claims with photos and a quote go down a fast lane that targets same-day; everything else goes to assessment. This is a threshold change, not a new process.","impact":"High","effort":"Medium","risk":"Low","newprob":"Customers may learn to game completeness. Acceptable — a customer who sends complete evidence is exactly the behaviour we want."},
+     "28":{"text":"Replace the manual chase for supplier quotes with an automated nudge at 24 and 48 hours, and show the customer the same status so they stop ringing to ask.","impact":"Medium","effort":"Low","risk":"Low","newprob":"Two channels now say what is happening, so they have to agree. One source of status, surfaced twice."}
+    }},
+   {"id":"fx2","ctype":"physical",
+    "imp":null,"wor":null,
+    "phys":{"element":"the assessment","a":"thorough","b":"immediate","sep":"condition"},
+    "stars":[3,23],
+    "ideas":{
+     "3":"Thoroughness is not one setting. It should depend on the claim.",
+     "23":"Nobody who makes these decisions ever finds out what happened."
+    },
+    "concepts":{
+     "3":{"text":"Make thoroughness conditional rather than uniform: instant settlement where the policy is clean, the value is low and the evidence is complete; full assessment where any of those fails. The same team, the same day, two depths of check chosen by rule rather than by queue position.","impact":"High","effort":"Medium","risk":"Low","newprob":"The rule becomes the thing that needs governing. Write it down, version it, and review the exceptions monthly."},
+     "23":{"text":"Send every handler the outcome of their own settlements — including which ones reopened and why — within the week. At present the reopen rate is a monthly team figure that no individual can act on.","impact":"Medium","effort":"Low","risk":"Low","newprob":"Individual reopen data can be read as performance management. Frame and govern it as learning, or people will settle defensively and the delay comes back."}
+    }}
+  ],
+  "active":"fx2"
+ }
+},
+{
+ "id":"discharge",
+ "title":"Patients wait for a discharge that was decided days ago",
+ "sector":"Healthcare",
+ "blurb":"Nine Windows did the heavy lifting here: the delay is stated in the ward and caused in pharmacy and transport. Worked as a trade-off and then separated in time.",
+ "session":{
+  "name":"Example · Discharge delay",
+  "step":5,
+  "problem":{
+   "title":"Patients declared medically fit wait an average of 2.3 days to actually leave, and the wait is worst on Fridays",
+   "context":"The decision to discharge is usually made on a morning round. What follows is a letter, a medication pack and transport, arranged in that order by three different functions. Nothing starts until the round has happened.",
+   "ifr":"The patient leaves within an hour of being declared fit, because everything they need to leave was ready before the decision was made.",
+   "resources":"We know two or three days ahead which patients are likely to be fit — the clinical team can predict it well. Pharmacy is quiet in the early afternoon. Transport has spare capacity at weekends."
+  },
+  "windows":{
+   "sysNow":"Patient is declared fit on the ward round, then waits for letter, medication and transport arranged in sequence.",
+   "subNow":"Pharmacy receives every request between 11am and 1pm because that is when rounds finish, so a two-hour peak sits against a flat staffing pattern.",
+   "supNow":"Transport is contracted with a next-day booking window, so a decision made at noon cannot produce a car until tomorrow.",
+   "sysPast":"When discharge was decided the afternoon before, the same three steps fitted comfortably into the following morning. The delay appeared when rounds moved later, not when demand rose.",
+   "supFuture":"Winter pressure will make the bed matter more, so the same 2.3 days will cost more even if it does not get longer.",
+   "subFuture":"Every hour of delay holds a bed that the emergency department is waiting on, so the cost lands somewhere the ward never sees."
+  },
+  "framings":[
+   {"id":"fd1","ctype":"technical","imp":25,"wor":27,
+    "phys":{"element":"","a":"","b":"","sep":""},
+    "stars":[10,4],
+    "ideas":{
+     "10":"Everything waits for the round. Almost none of it needs to.",
+     "4":"A simple discharge and a complex one are being run through the same pipe."
+    },
+    "concepts":{
+     "10":{"text":"Prepare the discharge pack — letter drafted, medication picked, transport provisionally booked — the day before, for every patient the clinical team flags as likely-fit. The round then confirms or cancels rather than starting a three-step chain.","impact":"High","effort":"Medium","risk":"Low","newprob":"Some packs are prepared and not used, so pharmacy does work that gets returned. Worth measuring: if waste stays under about 20% it is far cheaper than the bed day."},
+     "4":{"text":"Run two deliberately unequal pathways: a simple discharge with no new medication and no transport need goes straight out on a nurse-led checklist; anything else takes the full route. Stop averaging the two.","impact":"Medium","effort":"Low","risk":"Medium","newprob":"Someone has to decide which pathway, and getting that wrong is a clinical risk. The criteria must be conservative and owned clinically."}
+    }},
+   {"id":"fd2","ctype":"physical",
+    "imp":null,"wor":null,
+    "phys":{"element":"the discharge decision","a":"made days in advance so everything can be ready","b":"made on the day, when the patient is genuinely fit","sep":"time"},
+    "stars":[10,20],
+    "ideas":{
+     "10":"Split the decision into a provisional one and a final one.",
+     "20":"The two-day wait is dead time that could be doing work."
+    },
+    "concepts":{
+     "10":{"text":"Separate the decision in time by splitting it: a provisional discharge date set at admission and reviewed daily, and a final confirmation on the day. Everything downstream works to the provisional date, so the final decision releases a patient rather than starting a process.","impact":"High","effort":"Medium","risk":"Low","newprob":"A provisional date can be heard as a promise by families. It has to be communicated as a plan, with the review visible."},
+     "20":{"text":"Use the waiting time rather than removing it: while the pack is prepared, complete the follow-up booking, the GP notification and the family conversation, which currently all happen after the patient has gone.","impact":"Medium","effort":"Low","risk":"Low","newprob":"Ward staff absorb work that community teams used to do. Only fair if the handover burden genuinely falls."}
+    }}
+  ],
+  "active":"fd1"
+ }
+},
+{
+ "id":"onboarding",
+ "title":"People abandon at the identity check, and easing it lets fraud in",
+ "sector":"Banking and digital services",
+ "blurb":"A trade-off that looks unresolvable until you stop applying one setting to everyone. Shows the matrix and separation-on-condition reaching the same place from different directions.",
+ "session":{
+  "name":"Example · Onboarding drop-off",
+  "step":5,
+  "problem":{
+   "title":"38% of people who start opening an account abandon at the identity check, and every simplification we have tried has pushed fraud losses up",
+   "context":"The check is the same for everyone: document upload, selfie match, and three security questions. We removed the questions for a fortnight last year; completion rose 9 points and attempted fraud roughly doubled, so it was reinstated.",
+   "ifr":"The customer is verified without being asked to do anything, because we already know enough about them, and the few genuinely unknown cases are the only ones that feel like a check.",
+   "resources":"For existing customers opening a second product we already hold verified identity. Device and behavioural signals are captured but only used after the fact, in the fraud review. Most abandonment happens on mobile, in the first 40 seconds."
+  },
+  "windows":{
+   "sysNow":"One identity check, identical for every applicant regardless of what we already know about them.",
+   "subNow":"The document upload step fails most often on mobile in poor light, and the retry loop gives the same error each time with no help.",
+   "supNow":"Competitors verify most applicants passively and only escalate the unusual ones, so our check reads as unusually heavy rather than unusually safe.",
+   "supPast":"The check was designed when we had no device or behavioural signal at all, so treating every applicant as unknown was the only option available.",
+   "sysFuture":"If nothing changes, the drop-off gets worse as expectations move, and each simplification will keep trading straight against fraud."
+  },
+  "framings":[
+   {"id":"fo1","ctype":"technical","imp":33,"wor":30,
+    "phys":{"element":"","a":"","b":"","sep":""},
+    "stars":[2,25,39],
+    "ideas":{
+     "2":"Take the check out of the journey rather than making it lighter.",
+     "25":"The signals we need are already being generated by the customer.",
+     "39":"The risky cases need a protected space, not the whole journey hardened."
+    },
+    "concepts":{
+     "2":{"text":"Take the check out of the flow entirely for applicants we can already verify — existing customers, and anyone whose device and behavioural signals clear a threshold. They never see a check; the step is removed rather than shortened.","impact":"High","effort":"Medium","risk":"Medium","newprob":"The threshold becomes a fraud control in its own right and needs the same governance and monitoring as the check it replaces."},
+     "25":{"text":"Use the signals the session already generates — device, behaviour, how the form is filled — as the verification, instead of collecting them and only reading them afterwards in the fraud review.","impact":"High","effort":"High","risk":"Medium","newprob":"Passive signals as a control need a clear customer-facing explanation and a fairness review, or you have an opaque decision affecting access to an account."},
+     "39":{"text":"Rather than hardening the whole journey, put only the unusual applicants into a protected route with the heavier check, and leave the standard path light.","impact":"Medium","effort":"Low","risk":"Low","newprob":"Being routed to the heavy path is a visible signal of suspicion. The route must not feel punitive to the honest customers who land in it."}
+    }},
+   {"id":"fo2","ctype":"physical",
+    "imp":null,"wor":null,
+    "phys":{"element":"the identity check","a":"frictionless, so people finish","b":"rigorous, so fraud does not get through","sep":"condition"},
+    "stars":[3,35],
+    "ideas":{
+     "3":"Rigour should vary by what we know, not be uniform.",
+     "35":"We keep changing whether the check exists. We should be changing its strength."
+    },
+    "concepts":{
+     "3":{"text":"Make rigour local rather than uniform: no check where identity is already verified, passive check where signals are strong, full check only where they are weak or contradictory. The same policy, applied at three depths.","impact":"High","effort":"Medium","risk":"Low","newprob":"Three depths means three failure modes to monitor. The reporting has to break down by depth or you cannot tell which one is leaking."},
+     "35":{"text":"Stop treating the check as on or off and treat its strength as a dial that moves with risk appetite — tightened during a known attack, relaxed in quiet periods — with the setting owned and logged rather than debated each time.","impact":"Medium","effort":"Medium","risk":"Medium","newprob":"A dial that can be turned will be turned under commercial pressure. It needs a named owner and a change log, or it drifts to whatever this quarter's target wants."}
+    }}
+  ],
+  "active":"fo1"
+ }
+}
+]
