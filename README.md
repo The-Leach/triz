@@ -82,7 +82,9 @@ them, because Solve a problem brings you the handful that fit your contradiction
 
 There is no saved-work feature. The working sheet is kept in this browser as you
 go, and the summary is the single place you take it away from: copy it, download
-it as Markdown, or print it.
+it as Markdown, or print it. A bar above the steps shows what you are working on
+and offers **Start a new problem** from any step, so a reset is never more than
+one click away.
 
 ## Repository contents
 
@@ -97,6 +99,7 @@ it as Markdown, or print it.
 | `tests/ui-test.js` | End-to-end checks (Playwright). |
 | `tests/hosted-test.js` | Checks the published-page save paths against a stubbed host. |
 | `tests/content-test.py` | Proves the content validator rejects malformed content. |
+| `tests/sandbox-test.js` | Runs the page inside a sandboxed iframe, as the published version does. |
 
 ## Editing the content
 
@@ -137,10 +140,18 @@ printed.
 
 ```bash
 npm install playwright
-node tests/ui-test.js       # 145 end-to-end checks
+node tests/ui-test.js       # 159 end-to-end checks
 node tests/hosted-test.js   # 10 published-page save checks
+node tests/sandbox-test.js  # 12 checks inside a sandboxed iframe
 python3 tests/content-test.py   # 15 checks that bad content is rejected
 ```
+
+`sandbox-test.js` matters more than its size suggests. The published page runs
+inside a sandboxed iframe where `window.confirm` is suppressed and returns
+`false` without asking, so anything guarded by a native confirm becomes a silent
+no-op there while working perfectly from a local file. The app asks for
+confirmation in the page instead, and this suite drives every destructive action
+under the real condition.
 
 The suite covers data integrity (39 factors with polarity, 40 principles, 1248
 populated matrix cells, all references in range), each of the three solve paths,

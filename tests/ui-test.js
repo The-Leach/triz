@@ -350,9 +350,43 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('both framings export in one working sheet',
     /Framing 1 of 2/.test(both) && /Framing 2 of 2/.test(both) &&
     both.includes('Pre-check at intake') && both.includes('Split the decision in two'));
-  p.once('dialog', d => d.accept());
-  await p.click('[data-action="newSession"]'); await p.waitForTimeout(450);
+  await p.click('#stepBody [data-action="newSession"]'); await p.waitForTimeout(400);
+  await p.click('.modal [data-md="ok"]'); await p.waitForTimeout(500);
   ok('"start a new problem" clears the sheet', await p.evaluate(() => !S.problem.title && S.framings.length === 1));
+
+  /* ---------- reset is reachable, and asks without a native dialog ----------
+     window.confirm is suppressed in a sandboxed frame and returns false, which
+     silently turned every confirmed action into a no-op on the published page. */
+  await p.click('#tabs button[data-view="solve"]'); await p.waitForTimeout(250);
+  await p.evaluate(() => { S = blankSession(); renderSolve(); }); await p.waitForTimeout(300);
+  ok('a blank session shows no reset (nothing to reset)',
+    await p.locator('#exampleBar [data-action="newSession"]').count() === 0);
+  await p.evaluate(() => { S.problem.title = 'A problem in progress'; S.step = 1; renderSolve(); });
+  await p.waitForTimeout(300);
+  ok('reset appears as soon as there is work', await p.locator('#exampleBar [data-action="newSession"]').count() === 1);
+  ok('the bar says what is being worked on', /A problem in progress/.test(await p.textContent('#exampleBar')));
+  for (const step of [2, 3, 4, 5]) {
+    await p.evaluate(n => { const f = F(); f.ctype = 'explore'; S.step = n; renderSolve(); }, step);
+    await p.waitForTimeout(220);
+    ok('reset is reachable on step ' + step, await p.locator('[data-action="newSession"]').count() >= 1);
+  }
+  ok('no code path relies on a native confirm',
+    await p.evaluate(() => !/[^a-zA-Z]confirm\s*\(/.test(
+      Array.from(document.scripts).map(s => s.textContent).join('\n').replace(/askConfirm/g, 'X'))));
+  await p.evaluate(() => { S.step = 1; renderSolve(); }); await p.waitForTimeout(250);
+  await p.click('#exampleBar [data-action="newSession"]'); await p.waitForTimeout(350);
+  ok('the in-page dialog opens', await p.locator('.modal[role="alertdialog"]').count() === 1);
+  ok('the dialog takes focus', await p.evaluate(() => document.activeElement.dataset.md === 'ok'));
+  await p.keyboard.press('Escape'); await p.waitForTimeout(300);
+  ok('Escape cancels and keeps the work',
+    await p.locator('.modal').count() === 0 && await p.evaluate(() => !!S.problem.title));
+  await p.click('#exampleBar [data-action="newSession"]'); await p.waitForTimeout(350);
+  await p.click('.modal [data-md="cancel"]'); await p.waitForTimeout(300);
+  ok('cancelling keeps the work', await p.evaluate(() => !!S.problem.title));
+  await p.click('#exampleBar [data-action="newSession"]'); await p.waitForTimeout(350);
+  await p.click('.modal [data-md="ok"]'); await p.waitForTimeout(400);
+  ok('confirming clears the sheet', await p.evaluate(() => !S.problem.title && S.framings.length === 1));
+
   await ctx.close();
 
   /* ---------- storage failure must never look like success ---------- */
@@ -412,8 +446,10 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
     const m = migrate(JSON.parse(JSON.stringify(x.session)));
     return m && m.framings.length >= 1 && !!m.problem.title;
   })));
-  w.once('dialog', d => d.accept());
-  await w.click('#exampleBar [data-action="newSession"]'); await w.waitForTimeout(600);
+  await w.click('#exampleBar [data-action="newSession"]'); await w.waitForTimeout(400);
+  ok('"start my own" asks in the page, not with a native dialog',
+    await w.locator('.modal[role="alertdialog"]').count() === 1);
+  await w.click('.modal [data-md="ok"]'); await w.waitForTimeout(500);
   ok('"start my own" clears the example', await w.evaluate(() => !S.example && !S.problem.title));
   ok('worked examples raise no JavaScript error', werrs.length === 0);
 

@@ -323,6 +323,24 @@ button.excard:hover{border-color:var(--accent);background:var(--accent-soft)}
 .subtabs button:hover{color:var(--ink)}
 .subtabs button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
 
+/* ---------- in-page confirmation ---------- */
+.modal-wrap{position:fixed;inset:0;background:rgba(16,20,26,.45);z-index:200;
+  display:grid;place-items:center;padding:20px}
+:root[data-theme="dark"] .modal-wrap{background:rgba(0,0,0,.6)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .modal-wrap{background:rgba(0,0,0,.6)}}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-lg);
+  padding:20px;max-width:440px;width:100%;box-shadow:0 12px 40px rgba(16,24,40,.22)}
+.modal h3{font-size:16px;margin-bottom:8px}
+.modal p{font-size:13.5px;color:var(--ink-2);margin:0 0 16px}
+.modal-actions{display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap}
+
+/* ---------- the solve bar: orientation plus a way back to a blank sheet ---------- */
+.solvebar{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-bottom:16px;
+  padding:10px 13px;border:1px solid var(--line);background:var(--panel-2);border-radius:var(--radius)}
+.solvebar .sb-t{font-size:13px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap;max-width:min(560px,60vw)}
+.solvebar .sb-t b{color:var(--ink)}
+
 @media print{
   header.top,nav.tabs,.wizfoot,.steps,.btn,details.help{display:none!important}
   body{background:#fff}
@@ -588,6 +606,49 @@ function persistPrefs(){ try{ localStorage.setItem(LS_PREFS,JSON.stringify(PREFS
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 function esc(t){ return String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+/* The published page runs in a sandboxed frame, where window.confirm is
+   suppressed and returns false -- which silently turned every confirmed action
+   into a no-op. This asks in the page instead, so it works everywhere. */
+function askConfirm(message, opts){
+  opts = opts || {};
+  return new Promise(resolve=>{
+    const prev = document.activeElement;
+    const wrap = document.createElement('div');
+    wrap.className = 'modal-wrap';
+    wrap.innerHTML =
+      '<div class="modal" role="alertdialog" aria-modal="true" aria-labelledby="mdTitle" aria-describedby="mdBody">'+
+        '<h3 id="mdTitle">'+esc(opts.title || 'Are you sure?')+'</h3>'+
+        '<p id="mdBody">'+esc(message)+'</p>'+
+        '<div class="modal-actions">'+
+          '<button class="btn" data-md="cancel">'+esc(opts.cancel || 'Cancel')+'</button>'+
+          '<button class="btn primary" data-md="ok">'+esc(opts.ok || 'Continue')+'</button>'+
+        '</div>'+
+      '</div>';
+    document.body.appendChild(wrap);
+    let done = false;
+    const finish = v => {
+      if(done) return; done = true;
+      wrap.remove();
+      if(prev && prev.focus) { try{ prev.focus({preventScroll:true}); }catch(e){} }
+      resolve(v);
+    };
+    wrap.addEventListener('click', e=>{
+      const b = e.target.closest('[data-md]');
+      if(b) return finish(b.dataset.md === 'ok');
+      if(e.target === wrap) return finish(false);
+    });
+    wrap.addEventListener('keydown', e=>{
+      if(e.key === 'Escape'){ e.preventDefault(); return finish(false); }
+      if(e.key === 'Tab'){
+        const f = wrap.querySelectorAll('button');
+        const first = f[0], last = f[f.length-1];
+        if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
+    });
+    wrap.querySelector('[data-md="ok"]').focus();
+  });
+}
 function toast(msg){
   const t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t);
   setTimeout(()=>t.remove(),2200);
@@ -773,23 +834,38 @@ function sessionHasWork(){
   return !!(S.problem.title.trim() || S.framings.some(f=>f.stars.length || f.imp || f.phys.element.trim())
     || Object.keys(S.windows).some(k=>(S.windows[k]||'').trim()));
 }
-function openExample(id){
+async function openExample(id){
   const x = EXAMPLES.find(e=>e.id===id); if(!x) return;
-  if(sessionHasWork() && !confirm('Open the worked example? Your current working sheet will be replaced \u2014 copy or download it first from the Summary step if you want to keep it.')) return;
+  if(sessionHasWork() && !await askConfirm(
+      'Your current working sheet will be replaced. Copy or download it from the Summary step first if you want to keep it.',
+      {title:'Open this worked example?', ok:'Open the example'})) return;
   const m = migrate(JSON.parse(JSON.stringify(x.session)));
   S = Object.assign(blankSession(), m);
   S.example = x.id;
   persist(); goView('solve'); focusStep();
 }
+/* Shown on every step: what you are working on, and the way back to a blank
+   sheet. Without this the only reset lived on the summary, which you cannot
+   reach until you have already done the work. */
 function renderExampleBar(){
   const bar=$('#exampleBar'); if(!bar) return;
   const x = S.example && EXAMPLES.find(e=>e.id===S.example);
-  bar.innerHTML = x ? '<div class="exbar">'+
+  if(x){
+    bar.innerHTML = '<div class="exbar">'+
       '<span class="ex-tag">Worked example</span>'+
       '<b>'+esc(x.title)+'</b>'+
       '<span class="tiny muted">Edit it freely \u2014 nothing here is fixed. Step back through 1 to 5 to see how it was built.</span>'+
       '<button class="btn sm" data-action="newSession" style="margin-left:auto">Start my own</button>'+
-    '</div>' : '';
+    '</div>';
+  } else if(sessionHasWork()){
+    const t = S.problem.title.trim();
+    bar.innerHTML = '<div class="solvebar">'+
+      '<span class="sb-t">'+(t? 'Working on: <b>'+esc(t)+'</b>' : 'Working on an unnamed problem')+'</span>'+
+      '<button class="btn ghost sm" data-action="newSession" style="margin-left:auto">Start a new problem</button>'+
+    '</div>';
+  } else {
+    bar.innerHTML = '';
+  }
 }
 
 /* ---------- step 1: frame ---------- */
@@ -1529,13 +1605,15 @@ document.addEventListener('click', e=>{
   else if(a==='addFramingAs'){ addFraming(); F().ctype=t.dataset.t; persist(); renderSolve(); focusStep(); }
   else if(a==='useFraming'){ S.active=t.dataset.id; if(!reachable(S.step)) S.step=2; persist(); renderSolve(); focusStep(); }
   else if(a==='openFraming'){ S.active=t.dataset.id; S.step=reachable(3)?3:2; persist(); renderSolve(); focusStep(); }
-  else if(a==='dropFraming'){
+  else if(a==='dropFraming'){ (async()=>{
     if(S.framings.length<2) return;
     const f=F();
-    if((f.stars.length||f.imp||f.phys.element) && !confirm('Remove this framing and everything shortlisted in it?')) return;
+    if((f.stars.length||f.imp||f.phys.element) && !await askConfirm(
+        'Everything shortlisted and written in this framing will be removed. Your other framings are untouched.',
+        {title:'Remove this framing?', ok:'Remove it'})) return;
     S.framings = S.framings.filter(x=>x.id!==t.dataset.id);
     S.active = S.framings[0].id; if(!reachable(S.step)) S.step=2;
-    persist(); renderSolve(); toast('Framing removed'); }
+    persist(); renderSolve(); toast('Framing removed'); })(); }
 
   /* reframing out of a dead end */
   else if(a==='useNearby'){ const f=F(); f.imp=+t.dataset.i; f.wor=+t.dataset.j; persist(); renderSolve(); focusStep(); }
@@ -1556,7 +1634,10 @@ document.addEventListener('click', e=>{
     if(!S.problem.title.trim()) S.problem.title = firstWindowLine();
     S.step = S.problem.title.trim() ? 2 : 1;
     persist(); goView('solve'); focusStep(); }
-  else if(a==='clearWindows'){ if(!confirm('Clear all nine windows?')) return; S.windows={}; persist(); renderWindows(); }
+  else if(a==='clearWindows'){ (async()=>{
+    if(!await askConfirm('Everything written in the nine windows will be cleared.',
+      {title:'Clear Nine Windows?', ok:'Clear them'})) return;
+    S.windows={}; persist(); renderWindows(); toast('Nine Windows cleared'); })(); }
 
   else if(a==='copyMd'){ const md=exportMarkdown();
     (navigator.clipboard?navigator.clipboard.writeText(md):Promise.reject())
@@ -1646,9 +1727,11 @@ function download(fn, text, mime){
   a.href=u; a.download=fn; document.body.appendChild(a); a.click(); a.remove();
   setTimeout(()=>URL.revokeObjectURL(u),1000);
 }
-function startNewSession(){
-  if(sessionHasWork() && !confirm('Start a new problem? Your current working sheet will be cleared \u2014 copy or download it first from the Summary step if you want to keep it.')) return;
-  S=blankSession(); persist(); goView('solve'); focusStep(); toast('New session started');
+async function startNewSession(){
+  if(sessionHasWork() && !await askConfirm(
+      'Your current working sheet will be cleared. Copy or download it from the Summary step first if you want to keep it.',
+      {title:'Start a new problem?', ok:'Start a new problem'})) return;
+  S=blankSession(); persist(); goView('solve'); focusStep(); toast('Cleared \u2014 starting fresh');
 }
 
 /* ===================================================================
