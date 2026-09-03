@@ -48,7 +48,15 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
         && PARAMS.every(x => x.name && x.eng && x.svc && x.kw),
       filled, badRef, diag,
       sepRefsValid: SEPARATIONS.every(s => s.ps.every(n => n >= 1 && n <= 40)),
-      presetsPopulated: PRESETS.every(x => MATRIX[x.imp - 1][x.wor - 1].length > 0)
+      sepNoDupes: SEPARATIONS.every(s => new Set(s.ps).size === s.ps.length),
+      presetsPopulated: PRESETS.every(x => MATRIX[x.imp - 1][x.wor - 1].length > 0),
+      dupeCells: (() => { let n = 0;
+        for (let i = 0; i < 39; i++) for (let j = 0; j < 39; j++)
+          if (new Set(MATRIX[i][j]).size !== MATRIX[i][j].length) n++;
+        return n; })(),
+      landmark1: MATRIX[0][2].join(','),   // row 1 x col 3, in every published matrix
+      landmark2: MATRIX[1][3].join(','),   // row 2 x col 4
+      corrected: MATRIX[18][8].join(',')   // row 19 x col 9, the one corrected cell
     };
   });
   ok('39 factors, numbered 1-39', data.params === 39 && data.paramsOrdered);
@@ -57,7 +65,11 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('matrix has 1248 populated cells', data.filled === 1248);
   ok('every matrix reference is a principle 1-40', data.badRef === 0);
   ok('matrix diagonal is empty', data.diag === 0);
-  ok('separation strategies reference valid principles', data.sepRefsValid);
+  ok('separation strategies reference valid principles', data.sepRefsValid && data.sepNoDupes);
+  ok('no cell recommends the same principle twice', data.dupeCells === 0);
+  ok('landmark cell [1,3] matches every published matrix', data.landmark1 === '15,8,29,34');
+  ok('landmark cell [2,4] matches every published matrix', data.landmark2 === '10,1,29,35');
+  ok('the corrected cell [19,9] holds the cross-checked value', data.corrected === '8,15,35');
   ok('every quick-start preset lands on a populated cell', data.presetsPopulated);
 
   /* ---------- step 1: framing ---------- */

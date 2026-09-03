@@ -78,6 +78,7 @@ imported from a JSON file.
 | --- | --- |
 | `index.html` | The entire application, and the single source of truth. Open it directly. |
 | `data/TRIZ_Contradiction_Matrix.xlsx` | Source workbook the matrix was built from. |
+| `data/matrix-crosscheck.md` | Cell-by-cell comparison against an independent published copy. |
 | `tests/ui-test.js` | End-to-end checks (Playwright). |
 | `tests/hosted-test.js` | Checks the published-page save paths against a stubbed host. |
 | `build-artifact.py` | Derives `dist/artifact.html` from `index.html` for publishing. Never edit the output. |
@@ -119,13 +120,30 @@ column headers, and a spoken label per cell naming both factors and the
 principles it holds. Step changes move focus to the new heading. Motion respects
 `prefers-reduced-motion`.
 
-## Provenance
+## Provenance and accuracy
 
 The 39 factors, the 40 inventive principles and the contradiction matrix are
-Genrich Altshuller's classical TRIZ and are in the public domain. The matrix data
-was extracted from the workbook in `data/` and verified programmatically: 1248
-populated cells, an empty diagonal, and every reference resolving to a principle
-between 1 and 40.
+Genrich Altshuller's classical TRIZ and are in the public domain. The service and
+back-office readings of the 39 factors, all worked examples, the prompt questions
+and the guidance text were written for this tool.
 
-The service and back-office readings of the 39 factors, all worked examples, the
-prompt questions and the guidance text were written for this tool.
+The matrix was extracted from the workbook in `data/` and verified
+programmatically — 1248 populated cells, an empty diagonal, every reference
+resolving to a principle between 1 and 40, and no cell recommending the same
+principle twice — then **cross-checked cell by cell against an independently
+published copy**. The two agree on 97.44% of the 1,482 off-diagonal cells,
+including the landmark entries every published matrix shares.
+
+One cell was corrected: `[19, 9]` read `8, 35, 35` in the workbook, which is
+impossible, and now carries the independent copy's `8, 15, 35`. The 26 remaining
+single-value disagreements are recorded in `data/matrix-crosscheck.md` rather than
+silently resolved — published copies of the matrix have drifted apart over decades
+of transcription, and without a third authoritative source there is no basis for
+preferring one reading. The landmark cells, the absence of duplicates, and the
+corrected value are all asserted in the test suite.
+
+Two things the app is careful not to overstate, and says so in its own primer:
+the ordering of principles within a cell is a convention (most-frequently-used
+first), never a strict ranking; and the principles attached to each separation
+strategy are a later convention whose exact membership differs between TRIZ
+authors, not Altshuller's own mapping.

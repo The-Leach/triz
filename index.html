@@ -810,6 +810,12 @@ const PRESETS = [
 ];
 
 /* Altshuller contradiction matrix, 39x39. Row = factor to improve, column = factor that worsens.
+   Extracted from data/TRIZ_Contradiction_Matrix.xlsx and cross-checked cell by cell against an
+   independent published copy: 97.4% identical. One correction was applied -- cell [19,9] listed
+   principle 35 twice, which is impossible; the independent source reads 8, 15, 35 and is used here.
+   The 26 remaining single-value disagreements between the two copies are listed, unresolved, in
+   data/matrix-crosscheck.md rather than silently picked between. See that file before trusting
+   any one of those cells.
    Encoded as 39 strings of 39 pipe-separated cells; empty cell = no classical recommendation. */
 const MATRIX_RAW = [
 "||15,8,29,34||29,17,38,34||29,2,40,28||2,8,15,38|8,10,18,37|10,36,37,40|10,14,35,40|1,35,19,39|28,27,18,40|5,34,31,35||6,29,4,38|19,1,32|35,12,34,31||12,36,18,31|6,2,34,19|5,35,3,31|10,24,35|10,35,20,28|3,26,18,31|1,3,11,27|28,27,35,26|28,35,26,18|22,21,18,27|22,35,31,39|27,28,1,36|35,3,2,24|2,27,28,11|29,5,15,8|26,30,36,34|28,29,26,32|26,35,18,19|35,3,24,37",
@@ -830,7 +836,7 @@ const MATRIX_RAW = [
 "|6,27,19,16||1,40,35||||35,34,38|||||39,3,35,23||||19,18,36,40||||16||27,16,18,38|10|28,20,10,16|3,35,31|34,27,6,40|10,26,24||17,1,40,33|22|35,10|1|1|2||25,34,6,35|1|20,10,16,38",
 "36,22,6,38|22,35,32|15,19,9|15,19,9|3,35,39,18|35,38|34,39,40,18|35,6,4|2,28,36,30|35,10,3,21|35,39,19,2|14,22,19,32|1,35,32|10,30,22,40|19,13,39|19,18,36,40||32,30,21,16|19,15,3,17||2,14,17,25|21,17,35,38|21,36,29,31||35,28,21,18|3,17,30,39|19,35,3,10|32,19,24|24|22,33,35,2|22,35,2,24|26,27|26,27|4,10,16|2,18,27|2,17,16|3,27,35,31|26,2,19,16|15,28,35",
 "19,1,32|2,35,32|19,32,16||19,32,26||2,13,10||10,13,19|26,19,6||32,30|32,3,27|35,19|2,19,6||32,35,19||32,1,19|32,35,1,15|32|13,16,1,6|13,1|1,6|19,1,26,17|1,19||11,15,32|3,32|15,19|35,19,32,39|19,35,28,26|28,26,19|15,17,13,16|15,1,19|6,32,13|32,15|2,26,10|2,25,16",
-"12,18,28,31||12,28||15,19,25||35,13,18||8,35,35|16,26,21,2|23,14,25|12,2,29|19,13,17,24|5,19,9,35|28,35,6,18||19,24,3,14|2,15,19|||6,19,37,18|12,22,15,24|35,24,18,5||35,38,19,18|34,23,16,18|19,21,11,27|3,1,32||1,35,6,27|2,35,6|28,26,30|19,35|1,15,17,28|15,17,13,16|2,29,27,28|35,38|32,2|12,28,35",
+"12,18,28,31||12,28||15,19,25||35,13,18||8,15,35|16,26,21,2|23,14,25|12,2,29|19,13,17,24|5,19,9,35|28,35,6,18||19,24,3,14|2,15,19|||6,19,37,18|12,22,15,24|35,24,18,5||35,38,19,18|34,23,16,18|19,21,11,27|3,1,32||1,35,6,27|2,35,6|28,26,30|19,35|1,15,17,28|15,17,13,16|2,29,27,28|35,38|32,2|12,28,35",
 "|19,9,6,27||||||||36,37|||27,4,29,18|35||||19,2,35,32|||||28,27,18,31|||3,35,31|10,36,23|||10,2,22,37|19,22,18|1,4|||||19,35,16,25||1,6",
 "8,36,38,31|19,26,17,27|1,10,35,37||19,38|17,32,13,38|35,6,38|30,6,25|15,35,2|26,2,36,35|22,10,35|29,14,2,40|35,32,15,31|26,10,28|19,35,10,38|16|2,14,17,25|16,6,19|16,6,19,37|||10,35,38|28,27,18,38|10,19|35,20,10,6|4,34,19|19,24,26,31|32,15,2|32,2|19,22,31,2|2,35,18|26,10,34|26,35,10|35,2,10,34|19,17,34|20,19,30,34|19,35,16|28,2,17|28,35,34",
 "15,6,19,28|19,6,18,9|7,2,6,13|6,38,7|15,26,17,30|17,7,30,18|7,18,23|7|16,35,38|36,38|||14,2,39,6|26|||19,38,7|1,13,32,15|||3,38||35,27,2,37|19,10|10,18,32,7|7,18,25|11,10,35|32||21,22,35,2|21,35,2,22||35,32,1|2,19||7,23|35,3,15,23|2|28,10,29,35",
@@ -1244,6 +1250,7 @@ function step2(){
       '</div>'+
       '<div class="eyebrow" style="margin:16px 0 8px">Now choose how to separate the two demands</div>'+
       '<div class="tiny muted" style="margin-bottom:12px">Work down the list and stop at the first one that could plausibly be true. Time and space are the most commonly overlooked.</div>'+
+      '<div class="tiny muted" style="margin-bottom:12px"><b>A caveat worth knowing:</b> unlike the contradiction matrix, the principles attached to each separation strategy are not Altshuller\u2019s own \u2014 they are a later convention and the exact lists differ between TRIZ authors. Treat them as a good starting set, not a fixed answer.</div>'+
       '<div class="choices">'+SEPARATIONS.map(x=>
         '<button class="choice" data-action="sep" data-id="'+x.id+'" aria-pressed="'+(f.phys.sep===x.id)+'">'+
         '<h3>'+esc(x.name)+'</h3><p>'+x.q+'</p>'+
@@ -1351,7 +1358,7 @@ function step3(){
       '<li>The principle is an <em>analogy</em>, not an instruction. &ldquo;Pneumatics&rdquo; in a call centre means fluid capacity, not compressed air.</li>'+
       '<li>Force yourself to write something for at least the first three, even if it is bad. The bad idea is usually the doorway.</li>'+
       '<li>If a principle seems absurd, ask what would have to be true for it to work. That question does most of the work.</li>'+
-      '<li>Order matters a little \u2014 the matrix lists the historically strongest first \u2014 but a lower-ranked principle that sparks something beats a top-ranked one that does not.</li>'+
+      '<li>Order carries a little information \u2014 principles in a cell are conventionally read as most-frequently-used first \u2014 but this was never a strict ranking, and a lower-placed principle that sparks something beats a top-placed one that does not.</li>'+
     '</ul></div></details>'+
     '<div class="row" style="margin-top:14px"><span class="tiny muted">Shortlisted in this framing: <b id="starCount">'+f.stars.length+'</b></span>'+
       '<button class="btn ghost sm" data-action="addFraming" style="margin-left:auto">+ Frame it another way</button></div>'+
@@ -1698,7 +1705,7 @@ function renderSaved(){
 function renderLearn(){
   $('#learnBody').innerHTML =
     '<h2 style="font-size:19px;margin-bottom:10px">TRIZ in five minutes</h2>'+
-    '<p class="muted">TRIZ came out of Genrich Altshuller&rsquo;s study of a few hundred thousand patents in the Soviet Union from 1946 onwards. His finding was blunt: inventors were not being original. The same forty moves kept reappearing across unrelated fields, and the same kinds of conflict kept provoking the same kinds of answer. If that is true, then a strong solution can be looked up rather than waited for.</p>'+
+    '<p class="muted">TRIZ came out of Genrich Altshuller&rsquo;s study of the Soviet patent record from 1946 onwards \u2014 on the usual account, some 200,000 patents screened and around 40,000 studied closely. His finding was blunt: inventors were not being original. The same forty moves kept reappearing across unrelated fields, and the same kinds of conflict kept provoking the same kinds of answer. If that is true, then a strong solution can be looked up rather than waited for.</p>'+
     '<p class="muted">The reason TRIZ has stayed in engineering is an accident of vocabulary, not of logic. Altshuller described his factors as weight, temperature, stress and thermal expansion because those were the words in the patents. But the underlying pattern — <em>this improves, therefore that gets worse, and the usual answer is a compromise</em> — belongs to any system with parts, flows and constraints. A hospital discharge process, a claims queue and an onboarding journey have contradictions of exactly the same shape as a gearbox.</p>'+
     '<p class="muted">This tool keeps Altshuller&rsquo;s original names, because that is what makes the matrix valid, and adds a plain reading of each one for work where the &ldquo;product&rdquo; is a case, a customer or a decision.</p>'+
     '<hr class="sep">'+
@@ -1721,6 +1728,7 @@ function renderLearn(){
     '<ul class="muted" style="padding-left:19px">'+
       '<li>The matrix is a lookup of historical patterns from engineering patents, not a proof. Treat a recommendation as a strong prompt, not an answer.</li>'+
       '<li>Blank cells are common and mean only that no pattern was recorded. They are not a verdict on your problem.</li>'+
+      '<li>Published copies of the matrix disagree in a small number of cells \u2014 this one was cross-checked against a second source and agrees in 97.4% of them. Where a single principle in a cell looks odd, it may be a transcription slip inherited from decades of copying, not a deep insight.</li>'+
       '<li>If the principles feel irrelevant, the usual cause is a badly framed contradiction, not a failure of TRIZ. Go back and restate it.</li>'+
       '<li>Watch the direction of each factor. For the loss and harm factors, &ldquo;improving&rdquo; means <em>reducing</em> \u2014 improving <em>Loss of time</em> means losing less of it. Getting that backwards returns the wrong principles and gives you no warning.</li>'+
       '<li>Physical contradictions and separation generally give sharper answers than the matrix. If you can state your problem that way, do.</li>'+
