@@ -62,9 +62,24 @@ imported from a JSON file.
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | The entire application. Open it directly. |
+| `index.html` | The entire application, and the single source of truth. Open it directly. |
 | `data/TRIZ_Contradiction_Matrix.xlsx` | Source workbook the matrix was built from. |
 | `tests/ui-test.js` | End-to-end checks (Playwright). |
+| `build-artifact.py` | Derives `dist/artifact.html` from `index.html` for publishing. Never edit the output. |
+
+## Fonts and offline use
+
+The page links IBM Plex from Google Fonts as a progressive enhancement. With no
+network it falls back to the system stack and everything else works unchanged —
+the app has no other external dependency.
+
+## Saving files
+
+Opened as a local file, the export buttons download directly. Published as a
+hosted page, a page is not allowed to download on its own, so saving goes
+through the host's downloads capability; where that is unavailable the buttons
+are hidden rather than left dead, and the working sheet can still be copied or
+printed.
 
 ## Running the tests
 
