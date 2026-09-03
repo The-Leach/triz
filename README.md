@@ -23,10 +23,12 @@ which set you see.
 
 ## What it does
 
-**Solve a problem** — a five-step guided flow. A session holds one problem, and a
+**Solve a problem** — a five-step guided flow, and the centre of the app. One
 problem can carry **several framings** — the same trouble written as a trade-off,
 as a both-ways demand, and as open exploration — each with its own shortlist and
-concepts, compared side by side in the summary rather than overwriting each other.
+concepts. Running two or three is the intended way to use it: they route to
+different principles, and they all land in one working sheet at the end. The
+summary nudges you towards a second pass while you have only made one.
 
 The five steps:
 
@@ -56,30 +58,31 @@ contradiction — it suggests the factors your notes point at, flags when the ca
 appears to sit outside the process or in the past, and seeds the problem line from
 the centre window.
 
-**Worked examples** — three complete sessions (an insurance claims backlog, a
-hospital discharge delay, an onboarding drop-off), each framed more than one way
-so you can see where different framings lead. Open one, read the finished working
-sheet, then edit it into your own. Offered on the empty first step, because
-reading a solved problem beats being taught the vocabulary.
+Three **worked examples** — an insurance claims backlog, a hospital discharge
+delay, an onboarding drop-off — are offered on the empty first step and under
+Guidance, because reading a solved problem beats being taught the vocabulary.
 
-**40 Principles** — all forty, searchable in everyday language ("handover",
-"rework", "burnout", "bottleneck"), each with its classical wording, service
-examples, manufacturing examples and three questions to ask yourself. Plus a
-random-spark button for when you have no contradiction to work from.
+The **40 principles** are searchable in everyday language ("handover", "rework",
+"burnout", "bottleneck"), each with its classical wording, service examples,
+manufacturing examples and three questions to ask yourself, plus a random-spark
+button for when you have no contradiction to work from. The **39 factors** each
+carry their engineering meaning, their service reading, and their polarity —
+whether improving means more or less, stated in plain words. Both live under
+Guidance & reference.
 
 **Contradiction matrix** — the full 39 × 39 grid, clickable, with each cell
 opening the recommended principles in full. Any pair can be handed straight to
 the wizard.
 
-**39 Factors** — each classical factor with its engineering meaning, its service
-reading, and its **polarity**: whether improving it means more or less, stated in
-plain words. For the loss and harm factors "improving" means *reducing*, which is
-the single easiest way to use the matrix backwards without noticing.
+**Guidance & reference** — everything that is there to be read rather than worked
+through, in four sections: **How TRIZ works** (a short, honest primer including
+the method's limits), **The 40 principles**, **The 39 factors**, and **Worked
+examples**. The two catalogues are reference material — you do not work through
+them, because Solve a problem brings you the handful that fit your contradiction.
 
-**Saved work** — sessions are kept in browser storage and can be exported to and
-imported from a JSON file.
-
-**How TRIZ works** — a short, honest primer, including the method's limits.
+There is no saved-work feature. The working sheet is kept in this browser as you
+go, and the summary is the single place you take it away from: copy it, download
+it as Markdown, or print it.
 
 ## Repository contents
 
@@ -134,14 +137,14 @@ printed.
 
 ```bash
 npm install playwright
-node tests/ui-test.js       # 126 end-to-end checks
-node tests/hosted-test.js   # 12 published-page save checks
+node tests/ui-test.js       # 145 end-to-end checks
+node tests/hosted-test.js   # 10 published-page save checks
 python3 tests/content-test.py   # 15 checks that bad content is rejected
 ```
 
 The suite covers data integrity (39 factors with polarity, 40 principles, 1248
 populated matrix cells, all references in range), each of the three solve paths,
-multiple framings and their isolation, migration of pre-framing saved sessions,
+multiple framings and their isolation, migration of older stored sessions,
 dead-end reframing, Nine Windows, keyboard navigation and labelling of the
 matrix, focus management, search, saving, export, theme switching and mobile
 layout.

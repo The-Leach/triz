@@ -58,15 +58,9 @@ const ok = (l, c) => { (c ? pass++ : fail++); console.log((c ? 'PASS  ' : 'FAIL 
         saves[0].data.includes('Hosted save test') && saves[0].data.includes('Pre-check documents at intake'));
     }
 
-    await p.click('#tabs button[data-view="saved"]');
-    await p.waitForTimeout(400);
-    ok('[' + mode + '] export button ' + (mode === 'granted' ? 'offered' : 'hidden'),
-      (await p.isVisible('#exportAllBtn')) === (mode === 'granted'));
-    ok('[' + mode + '] explanation shown only when saving is unavailable',
-      (await p.isVisible('#exportNote')) === (mode !== 'granted'));
+    ok('[' + mode + '] the summary explains itself when saving is unavailable',
+      /Saving files is not available/i.test(await p.textContent('#stepBody')) === (mode !== 'granted'));
 
-    await p.evaluate(() => { S.step = 5; renderSolve(); });
-    await p.waitForTimeout(300);
     ok('[' + mode + '] copy and print remain available either way',
       await p.locator('[data-action="copyMd"]').count() === 1 &&
       await p.locator('[data-action="printIt"]').count() === 1);

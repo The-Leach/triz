@@ -215,11 +215,32 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('migration tolerates junk', await p.evaluate(() =>
     migrate({problem: {title: 'x'}, stars: null, framings: 'nonsense'}).framings.length === 1));
 
-  /* ---------- every tab renders ---------- */
-  for (const v of ['principles', 'matrix', 'params', 'saved', 'learn']) {
+  /* ---------- top-level tabs ---------- */
+  ok('there are four top-level tabs', await p.locator('#tabs button').count() === 4);
+  ok('the reference catalogues are no longer top-level tabs',
+    await p.locator('#tabs button[data-view="principles"]').count() === 0 &&
+    await p.locator('#tabs button[data-view="params"]').count() === 0);
+  ok('saved work is gone', await p.locator('#tabs button[data-view="saved"]').count() === 0);
+  for (const v of ['windows', 'matrix', 'guidance']) {
     await p.click('#tabs button[data-view="' + v + '"]'); await p.waitForTimeout(350);
     ok('tab renders: ' + v, await p.isVisible('#view-' + v));
   }
+
+  /* ---------- guidance holds the reference material ---------- */
+  await p.click('#tabs button[data-view="guidance"]'); await p.waitForTimeout(350);
+  ok('guidance has four sections', await p.locator('#guideTabs button').count() === 4);
+  for (const g of ['how', 'principles', 'factors', 'examples']) {
+    await p.click('#guideTabs button[data-guide="' + g + '"]'); await p.waitForTimeout(350);
+    ok('guidance section renders: ' + g, await p.isVisible('#guide-' + g));
+    ok('only one guidance section is shown at a time: ' + g,
+      await p.evaluate(() => ['how','principles','factors','examples'].filter(x => !document.getElementById('guide-'+x).hidden).length) === 1);
+  }
+  await p.click('#guideTabs button[data-guide="principles"]'); await p.waitForTimeout(400);
+  ok('all 40 principles are listed under guidance', await p.locator('#guide-principles .pcard').count() === 40);
+  await p.click('#guideTabs button[data-guide="factors"]'); await p.waitForTimeout(400);
+  ok('all 39 factors are listed under guidance', await p.locator('#guide-factors .card').count() === 40);
+  await p.click('#guideTabs button[data-guide="examples"]'); await p.waitForTimeout(400);
+  ok('worked examples have their own section', await p.locator('#guide-examples .excard').count() === 3);
 
   /* ---------- matrix explorer ---------- */
   await p.click('#tabs button[data-view="matrix"]'); await p.waitForTimeout(450);
@@ -263,25 +284,26 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
     document.activeElement === document.querySelector('#stepBody h2')));
 
   /* ---------- search ---------- */
-  await p.click('#tabs button[data-view="principles"]'); await p.waitForTimeout(300);
+  await p.click('#tabs button[data-view="guidance"]'); await p.waitForTimeout(250);
+  await p.click('#guideTabs button[data-guide="principles"]'); await p.waitForTimeout(350);
   for (const q of ['handover', 'waiting', 'rework', 'burnout', 'bottleneck', 'approval', 'queue']) {
     await p.fill('#prinSearch', q); await p.waitForTimeout(200);
-    ok('principle search finds "' + q + '"', await p.locator('#view-principles .pcard').count() > 0);
+    ok('principle search finds "' + q + '"', await p.locator('#guide-principles .pcard').count() > 0);
   }
   await p.fill('#prinSearch', 'zzzqqq'); await p.waitForTimeout(200);
-  ok('nonsense search returns the empty state', await p.locator('#view-principles .pcard').count() === 0);
+  ok('nonsense search returns the empty state', await p.locator('#guide-principles .pcard').count() === 0);
   await p.fill('#prinSearch', ''); await p.waitForTimeout(200);
   await p.click('#sparkBtn'); await p.waitForTimeout(300);
-  ok('random spark shows exactly one principle', await p.locator('#view-principles .pcard').count() === 1);
+  ok('random spark shows exactly one principle', await p.locator('#guide-principles .pcard').count() === 1);
 
   /* ---------- domain switching ---------- */
   await p.fill('#prinSearch', ''); await p.waitForTimeout(250);
   await p.click('#domainSeg button[data-domain="manufacturing"]'); await p.waitForTimeout(400);
-  ok('manufacturing mode hides service examples', await p.locator('#view-principles .badge.svc').count() === 0);
+  ok('manufacturing mode hides service examples', await p.locator('#guide-principles .badge.svc').count() === 0);
   await p.click('#domainSeg button[data-domain="both"]'); await p.waitForTimeout(400);
   ok('both mode shows service and manufacturing examples',
-    await p.locator('#view-principles .badge.svc').count() > 0 &&
-    await p.locator('#view-principles .badge.mfg').count() > 0);
+    await p.locator('#guide-principles .badge.svc').count() > 0 &&
+    await p.locator('#guide-principles .badge.mfg').count() > 0);
   await p.click('#domainSeg button[data-domain="service"]'); await p.waitForTimeout(300);
 
   /* ---------- theme ---------- */
@@ -293,32 +315,44 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   await p.click('#themeBtn'); await p.waitForTimeout(150);
   ok('theme returns to auto', (await p.getAttribute('html', 'data-theme')) === null);
 
-  /* ---------- saving and export ---------- */
+  /* ---------- the summary is the only export surface ---------- */
   await p.click('#tabs button[data-view="solve"]'); await p.waitForTimeout(300);
-  await p.evaluate(() => { S.step = 5; renderSolve(); }); await p.waitForTimeout(300);
-  p.once('dialog', d => d.accept('Regression session'));
-  await p.click('[data-action="saveNow"]'); await p.waitForTimeout(400);
-  await p.click('#tabs button[data-view="saved"]'); await p.waitForTimeout(300);
-  ok('named session appears in saved work', (await p.textContent('#savedList')).includes('Regression session'));
-
-  const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#exportAllBtn')]);
-  const exported = JSON.parse(fs.readFileSync(await dl.path(), 'utf8'));
-  ok('export file carries current and saved sessions', Array.isArray(exported.saved) && exported.saved.length >= 1 && !!exported.current.problem);
-
-  await p.click('#tabs button[data-view="solve"]'); await p.waitForTimeout(300);
+  await p.evaluate(() => {
+    S = blankSession();
+    S.problem.title = 'Export surface test';
+    const f = F(); f.ctype = 'technical'; f.imp = 25; f.wor = 27; f.stars = [10];
+    f.concepts[10] = {text: 'Pre-check at intake', impact: 'High', effort: 'Low'};
+    S.step = 5; renderSolve();
+  });
+  await p.waitForTimeout(400);
+  for (const act of ['copyMd', 'downloadMd', 'printIt', 'newSession']) {
+    ok('summary offers: ' + act, await p.locator('#stepBody [data-action="' + act + '"]').count() === 1);
+  }
+  ok('summary no longer offers saving a session', await p.locator('[data-action="saveNow"]').count() === 0);
+  ok('summary says the work lives only in this browser',
+    /kept in this browser/i.test(await p.textContent('#stepBody')));
   const [dl2] = await Promise.all([p.waitForEvent('download'), p.click('[data-action="downloadMd"]')]);
-  const mdFile = fs.readFileSync(await dl2.path(), 'utf8');
-  ok('markdown download is well formed', mdFile.startsWith('# TRIZ working sheet'));
+  const mdFile = require('fs').readFileSync(await dl2.path(), 'utf8');
+  ok('markdown download is well formed and carries the work',
+    mdFile.startsWith('# TRIZ working sheet') && mdFile.includes('Pre-check at intake'));
 
+  /* ---------- one framing is nudged towards a second ---------- */
+  ok('a single framing is nudged to try another',
+    await p.locator('[data-action="addFramingAs"]').count() >= 1);
+  await p.click('[data-action="addFramingAs"][data-t="physical"]'); await p.waitForTimeout(450);
+  ok('the nudge starts a second framing of the chosen kind',
+    await p.evaluate(() => S.framings.length) === 2 && await p.evaluate(() => F().ctype) === 'physical');
+  await p.evaluate(() => { const f = F(); f.phys = {element: 'the check', a: 'thorough', b: 'instant', sep: 'time'};
+    f.stars = [15]; f.concepts[15] = {text: 'Split the decision in two'}; S.step = 5; renderSolve(); });
+  await p.waitForTimeout(400);
+  ok('with two framings the nudge goes away', await p.locator('[data-action="addFramingAs"]').count() === 0);
+  const both = await p.textContent('#mdOut');
+  ok('both framings export in one working sheet',
+    /Framing 1 of 2/.test(both) && /Framing 2 of 2/.test(both) &&
+    both.includes('Pre-check at intake') && both.includes('Split the decision in two'));
   p.once('dialog', d => d.accept());
-  await p.click('#tabs button[data-view="saved"]'); await p.waitForTimeout(250);
-  await p.click('#newSessionBtn'); await p.waitForTimeout(400);
-  ok('new session clears the working sheet', (await p.inputValue('[data-action="pf"][data-k="title"]')) === '');
-  await p.click('#tabs button[data-view="saved"]'); await p.waitForTimeout(300);
-  ok('saved sessions survive starting a new one', (await p.textContent('#savedList')).includes('Regression session'));
-  await p.click('[data-action="loadSaved"]'); await p.waitForTimeout(400);
-  await p.click('#steps [data-action="step"][data-n="1"]'); await p.waitForTimeout(300);
-  ok('a reopened session restores its content', (await p.inputValue('[data-action="pf"][data-k="title"]')).length > 0);
+  await p.click('[data-action="newSession"]'); await p.waitForTimeout(450);
+  ok('"start a new problem" clears the sheet', await p.evaluate(() => !S.problem.title && S.framings.length === 1));
   await ctx.close();
 
   /* ---------- storage failure must never look like success ---------- */
@@ -379,7 +413,7 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
     return m && m.framings.length >= 1 && !!m.problem.title;
   })));
   w.once('dialog', d => d.accept());
-  await w.click('#exampleBar [data-action="newSession"]'); await w.waitForTimeout(500);
+  await w.click('#exampleBar [data-action="newSession"]'); await w.waitForTimeout(600);
   ok('"start my own" clears the example', await w.evaluate(() => !S.example && !S.problem.title));
   ok('worked examples raise no JavaScript error', werrs.length === 0);
 

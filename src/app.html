@@ -320,6 +320,14 @@ button.excard:hover{border-color:var(--accent);background:var(--accent-soft)}
   background:var(--accent);border-radius:5px;padding:2px 7px}
 .exbar b{font-size:13.2px}
 
+/* ---------- guidance sub-navigation ---------- */
+.subtabs{display:flex;gap:4px;margin-bottom:18px;flex-wrap:wrap;
+  border-bottom:1px solid var(--line);padding-bottom:0}
+.subtabs button{background:transparent;border:0;border-bottom:2px solid transparent;
+  padding:8px 12px;font-size:13px;font-weight:550;color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.subtabs button:hover{color:var(--ink)}
+.subtabs button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+
 @media print{
   header.top,nav.tabs,.wizfoot,.steps,.btn,details.help{display:none!important}
   body{background:#fff}
@@ -352,12 +360,9 @@ button.excard:hover{border-color:var(--accent);background:var(--accent-soft)}
 <nav class="tabs">
   <div class="tabs-in" id="tabs" role="tablist">
     <button role="tab" data-view="solve" aria-selected="true">Solve a problem</button>
-    <button role="tab" data-view="principles" aria-selected="false">40 Principles</button>
     <button role="tab" data-view="windows" aria-selected="false">Nine Windows</button>
     <button role="tab" data-view="matrix" aria-selected="false">Contradiction matrix</button>
-    <button role="tab" data-view="params" aria-selected="false">39 Factors</button>
-    <button role="tab" data-view="saved" aria-selected="false">Saved work</button>
-    <button role="tab" data-view="learn" aria-selected="false">How TRIZ works</button>
+    <button role="tab" data-view="guidance" aria-selected="false">Guidance &amp; reference</button>
   </div>
 </nav>
 </div>
@@ -371,21 +376,6 @@ button.excard:hover{border-color:var(--accent);background:var(--accent-soft)}
       <div id="exampleBar"></div>
       <div class="steps" id="steps"></div>
       <div id="stepBody"></div>
-    </section>
-
-    <!-- ============ PRINCIPLES ============ -->
-    <section id="view-principles" hidden>
-      <div class="card pad" style="margin-bottom:18px">
-        <div class="row">
-          <input type="text" id="prinSearch" placeholder="Search the 40 principles — try &ldquo;waiting&rdquo;, &ldquo;handover&rdquo;, &ldquo;rework&rdquo;, &ldquo;capacity&rdquo;&hellip;" style="flex:1;min-width:240px">
-          <button class="btn" id="sparkBtn" title="Show one principle at random">Random spark</button>
-          <button class="btn ghost" id="clearPrinSearch">Clear</button>
-        </div>
-        <div class="tiny muted" style="margin-top:9px">
-          No contradiction to work with? Browsing all forty and asking &ldquo;what would this look like here?&rdquo; is a legitimate TRIZ technique in its own right.
-        </div>
-      </div>
-      <div class="plist" id="prinList"></div>
     </section>
 
     <!-- ============ NINE WINDOWS ============ -->
@@ -410,46 +400,56 @@ button.excard:hover{border-color:var(--accent);background:var(--accent-soft)}
       <div class="mx-note">Blank cells mean the classical matrix records no strong pattern — that is a signal to reframe the contradiction or treat it as a physical contradiction instead.</div>
     </section>
 
-    <!-- ============ PARAMS ============ -->
-    <section id="view-params" hidden>
-      <div class="card pad" style="margin-bottom:18px">
-        <div class="eyebrow" style="margin-bottom:6px">The 39 factors, translated</div>
-        <p class="muted tiny" style="margin:0 0 12px">
-          Altshuller wrote these for engineers in the 1960s, which is exactly why TRIZ feels alien in a service
-          setting. Each factor below keeps its original name — so the matrix still works — with a plain reading of
-          what it means when your &ldquo;product&rdquo; is a claim, a patient, a ticket or a customer.
-        </p>
-        <input type="text" id="paramSearch" placeholder="Search factors — try &ldquo;delay&rdquo;, &ldquo;accuracy&rdquo;, &ldquo;handover&rdquo;, &ldquo;cost&rdquo;&hellip;">
+    <!-- ============ GUIDANCE & REFERENCE ============ -->
+    <section id="view-guidance" hidden>
+      <div class="subtabs" id="guideTabs" role="tablist" aria-label="Guidance sections">
+        <button role="tab" data-guide="how" aria-selected="true">How TRIZ works</button>
+        <button role="tab" data-guide="principles" aria-selected="false">The 40 principles</button>
+        <button role="tab" data-guide="factors" aria-selected="false">The 39 factors</button>
+        <button role="tab" data-guide="examples" aria-selected="false">Worked examples</button>
       </div>
-      <div id="paramList" class="stack"></div>
-    </section>
 
-    <!-- ============ SAVED ============ -->
-    <section id="view-saved" hidden>
-      <div class="card pad" style="margin-bottom:18px">
-        <div class="eyebrow" style="margin-bottom:6px">Saved work</div>
-        <p class="muted tiny" style="margin:0">
-          Everything is stored in this browser only — nothing is uploaded anywhere. Use <b>Export file</b> to keep a
-          copy or move a session to another machine.
-        </p>
-        <div class="row" style="margin-top:12px">
-          <button class="btn primary" id="saveNowBtn">Save current session</button>
-          <button class="btn" id="exportAllBtn">Export file</button>
-          <button class="btn" id="importBtn">Import file</button>
-          <input type="file" id="importFile" accept="application/json,.json" hidden>
-          <button class="btn ghost" id="newSessionBtn">Start a new session</button>
+      <div id="guide-how"><div class="card pad" id="learnBody"></div></div>
+
+      <div id="guide-principles" hidden>
+        <div class="card pad" style="margin-bottom:18px">
+          <div class="eyebrow" style="margin-bottom:6px">The 40 inventive principles</div>
+          <p class="muted tiny" style="margin:0 0 12px">
+            The forty moves Altshuller found recurring across the patent record, each with its classical
+            wording and what it looks like when the thing you are changing is a process rather than a product.
+            You do not need to work through these in order &mdash; <b>Solve a problem</b> brings you the
+            handful that fit your contradiction.
+          </p>
+          <div class="row">
+            <input type="text" id="prinSearch" placeholder="Search the 40 principles &mdash; try &ldquo;waiting&rdquo;, &ldquo;handover&rdquo;, &ldquo;rework&rdquo;, &ldquo;capacity&rdquo;&hellip;" style="flex:1;min-width:240px">
+            <button class="btn" id="sparkBtn" title="Show one principle at random">Random spark</button>
+            <button class="btn ghost" id="clearPrinSearch">Clear</button>
+          </div>
+          <div class="tiny muted" style="margin-top:9px">
+            No contradiction to work with? Reading all forty and asking &ldquo;what would this look like here?&rdquo;
+            is a legitimate TRIZ technique in its own right.
+          </div>
         </div>
-        <div class="tiny muted" id="exportNote" style="margin-top:10px" hidden>
-          Saving files is not available in this view. Open a session and use <b>Copy working sheet</b>
-          on the summary step, or <b>Print / PDF</b>, to take your work with you.
-        </div>
+        <div class="plist" id="prinList"></div>
       </div>
-      <div class="stack" id="savedList"></div>
-    </section>
 
-    <!-- ============ LEARN ============ -->
-    <section id="view-learn" hidden>
-      <div class="card pad" id="learnBody"></div>
+      <div id="guide-factors" hidden>
+        <div class="card pad" style="margin-bottom:18px">
+          <div class="eyebrow" style="margin-bottom:6px">The 39 factors, translated</div>
+          <p class="muted tiny" style="margin:0 0 12px">
+            Altshuller wrote these for engineers in the 1960s, which is exactly why TRIZ feels alien in a service
+            setting. Each factor keeps its original name &mdash; so the contradiction matrix still works &mdash;
+            with a plain reading of what it means when your &ldquo;product&rdquo; is a claim, a patient, a ticket
+            or a customer, and a note on which direction counts as an improvement.
+          </p>
+          <input type="text" id="paramSearch" placeholder="Search factors &mdash; try &ldquo;delay&rdquo;, &ldquo;accuracy&rdquo;, &ldquo;handover&rdquo;, &ldquo;cost&rdquo;&hellip;">
+        </div>
+        <div id="paramList" class="stack"></div>
+      </div>
+
+      <div id="guide-examples" hidden>
+        <div class="card pad" id="examplesBody"></div>
+      </div>
     </section>
   </div>
 </main>
@@ -467,7 +467,7 @@ button.excard:hover{border-color:var(--accent);background:var(--accent-soft)}
 /* ===================================================================
    State + storage
    =================================================================== */
-const LS_CUR='trizNav.current', LS_SAVED='trizNav.saved', LS_PREFS='trizNav.prefs';
+const LS_CUR='trizNav.current', LS_PREFS='trizNav.prefs';
 const P_BY_N = {}; PRINCIPLES.forEach(p=>P_BY_N[p.n]=p);
 const PARAM_BY_N = {}; PARAMS.forEach(p=>PARAM_BY_N[p.n]=p);
 
@@ -579,12 +579,6 @@ function renderSaveWarning(){
     '</div>';
 }
 function persistPrefs(){ try{ localStorage.setItem(LS_PREFS,JSON.stringify(PREFS)); }catch(e){} }
-function savedList(){ try{ return JSON.parse(localStorage.getItem(LS_SAVED)||'[]'); }catch(e){ return []; } }
-function writeSaved(a){
-  try{ localStorage.setItem(LS_SAVED,JSON.stringify(a)); return true; }
-  catch(e){ SAVE.ok=false; SAVE.dismissed=false; renderSaveWarning();
-            toast('Could not save — this browser is refusing to store it'); return false; }
-}
 
 /* ===================================================================
    Small helpers
@@ -661,11 +655,15 @@ $('#domainSeg').addEventListener('click',e=>{
   $$('#domainSeg button').forEach(x=>x.setAttribute('aria-pressed', String(x===b)));
   renderAll();
 });
+$('#guideTabs').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-guide]'); if(!b) return;
+  GUIDE=b.dataset.guide; renderGuidance(); window.scrollTo({top:0,behavior:'smooth'});
+});
 $('#tabs').addEventListener('click',e=>{
   const b=e.target.closest('button[data-view]'); if(!b) return;
   VIEW=b.dataset.view;
   $$('#tabs button').forEach(x=>x.setAttribute('aria-selected', String(x===b)));
-  ['solve','principles','windows','matrix','params','saved','learn'].forEach(v=>{
+  ['solve','windows','matrix','guidance'].forEach(v=>{
     $('#view-'+v).hidden = (v!==VIEW);
   });
   renderAll(); window.scrollTo({top:0,behavior:'smooth'});
@@ -775,7 +773,7 @@ function sessionHasWork(){
 }
 function openExample(id){
   const x = EXAMPLES.find(e=>e.id===id); if(!x) return;
-  if(sessionHasWork() && !confirm('Open the worked example? Your current session will be replaced \u2014 save it first from Saved work if you want to keep it.')) return;
+  if(sessionHasWork() && !confirm('Open the worked example? Your current working sheet will be replaced \u2014 copy or download it first from the Summary step if you want to keep it.')) return;
   const m = migrate(JSON.parse(JSON.stringify(x.session)));
   S = Object.assign(blankSession(), m);
   S.example = x.id;
@@ -1209,6 +1207,16 @@ function step5(){
     '<p>'+(S.framings.length>1
       ? 'All '+S.framings.length+' framings of this problem, each ordered by impact then by ease. Comparing them is the point \u2014 the sharpest idea often comes from the framing you nearly did not try.'
       : 'Your working sheet, ordered by impact then by ease. Copy it into a document, a ticket or an email.')+'</p></div>'+
+    (S.framings.length===1 && total ? '<div class="asks" style="margin-bottom:16px">'+
+      '<div class="eh">One framing gives a narrow picture</div>'+
+      '<div class="tiny">You have framed this problem '+(F().ctype==='technical'?'as a trade-off':F().ctype==='physical'?'as a both-ways demand':'as an open exploration')+
+      ' only. The same problem framed another way routes to a different set of principles, and the sharper answer often comes from the second pass. '+
+      'Running two or three takes a few minutes and they all end up in this one working sheet.</div>'+
+      '<div class="row" style="margin-top:10px">'+
+        (F().ctype!=='physical'?'<button class="btn sm" data-action="addFramingAs" data-t="physical">Try it as a both-ways demand</button>':'')+
+        (F().ctype!=='technical'?'<button class="btn sm" data-action="addFramingAs" data-t="technical">Try it as a trade-off</button>':'')+
+        '<button class="btn ghost sm" data-action="addFraming">Another framing</button>'+
+      '</div></div>' : '')+
     (total? S.framings.map((f,i)=>{
       const rows = rank(f);
       return '<div class="fr-block">'+
@@ -1230,9 +1238,10 @@ function step5(){
       '<button class="btn primary" data-action="copyMd">Copy working sheet</button>'+
       (canDownload()?'<button class="btn" data-action="downloadMd">Download .md</button>':'')+
       '<button class="btn" data-action="printIt">Print / PDF</button>'+
-      '<button class="btn" data-action="saveNow">Save session</button>'+
-      '<button class="btn ghost" data-action="addFraming">+ Frame it another way</button>'+
+      '<button class="btn ghost" data-action="newSession">Start a new problem</button>'+
     '</div>'+
+    (canDownload()?'':'<div class="tiny muted" style="margin-top:10px">Saving files is not available in this view &mdash; use <b>Copy working sheet</b> or <b>Print / PDF</b> to take your work with you.</div>')+
+    '<div class="tiny muted" style="margin-top:10px">Your working sheet is kept in this browser as you go. It is not saved anywhere else, so copy, download or print it before you finish.</div>'+
     foot(4,null)+
     '</div>'+
     '<div class="card pad"><div class="eyebrow" style="margin-bottom:8px">Working sheet</div><pre class="export" id="mdOut">'+esc(md)+'</pre></div>';
@@ -1408,21 +1417,6 @@ function renderParams(){
        '<button class="btn ghost sm" data-action="paramWor" data-n="'+p.n+'">Use as &ldquo;worsening&rdquo;</button></div>'+
     '</div>').join('') : '<div class="card empty">Nothing matches &ldquo;'+esc(paramFilter)+'&rdquo;.</div>';
 }
-function renderSaved(){
-  const list = savedList();
-  const ex=$('#exportAllBtn'); if(ex) ex.hidden = !canDownload();
-  const note=$('#exportNote'); if(note) note.hidden = canDownload();
-  $('#savedList').innerHTML = list.length ? list.map(s=>
-    '<div class="saved-item"><div class="si-t"><b>'+esc(s.name||s.problem.title||'Untitled session')+'</b>'+
-      '<span>'+new Date(s.updated).toLocaleString()+' · '+
-      ((s.framings&&s.framings.length>1)? s.framings.length+' framings'
-        : (((s.framings&&s.framings[0])||s).ctype==='technical'?'trade-off'
-          :(((s.framings&&s.framings[0])||s).ctype==='physical'?'physical contradiction':'exploration')))+
-      ' · '+((s.framings? s.framings.reduce((n,f)=>n+((f.stars||[]).length),0) : (s.stars||[]).length))+' shortlisted</span></div>'+
-      '<button class="btn sm" data-action="loadSaved" data-id="'+esc(s.id)+'">Open</button>'+
-      '<button class="btn ghost sm" data-action="delSaved" data-id="'+esc(s.id)+'">Delete</button></div>').join('')
-    : '<div class="card empty">Nothing saved yet. Your current session is kept automatically in this browser; use <b>Save current session</b> to keep a named copy alongside it.</div>';
-}
 function renderLearn(){
   $('#learnBody').innerHTML =
     '<h2 style="font-size:19px;margin-bottom:10px">TRIZ in five minutes</h2>'+
@@ -1455,20 +1449,37 @@ function renderLearn(){
       '<li>Physical contradictions and separation generally give sharper answers than the matrix. If you can state your problem that way, do.</li>'+
     '</ul>'+
     '<hr class="sep">'+
-    '<h3 style="font-size:15px;margin-bottom:8px">Worked examples</h3>'+
-    '<p class="muted">Three problems taken end to end, each framed more than one way so you can see where the different framings lead. Open one and edit it into your own.</p>'+
-    exampleCards()+
+    '<p class="muted">Three problems taken end to end are under <button class="linkish" data-action="goGuide" data-g="examples">Worked examples</button>; the full catalogues are under <button class="linkish" data-action="goGuide" data-g="principles">The 40 principles</button> and <button class="linkish" data-action="goGuide" data-g="factors">The 39 factors</button>.</p>'+
     '<hr class="sep">'+
     '<p class="tiny muted" style="margin:0">The 39 factors, the 40 principles and the contradiction matrix are Altshuller&rsquo;s classical TRIZ and are in the public domain. The service readings, examples and prompts in this tool were written for it. Everything you type stays in this browser.</p>';
 }
 function renderAll(){
   if(VIEW==='solve') renderSolve();
-  else if(VIEW==='principles') renderPrinciples();
   else if(VIEW==='windows') renderWindows();
   else if(VIEW==='matrix') renderMatrix();
-  else if(VIEW==='params') renderParams();
-  else if(VIEW==='saved') renderSaved();
-  else if(VIEW==='learn') renderLearn();
+  else if(VIEW==='guidance') renderGuidance();
+}
+
+/* Guidance holds the reference material: the method, and the two catalogues.
+   They are here to be read, not worked through -- Solve a problem brings you
+   the handful of principles that actually fit your contradiction. */
+let GUIDE = 'how';
+function renderGuidance(){
+  ['how','principles','factors','examples'].forEach(g=>{
+    const el=$('#guide-'+g); if(el) el.hidden = (g!==GUIDE);
+  });
+  $$('#guideTabs button').forEach(b=>b.setAttribute('aria-selected', String(b.dataset.guide===GUIDE)));
+  if(GUIDE==='how') renderLearn();
+  else if(GUIDE==='principles') renderPrinciples();
+  else if(GUIDE==='factors') renderParams();
+  else if(GUIDE==='examples') renderExamples();
+}
+function goGuide(g){ GUIDE=g; goView('guidance'); }
+function renderExamples(){
+  $('#examplesBody').innerHTML =
+    '<div class="eyebrow" style="margin-bottom:6px">Worked examples</div>'+
+    '<p class="muted tiny" style="margin:0 0 14px">Three problems taken end to end, each framed more than one way so you can see where the different framings lead. Open one, read the finished working sheet, then edit it into your own.</p>'+
+    exampleCards();
 }
 
 /* ===================================================================
@@ -1513,6 +1524,7 @@ document.addEventListener('click', e=>{
 
   /* framings */
   else if(a==='addFraming'){ addFraming(); renderSolve(); focusStep(); toast('New framing \u2014 same problem, different angle'); }
+  else if(a==='addFramingAs'){ addFraming(); F().ctype=t.dataset.t; persist(); renderSolve(); focusStep(); }
   else if(a==='useFraming'){ S.active=t.dataset.id; if(!reachable(S.step)) S.step=2; persist(); renderSolve(); focusStep(); }
   else if(a==='openFraming'){ S.active=t.dataset.id; S.step=reachable(3)?3:2; persist(); renderSolve(); focusStep(); }
   else if(a==='dropFraming'){
@@ -1528,6 +1540,7 @@ document.addEventListener('click', e=>{
   else if(a==='toPhysical'){ const f=F(); f.ctype='physical'; S.step=2; persist(); renderSolve(); focusStep(); }
   else if(a==='toExplore'){ const f=F(); f.ctype='explore'; S.step=3; persist(); renderSolve(); focusStep(); }
   else if(a==='goWindows'){ goView('windows'); }
+  else if(a==='goGuide'){ goGuide(t.dataset.g); }
   else if(a==='openExample'){ openExample(t.dataset.id); }
   else if(a==='newSession'){ startNewSession(); }
   else if(a==='winFactor'){
@@ -1551,10 +1564,6 @@ document.addEventListener('click', e=>{
         ta.remove(); }); }
   else if(a==='downloadMd'){ download('triz-working-sheet.md', exportMarkdown(), 'text/markdown'); }
   else if(a==='printIt'){ window.print(); }
-  else if(a==='saveNow'){ saveSession(); }
-  else if(a==='loadSaved'){ const s=savedList().find(x=>x.id===t.dataset.id);
-    if(s){ const m=migrate(JSON.parse(JSON.stringify(s))); if(m){ S=Object.assign(blankSession(), m); persist(); goView('solve'); toast('Session opened'); } } }
-  else if(a==='delSaved'){ writeSaved(savedList().filter(x=>x.id!==t.dataset.id)); renderSaved(); toast('Deleted'); }
 });
 
 document.addEventListener('input', e=>{
@@ -1601,15 +1610,6 @@ $('#mxClear').addEventListener('click',()=>{
 $('#mxScroll').addEventListener('keydown', mxKey);
 
 /* saved-work actions */
-function saveSession(){
-  const name = prompt('Name this session:', S.name || S.problem.title || 'TRIZ session');
-  if(name===null) return;
-  S.name = name; S.updated=Date.now();
-  const list = savedList().filter(x=>x.id!==S.id);
-  list.unshift(JSON.parse(JSON.stringify(S)));
-  writeSaved(list.slice(0,60)); persist();
-  toast('Saved'); if(VIEW==='saved') renderSaved();
-}
 /* Saving a file works two ways. Opened as a local file the page makes its own
    blob download. Published as an artifact the viewer never grants a page direct
    downloads, so the save goes through the host's downloads capability instead;
@@ -1644,34 +1644,10 @@ function download(fn, text, mime){
   a.href=u; a.download=fn; document.body.appendChild(a); a.click(); a.remove();
   setTimeout(()=>URL.revokeObjectURL(u),1000);
 }
-$('#saveNowBtn').addEventListener('click', saveSession);
-$('#exportAllBtn').addEventListener('click', ()=>{
-  download('triz-navigator-sessions.json', JSON.stringify({v:1, current:S, saved:savedList()}, null, 2), 'application/json');
-});
-$('#importBtn').addEventListener('click', ()=>$('#importFile').click());
-$('#importFile').addEventListener('change', e=>{
-  const f=e.target.files&&e.target.files[0]; if(!f) return;
-  const r=new FileReader();
-  r.onload=()=>{
-    try{
-      const d=JSON.parse(r.result);
-      if(d.saved&&Array.isArray(d.saved)){
-        const seen={}, merged=[];
-        d.saved.concat(savedList()).forEach(s=>{ if(s&&s.id&&!seen[s.id]){ seen[s.id]=1; merged.push(s); } });
-        writeSaved(merged.slice(0,60));
-      }
-      const cur = d.current ? migrate(d.current) : null;
-      if(cur){ S=Object.assign(blankSession(), cur); persist(); }
-      renderSaved(); toast('Imported');
-    }catch(err){ toast('That file could not be read'); }
-  };
-  r.readAsText(f); e.target.value='';
-});
 function startNewSession(){
-  if(sessionHasWork() && !confirm('Start a new session? Your current working sheet will be cleared (saved sessions are kept).')) return;
+  if(sessionHasWork() && !confirm('Start a new problem? Your current working sheet will be cleared \u2014 copy or download it first from the Summary step if you want to keep it.')) return;
   S=blankSession(); persist(); goView('solve'); focusStep(); toast('New session started');
 }
-$('#newSessionBtn').addEventListener('click', startNewSession);
 
 /* ===================================================================
    Boot
