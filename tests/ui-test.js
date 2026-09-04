@@ -46,6 +46,9 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
       principlesOrdered: PRINCIPLES.every((x, i) => x.n === i + 1),
       contentComplete: PRINCIPLES.every(x => x.name && x.ess && x.subs.length && x.mfg.length && x.svc.length && x.ask.length)
         && PARAMS.every(x => x.name && x.eng && x.svc && x.kw),
+      aliases: PRINCIPLES.every(x => x.alias && x.alias.toLowerCase() !== x.name.toLowerCase()),
+      aliasesUnique: new Set(PRINCIPLES.map(x => x.alias.toLowerCase())).size === 40,
+      physicalOnesRenamed: [8, 12, 14, 18].every(n => PRINCIPLES[n - 1].alias.length > 4),
       filled, badRef, diag,
       sepRefsValid: SEPARATIONS.every(s => s.ps.every(n => n >= 1 && n <= 40)),
       sepNoDupes: SEPARATIONS.every(s => new Set(s.ps).size === s.ps.length),
@@ -62,6 +65,8 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('39 factors, numbered 1-39', data.params === 39 && data.paramsOrdered);
   ok('40 principles, numbered 1-40', data.principles === 40 && data.principlesOrdered);
   ok('every principle and factor has full content', data.contentComplete);
+  ok('every principle has a distinct plain-language service name', data.aliases && data.aliasesUnique);
+  ok('the physically-named principles are renamed for service use', data.physicalOnesRenamed);
   ok('matrix has 1248 populated cells', data.filled === 1248);
   ok('every matrix reference is a principle 1-40', data.badRef === 0);
   ok('matrix diagonal is empty', data.diag === 0);
@@ -88,6 +93,47 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('preset fills both factors', (await p.locator('.selected-param .t').count()) === 2);
   await p.click('#stepBody [data-action="step"][data-n="3"]'); await p.waitForTimeout(350);
   ok('matrix returns principle cards', await p.locator('#view-solve .pcard').count() > 0);
+
+  /* ---------- the service name is shown beside the classical one ---------- */
+  ok('principle cards show both names', await p.locator('#view-solve .pcard .alias').count() > 0);
+  const bothNames = await p.evaluate(() => {
+    const c = document.querySelector('#view-solve .pcard');
+    return {name: c.querySelector('h3').textContent, alias: c.querySelector('.alias').textContent};
+  });
+  ok('the classical name is kept', bothNames.name.includes(bothNames.alias) && bothNames.alias.length > 3);
+  await p.click('#tabs button[data-view="guidance"]'); await p.waitForTimeout(250);
+  await p.click('#guideTabs button[data-guide="principles"]'); await p.waitForTimeout(400);
+  ok('all 40 show both names', await p.locator('#guide-principles .pcard .alias').count() === 40);
+  for (const [n, word] of [[8, 'Anti-weight'], [12, 'Equipotentiality'], [14, 'curvature'], [18, 'Mechanical vibration']]) {
+    const pair = await p.evaluate(i => ({name: PRINCIPLES[i - 1].name, alias: PRINCIPLES[i - 1].alias}), n);
+    ok('principle ' + n + ' (' + word + ') reads as "' + pair.alias + '"',
+      pair.name.toLowerCase().includes(word.toLowerCase()) && pair.alias.length > 4);
+  }
+  await p.fill('#prinSearch', 'little and often'); await p.waitForTimeout(300);
+  ok('search finds a principle by its service name',
+    await p.locator('#guide-principles .pcard').count() >= 1 &&
+    /Mechanical vibration/.test(await p.textContent('#guide-principles')));
+  await p.fill('#prinSearch', ''); await p.waitForTimeout(250);
+  await p.click('#tabs button[data-view="solve"]'); await p.waitForTimeout(300);
+
+  /* ---------- writing an idea shortlists the principle ---------- */
+  await p.evaluate(() => { const f = F(); f.stars = []; f.ideas = {}; S.step = 3; renderSolve(); });
+  await p.waitForTimeout(350);
+  ok('nothing is shortlisted to begin with', await p.evaluate(() => F().stars.length) === 0);
+  await p.fill('#view-solve .pcard >> nth=0 >> textarea', 'Auto-approve under a threshold');
+  await p.waitForTimeout(350);
+  ok('writing an idea shortlists that principle', await p.evaluate(() => F().stars.length) === 1);
+  ok('its star shows as set without a redraw',
+    await p.evaluate(() => document.querySelector('#view-solve .pcard .star').getAttribute('aria-pressed')) === 'true');
+  ok('the shortlist counter keeps up', (await p.textContent('#starCount')) === '1');
+  const caret = await p.evaluate(() => document.activeElement.tagName);
+  ok('the user keeps their cursor while typing', caret === 'TEXTAREA');
+  await p.fill('#view-solve .pcard >> nth=0 >> textarea', '');
+  await p.waitForTimeout(300);
+  ok('clearing the text does not silently un-shortlist it',
+    await p.evaluate(() => F().stars.length) === 1);
+  await p.click('#view-solve .pcard >> nth=0 >> .star'); await p.waitForTimeout(250);
+  ok('the star still removes it manually', await p.evaluate(() => F().stars.length) === 0);
 
   /* ---------- shortlist, develop, summarise ---------- */
   await p.click('#view-solve .pcard >> nth=0 >> .star');

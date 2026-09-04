@@ -346,6 +346,15 @@ button.excard:hover{border-color:var(--accent);background:var(--accent-soft)}
   white-space:nowrap;max-width:min(560px,60vw)}
 .solvebar .sb-t b{color:var(--ink)}
 
+/* ---------- the plain-language name beside the classical one ---------- */
+.alias{display:inline-block;font-size:12.5px;font-weight:550;color:var(--accent);
+  background:var(--accent-soft);border-radius:5px;padding:1px 8px;margin-left:8px;
+  vertical-align:1px;white-space:nowrap}
+h3 .alias{font-weight:550}
+.chip-alias{color:var(--accent);opacity:.85;margin-left:6px;font-size:11.5px}
+.nb-alias{color:var(--accent);opacity:.85}
+@media(max-width:560px){.alias{display:block;margin:5px 0 0;white-space:normal;width:fit-content}}
+
 @media print{
   header.top,nav.tabs,.wizfoot,.steps,.btn,details.help{display:none!important}
   body{background:#fff}
@@ -435,6 +444,11 @@ button.excard:hover{border-color:var(--accent);background:var(--accent-soft)}
           <p class="muted tiny" style="margin:0 0 12px">
             The forty moves Altshuller found recurring across the patent record, each with its classical
             wording and what it looks like when the thing you are changing is a process rather than a product.
+            Every principle carries a second, plainer name in green: several of the originals &mdash;
+            <em>Anti&#8209;weight</em>, <em>Equipotentiality</em>, <em>Spheroidality</em>, <em>Mechanical
+            vibration</em> &mdash; describe physics and say nothing to someone running a service, so the
+            second name says what the move actually is. The original is kept because it is the one the
+            matrix and the literature use.
             You do not need to work through these in order &mdash; <b>Solve a problem</b> brings you the
             handful that fit your contradiction.
           </p>
@@ -763,6 +777,7 @@ function principleCard(p, o){
     '<div class="pcard-head">'+
       '<div class="pnum">'+p.n+'</div>'+
       '<div class="pt"><h3>'+esc(p.name)+
+        '<span class="alias">'+esc(p.alias)+'</span>'+
         (o.rank?' <span class="rankpill">'+esc(o.rank)+'</span>':'')+'</h3>'+
         '<div class="ess">'+esc(p.ess)+'</div></div>'+
       (o.star!==false?'<button class="star" data-action="star" data-p="'+p.n+'" aria-pressed="'+starred+'" title="Shortlist this principle">'+(starred?'★':'☆')+'</button>':'')+
@@ -773,6 +788,7 @@ function principleCard(p, o){
       (showMfg()?exList(p.mfg,'mfg'):'')+
       '<div class="asks"><div class="eh">Ask yourself</div><ul>'+p.ask.map(a=>'<li>'+esc(a)+'</li>').join('')+'</ul></div>'+
       (o.idea!==false?'<div class="idea-box"><label class="fld" style="margin:0"><span class="lab">Your idea from this principle</span>'+
+        '<span class="hint">Anything you write here shortlists the principle automatically \u2014 no need to star it as well.</span>'+
         '<textarea data-action="idea" data-p="'+p.n+'" placeholder="What would this look like in your situation? Write the half-formed version — that is the point.">'+esc(idea)+'</textarea></label></div>':'')+
     '</div></article>';
 }
@@ -1071,7 +1087,8 @@ function deadEndPanel(){
       '<div class="stack">'+near.map(x=>
         '<button class="nearby" data-action="useNearby" data-i="'+x.imp+'" data-j="'+x.wor+'">'+
           '<div class="nb-t"><b>'+x.imp+'. '+esc(PARAM_BY_N[x.imp].name)+'</b> <span class="muted">worsens</span> <b>'+x.wor+'. '+esc(PARAM_BY_N[x.wor].name)+'</b></div>'+
-          '<div class="nb-s">'+esc(x.why)+' &middot; '+x.ps.length+' principle'+(x.ps.length>1?'s':'')+': '+x.ps.map(n=>esc(P_BY_N[n].name)).join(', ')+'</div>'+
+          '<div class="nb-s">'+esc(x.why)+' &middot; '+x.ps.length+' principle'+(x.ps.length>1?'s':'')+': '+
+            x.ps.map(n=>esc(P_BY_N[n].name)+' <span class="nb-alias">'+esc(P_BY_N[n].alias)+'</span>').join(', ')+'</div>'+
         '</button>').join('')+'</div>'
       :'<div class="empty">No closely related pair is populated either.</div>')+
     '<hr class="sep">'+
@@ -1144,6 +1161,7 @@ function step4(){
       const p=P_BY_N[n], c=f.concepts[n]||{};
       return '<div class="card pad" style="margin-bottom:14px">'+
         '<div class="row" style="margin-bottom:10px"><span class="badge num">'+p.n+'</span><b>'+esc(p.name)+'</b>'+
+          '<span class="alias">'+esc(p.alias)+'</span>'+
           '<button class="btn ghost sm" data-action="star" data-p="'+p.n+'" style="margin-left:auto">Remove</button></div>'+
         (f.ideas[n]?'<div class="tiny muted" style="margin-bottom:10px;padding-left:11px;border-left:2px solid var(--line)">'+esc(f.ideas[n])+'</div>':'')+
         '<label class="fld"><span class="lab">The concept</span>'+
@@ -1225,8 +1243,9 @@ function framingSummary(f){
   if(f.ctype==='technical' && f.imp && f.wor){
     L.push('Trade-off: improving **'+f.imp+'. '+PARAM_BY_N[f.imp].name+'** worsens **'+f.wor+'. '+PARAM_BY_N[f.wor].name+'**');
     const c=cell(f.imp,f.wor), rc=cell(f.wor,f.imp);
-    L.push('Matrix principles: '+(c.length?c.map(n=>n+' ('+P_BY_N[n].name+')').join(', ')
-      :(rc.length?'none forward; reverse pair gives '+rc.map(n=>n+' ('+P_BY_N[n].name+')').join(', ')
+    const nm = n => n+' '+P_BY_N[n].name+' ('+P_BY_N[n].alias+')';
+    L.push('Matrix principles: '+(c.length?c.map(nm).join('; ')
+      :(rc.length?'none forward; reverse pair gives '+rc.map(nm).join('; ')
       :'none recorded in either direction')));
   } else if(f.ctype==='physical'){
     const sp=SEPARATIONS.find(x=>x.id===f.phys.sep);
@@ -1268,7 +1287,7 @@ function exportMarkdown(){
     stars.forEach(n=>{
       const c=f.concepts[n]||{}, p=P_BY_N[n];
       L.push('');
-      L.push('### Principle '+n+' \u2014 '+p.name);
+      L.push('### Principle '+n+' \u2014 '+p.name+' \u00b7 '+p.alias);
       L.push('_'+p.ess+'_');
       if(f.ideas[n]) L.push('\nFirst thought: '+f.ideas[n]);
       if(c.text) L.push('\nConcept: '+c.text);
@@ -1314,6 +1333,7 @@ function step5(){
           const p=P_BY_N[x.n];
           return '<div style="border-left:3px solid var(--accent);padding-left:12px">'+
             '<div class="row" style="gap:7px"><span class="badge num">'+p.n+'</span><b>'+esc(p.name)+'</b>'+
+            '<span class="alias">'+esc(p.alias)+'</span>'+
             (x.c.impact?'<span class="badge alt">Impact '+esc(x.c.impact)+'</span>':'')+
             (x.c.effort?'<span class="chip static tiny">Effort '+esc(x.c.effort)+'</span>':'')+
             (x.c.risk?'<span class="chip static tiny">Risk '+esc(x.c.risk)+'</span>':'')+'</div>'+
@@ -1388,7 +1408,7 @@ function renderPrinciples(){
   if(sparkN){ list = [P_BY_N[sparkN]]; }
   else if(f){
     list = PRINCIPLES.filter(p=>{
-      const hay=p.name+' '+p.ess+' '+p.subs.join(' ')+' '+p.svc.join(' ')+' '+p.mfg.join(' ')+' '+p.ask.join(' ');
+      const hay=p.name+' '+p.alias+' '+p.ess+' '+p.subs.join(' ')+' '+p.svc.join(' ')+' '+p.mfg.join(' ')+' '+p.ask.join(' ');
       return String(p.n)===f || matchesSearch(hay, f);
     });
   }
@@ -1441,7 +1461,8 @@ function renderMxDetail(){
         '<div class="polrow">'+polChip(PARAM_BY_N[i])+'<span class="poltext">'+PARAM_BY_N[i].pol+'</span></div></dd>'+
       '<dt>Worsening</dt><dd><b>'+j+'. '+esc(PARAM_BY_N[j].name)+'</b><br><span class="tiny">'+PARAM_BY_N[j].svc+'</span></dd></div>'+
       (c.length
-        ? '<div class="pill-row">'+c.map(n=>'<span class="chip static"><b>'+n+'</b>&nbsp;'+esc(P_BY_N[n].name)+'</span>').join('')+'</div>'+
+        ? '<div class="pill-row">'+c.map(n=>'<span class="chip static"><b>'+n+'</b>&nbsp;'+esc(P_BY_N[n].name)+
+            '<span class="chip-alias">'+esc(P_BY_N[n].alias)+'</span></span>').join('')+'</div>'+
           '<div class="stack" style="margin-top:14px">'+c.map((n,k)=>principleCard(P_BY_N[n],{rank:'Matrix rank '+(k+1),idea:false,star:false})).join('')+'</div>'
         : '<div class="empty">No classical recommendation for this pair.</div>')+
       '<div class="row" style="margin-top:14px"><button class="btn primary" data-action="useCell" data-i="'+i+'" data-j="'+j+'">Use this pair in Solve</button>'+
@@ -1663,7 +1684,20 @@ document.addEventListener('input', e=>{
     const box=$('#sugBox'); if(box) box.innerHTML=suggestionHtml(); }
   else if(a==='ph'){ F().phys[t.dataset.k]=t.value; persist(); }
   else if(a==='win'){ S.windows[t.dataset.k]=t.value; persist(); }
-  else if(a==='idea'){ F().ideas[+t.dataset.p]=t.value; persist(); }
+  else if(a==='idea'){
+    const f=F(), n=+t.dataset.p;
+    f.ideas[n]=t.value;
+    /* Writing something about a principle IS shortlisting it. Starring stays
+       manual to remove, so nothing is taken away behind the user's back. */
+    if(t.value.trim() && f.stars.indexOf(n)<0){
+      f.stars.push(n);
+      const card=t.closest('.pcard');
+      const star=card && card.querySelector('.star');
+      if(star){ star.setAttribute('aria-pressed','true'); star.textContent='\u2605';
+                star.title='Shortlisted \u2014 click to remove'; }
+      const sc=$('#starCount'); if(sc) sc.textContent=f.stars.length;
+    }
+    persist(); }
   else if(a==='concept'){ const f=F(), n=+t.dataset.p; f.concepts[n]=f.concepts[n]||{}; f.concepts[n][t.dataset.k]=t.value; persist(); }
   else if(a==='pkfilter'){ if(t.dataset.side==='imp') window.pickImp=t.value; else window.pickWor=t.value;
     /* re-render only the picker list, so the field keeps focus */

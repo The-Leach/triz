@@ -2,6 +2,7 @@
  {
   "n": 1,
   "name": "Segmentation",
+  "alias": "Break it up",
   "ess": "Break it into independent pieces — and make the pieces smaller.",
   "subs": [
    "Divide an object into independent parts",
@@ -29,6 +30,7 @@
  {
   "n": 2,
   "name": "Taking out",
+  "alias": "Take the trouble out",
   "ess": "Extract the one troublesome part — or extract only the part you actually need.",
   "subs": [
    "Separate an interfering part or property",
@@ -54,6 +56,7 @@
  {
   "n": 3,
   "name": "Local quality",
+  "alias": "Stop treating everything the same",
   "ess": "Stop treating everything the same. Let each part do its own job, in its own best conditions.",
   "subs": [
    "Change from uniform to non-uniform structure",
@@ -80,6 +83,7 @@
  {
   "n": 4,
   "name": "Asymmetry",
+  "alias": "Deliberately uneven",
   "ess": "Where symmetry is costing you, deliberately make the two sides different.",
   "subs": [
    "Replace a symmetrical form with an asymmetrical one",
@@ -105,6 +109,7 @@
  {
   "n": 5,
   "name": "Merging",
+  "alias": "Do it all in one go",
   "ess": "Bring like things together, or make operations happen at the same moment.",
   "subs": [
    "Bring identical or related objects closer together, or merge them",
@@ -130,6 +135,7 @@
  {
   "n": 6,
   "name": "Universality",
+  "alias": "One thing, many jobs",
   "ess": "Make one thing do several jobs, so other things can be deleted.",
   "subs": [
    "Make an object perform multiple functions",
@@ -155,6 +161,7 @@
  {
   "n": 7,
   "name": "Nested doll",
+  "alias": "Tuck it inside something else",
   "ess": "Put one thing inside another, rather than beside it.",
   "subs": [
    "Place one object inside another, and that inside a third",
@@ -180,6 +187,7 @@
  {
   "n": 8,
   "name": "Anti-weight",
+  "alias": "Offset the burden",
   "ess": "If something is too heavy to carry, pair it with something that lifts.",
   "subs": [
    "Compensate weight by joining with something that provides lift",
@@ -205,6 +213,7 @@
  {
   "n": 9,
   "name": "Preliminary anti-action",
+  "alias": "Apply the opposite first",
   "ess": "If an action will cause harm, apply the opposite in advance.",
   "subs": [
    "Apply a counter-action in advance of a harmful action",
@@ -230,6 +239,7 @@
  {
   "n": 10,
   "name": "Preliminary action",
+  "alias": "Get it ready in advance",
   "ess": "Do it before it is needed, and set things up so the moment itself is trivial.",
   "subs": [
    "Perform the required change before it is needed",
@@ -255,6 +265,7 @@
  {
   "n": 11,
   "name": "Beforehand cushioning",
+  "alias": "Have the fix ready",
   "ess": "Assume it will fail, and put the remedy in place now.",
   "subs": [
    "Prepare emergency means beforehand to compensate for relatively low reliability"
@@ -279,6 +290,7 @@
  {
   "n": 12,
   "name": "Equipotentiality",
+  "alias": "Take out the level changes",
   "ess": "Change the conditions so nothing has to be lifted up and down at all.",
   "subs": [
    "Change operating conditions to eliminate the need to raise or lower"
@@ -303,6 +315,7 @@
  {
   "n": 13,
   "name": "The other way round",
+  "alias": "Flip it round",
   "ess": "Invert it. Do the opposite, or swap who moves and who stays still.",
   "subs": [
    "Invert the action used to solve the problem",
@@ -329,6 +342,7 @@
  {
   "n": 14,
   "name": "Spheroidality — curvature",
+  "alias": "Go round, not straight",
   "ess": "Trade straight lines for curves, and linear motion for rotation.",
   "subs": [
    "Replace linear parts with curved, flat surfaces with spherical",
@@ -355,6 +369,7 @@
  {
   "n": 15,
   "name": "Dynamics",
+  "alias": "Make the fixed things flex",
   "ess": "Make the fixed things adjustable, so they can be optimal at every stage.",
   "subs": [
    "Allow characteristics to change to be optimal at each stage",
@@ -381,6 +396,7 @@
  {
   "n": 16,
   "name": "Partial or excessive actions",
+  "alias": "Good enough, or overshoot",
   "ess": "If you cannot have exactly 100%, take slightly less or slightly more — it is usually easier.",
   "subs": [
    "If 100% is hard to achieve, do slightly less or slightly more and simplify the problem"
@@ -405,6 +421,7 @@
  {
   "n": 17,
   "name": "Another dimension",
+  "alias": "Add another axis",
   "ess": "If it will not work in one dimension, add another.",
   "subs": [
    "Move into two or three dimensions instead of one",
@@ -432,6 +449,7 @@
  {
   "n": 18,
   "name": "Mechanical vibration",
+  "alias": "Little and often",
   "ess": "Oscillate it. Raise the frequency. Find the natural rhythm and ride it.",
   "subs": [
    "Cause the object to oscillate",
@@ -459,6 +477,7 @@
  {
   "n": 19,
   "name": "Periodic action",
+  "alias": "In bursts, not constantly",
   "ess": "Stop doing it continuously. Pulse it — and use the gaps.",
   "subs": [
    "Replace continuous action with periodic or pulsed action",
@@ -485,6 +504,7 @@
  {
   "n": 20,
   "name": "Continuity of useful action",
+  "alias": "Never let it sit idle",
   "ess": "Never let the valuable thing sit idle.",
   "subs": [
    "Work continuously, with all parts always at full load",
@@ -510,6 +530,7 @@
  {
   "n": 21,
   "name": "Skipping",
+  "alias": "Get through it fast",
   "ess": "If a stage is harmful mainly because it lasts, go through it fast.",
   "subs": [
    "Conduct a process, or certain stages of it, at high speed"
@@ -534,6 +555,7 @@
  {
   "n": 22,
   "name": "Blessing in disguise",
+  "alias": "Turn the harm into fuel",
   "ess": "Turn the harm into the resource. Make lemons into lemonade.",
   "subs": [
    "Use harmful factors to achieve a positive effect",
@@ -560,6 +582,7 @@
  {
   "n": 23,
   "name": "Feedback",
+  "alias": "Close the loop",
   "ess": "Close the loop — and if there is a loop already, change its speed or strength.",
   "subs": [
    "Introduce feedback to improve a process or action",
@@ -585,6 +608,7 @@
  {
   "n": 24,
   "name": "Intermediary",
+  "alias": "Put a go-between in",
   "ess": "Put something in between — and let it disappear once the job is done.",
   "subs": [
    "Use an intermediary carrier or intermediary process",
@@ -610,6 +634,7 @@
  {
   "n": 25,
   "name": "Self-service",
+  "alias": "Let it serve itself",
   "ess": "Make it serve itself, and make its by-products do work.",
   "subs": [
    "Make an object serve itself by performing auxiliary helpful functions",
@@ -635,6 +660,7 @@
  {
   "n": 26,
   "name": "Copying",
+  "alias": "Use a copy, not the original",
   "ess": "Do not use the expensive original when a cheap copy will do.",
   "subs": [
    "Use a simple, inexpensive copy instead of a fragile or expensive object",
@@ -661,6 +687,7 @@
  {
   "n": 27,
   "name": "Cheap short-living objects",
+  "alias": "Make it disposable",
   "ess": "Replace one expensive, durable thing with many cheap, disposable ones.",
   "subs": [
    "Replace an expensive object with several cheap ones, giving up some qualities such as longevity"
@@ -685,6 +712,7 @@
  {
   "n": 28,
   "name": "Mechanics substitution",
+  "alias": "Replace the thing with a signal",
   "ess": "Replace the physical mechanism with an informational or sensory one.",
   "subs": [
    "Replace a mechanical means with a sensory means",
@@ -712,6 +740,7 @@
  {
   "n": 29,
   "name": "Pneumatics and hydraulics",
+  "alias": "Make it fluid, not rigid",
   "ess": "Use something that flows and cushions instead of something rigid.",
   "subs": [
    "Replace solid parts with gas or liquid ones — inflatable, hydrostatic, air cushion"
@@ -736,6 +765,7 @@
  {
   "n": 30,
   "name": "Flexible shells and thin films",
+  "alias": "Wrap it, don't rebuild it",
   "ess": "A thin flexible layer can do the job of a heavy structure.",
   "subs": [
    "Use flexible shells and thin films instead of three-dimensional structures",
@@ -761,6 +791,7 @@
  {
   "n": 31,
   "name": "Porous materials",
+  "alias": "Build in deliberate gaps",
   "ess": "Build in deliberate gaps — then use them.",
   "subs": [
    "Make an object porous, or add porous elements",
@@ -786,6 +817,7 @@
  {
   "n": 32,
   "name": "Colour changes",
+  "alias": "Make it obvious at a glance",
   "ess": "Change what can be seen, and by whom.",
   "subs": [
    "Change the colour of an object or its surroundings",
@@ -812,6 +844,7 @@
  {
   "n": 33,
   "name": "Homogeneity",
+  "alias": "Speak the same language",
   "ess": "Let things interact with things of their own kind.",
   "subs": [
    "Make objects interact with objects of the same material, or of similar properties"
@@ -836,6 +869,7 @@
  {
   "n": 34,
   "name": "Discarding and recovering",
+  "alias": "Design it to expire",
   "ess": "Design things to disappear when their job is done — and to renew themselves while running.",
   "subs": [
    "Discard, dissolve or evaporate portions that have completed their function",
@@ -861,6 +895,7 @@
  {
   "n": 35,
   "name": "Parameter changes",
+  "alias": "Turn a dial, don't redesign",
   "ess": "Turn a dial. Change a setting rather than the design.",
   "subs": [
    "Change the physical state",
@@ -888,6 +923,7 @@
  {
   "n": 36,
   "name": "Phase transitions",
+  "alias": "Use the moment it changes state",
   "ess": "Use the energy released at the moment something changes state.",
   "subs": [
    "Use phenomena that occur during phase transitions — volume change, heat loss or absorption"
@@ -912,6 +948,7 @@
  {
   "n": 37,
   "name": "Thermal expansion",
+  "alias": "Let it stretch under pressure",
   "ess": "Use the fact that different things respond differently to the same load.",
   "subs": [
    "Use expansion or contraction of materials under heat",
@@ -937,6 +974,7 @@
  {
   "n": 38,
   "name": "Strong oxidants",
+  "alias": "Concentrate the energy",
   "ess": "Enrich the environment so the reaction goes faster.",
   "subs": [
    "Replace normal air with enriched air",
@@ -963,6 +1001,7 @@
  {
   "n": 39,
   "name": "Inert atmosphere",
+  "alias": "Give it shelter",
   "ess": "Some things only survive if you shield them from the normal environment.",
   "subs": [
    "Replace a normal environment with an inert one",
@@ -988,6 +1027,7 @@
  {
   "n": 40,
   "name": "Composite materials",
+  "alias": "Blend, don't choose",
   "ess": "A blend can have properties that no single ingredient has.",
   "subs": [
    "Change from uniform to composite materials"

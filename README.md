@@ -47,6 +47,8 @@ The five steps:
    becomes a reframing prompt rather than ten filler principles.
 4. **Develop** the shortlisted principles into concepts, scored on impact,
    effort and risk, with a prompt to name the new problem each one creates.
+   Writing an idea against a principle shortlists it automatically — the writing
+   is the act of choosing it — while removing one stays a deliberate click.
 5. **Summarise** — ordered by impact then ease, exportable as Markdown, a file
    or print/PDF.
 
@@ -62,8 +64,15 @@ Three **worked examples** — an insurance claims backlog, a hospital discharge
 delay, an onboarding drop-off — live under Guidance, with one small link to them
 from the first step. The solve page stays focused on your own problem.
 
-The **40 principles** are searchable in everyday language ("handover", "rework",
-"burnout", "bottleneck"), each with its classical wording, service examples,
+The **40 principles** each carry **two names**: Altshuller's original, and a
+plain-language one for service work. Several of the originals describe physics and
+say nothing to someone running a service — *Anti-weight* is "Offset the burden",
+*Equipotentiality* is "Take out the level changes", *Spheroidality — curvature* is
+"Go round, not straight", *Mechanical vibration* is "Little and often". The
+original is always kept, because it is the name the matrix and the whole TRIZ
+literature use; the second name is there to make the move thinkable. Both appear
+wherever a principle is named, including the exported working sheet, and search
+matches either. Each principle also has its classical wording, service examples,
 manufacturing examples and three questions to ask yourself, plus a random-spark
 button for when you have no contradiction to work from. The **39 factors** each
 carry their engineering meaning, their service reading, and their polarity —
@@ -120,7 +129,9 @@ across two principles; every matrix reference resolving to a principle 1-40 with
 no cell repeating one; an empty diagonal; the landmark and corrected matrix cells
 unchanged; every quick-start preset landing on a populated cell; and every worked
 example referencing real factors and recording something for each principle it
-shortlists.
+shortlists. Every principle must also carry a service name that is distinct from
+its classical one, unique across the forty, and short enough to be a handle
+rather than a sentence.
 
 ## Fonts and offline use
 
@@ -140,7 +151,7 @@ printed.
 
 ```bash
 npm install playwright
-node tests/ui-test.js       # 163 end-to-end checks
+node tests/ui-test.js       # 180 end-to-end checks
 node tests/hosted-test.js   # 10 published-page save checks
 node tests/sandbox-test.js  # 12 checks inside a sandboxed iframe
 python3 tests/content-test.py   # 15 checks that bad content is rejected

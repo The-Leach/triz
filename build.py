@@ -56,14 +56,25 @@ for f in factors:
 check(len(principles) == 40, 'expected 40 principles, found %d' % len(principles))
 check([p['n'] for p in principles] == list(range(1, 41)), 'principles must be numbered 1-40 in order')
 seen_examples = {}
+aliases = {}
 for p in principles:
     check(bool(str(p.get('name', '')).strip()), 'principle %s has no name' % p['n'])
     check(bool(str(p.get('ess', '')).strip()), 'principle %s has no essence line' % p['n'])
+    alias = str(p.get('alias', '')).strip()
+    check(bool(alias), 'principle %s has no plain-language service name' % p['n'])
+    check(alias.lower() != str(p.get('name', '')).strip().lower(),
+          'principle %s: the service name just repeats the classical one' % p['n'])
+    check(len(alias.split()) <= 6, 'principle %s: the service name should be a short handle, not a sentence' % p['n'])
     check(len(p.get('subs', [])) >= 1, 'principle %s has no classical sub-principles' % p['n'])
     # the service reading is the point of this tool, so hold it to a real minimum
     check(len(p.get('svc', [])) >= 2, 'principle %s needs at least 2 service examples' % p['n'])
     check(len(p.get('mfg', [])) >= 2, 'principle %s needs at least 2 manufacturing examples' % p['n'])
     check(len(p.get('ask', [])) >= 2, 'principle %s needs at least 2 prompt questions' % p['n'])
+    key_alias = str(p.get('alias', '')).strip().lower()
+    if key_alias in aliases:
+        errors.append('principle %s reuses the service name of principle %s: %r'
+                      % (p['n'], aliases[key_alias], p.get('alias')))
+    aliases[key_alias] = p['n']
     for kind in ('svc', 'mfg'):
         for ex in p.get(kind, []):
             key = re.sub(r'[^a-z0-9 ]', '', ex.lower()).strip()
