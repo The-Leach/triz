@@ -44,7 +44,8 @@ const server = http.createServer((req, res) => {
   await page.goto('http://localhost:' + PORT + '/wrap.html');
   await page.waitForTimeout(1600);
   const f = page.frames().find(x => x.url().includes('index.html'));
-  ok('the app runs inside a sandboxed frame', !!f && await f.locator('.excard').count() === 3);
+  ok('the app runs inside a sandboxed frame',
+    !!f && await f.locator('#stepBody').count() === 1 && await f.locator('#tabs button').count() === 4);
 
   // the condition that caused the bug
   ok('native confirm is suppressed here (returns false without asking)',

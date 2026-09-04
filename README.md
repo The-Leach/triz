@@ -59,8 +59,8 @@ appears to sit outside the process or in the past, and seeds the problem line fr
 the centre window.
 
 Three **worked examples** — an insurance claims backlog, a hospital discharge
-delay, an onboarding drop-off — are offered on the empty first step and under
-Guidance, because reading a solved problem beats being taught the vocabulary.
+delay, an onboarding drop-off — live under Guidance, with one small link to them
+from the first step. The solve page stays focused on your own problem.
 
 The **40 principles** are searchable in everyday language ("handover", "rework",
 "burnout", "bottleneck"), each with its classical wording, service examples,
@@ -140,11 +140,20 @@ printed.
 
 ```bash
 npm install playwright
-node tests/ui-test.js       # 159 end-to-end checks
+node tests/ui-test.js       # 163 end-to-end checks
 node tests/hosted-test.js   # 10 published-page save checks
 node tests/sandbox-test.js  # 12 checks inside a sandboxed iframe
 python3 tests/content-test.py   # 15 checks that bad content is rejected
 ```
+
+### What the sandbox breaks
+
+Three things behave differently in the published frame, and all three failed
+silently before they were found: `window.confirm` returns `false` without asking,
+`window.print()` is ignored outright, and the Clipboard API is blocked by
+permissions policy. Confirmation is now asked in the page; printing is not
+offered where it cannot work, and the summary says why; copying falls back to
+`execCommand` and reports either way.
 
 `sandbox-test.js` matters more than its size suggests. The published page runs
 inside a sandboxed iframe where `window.confirm` is suppressed and returns

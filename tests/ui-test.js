@@ -328,6 +328,13 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   for (const act of ['copyMd', 'downloadMd', 'printIt', 'newSession']) {
     ok('summary offers: ' + act, await p.locator('#stepBody [data-action="' + act + '"]').count() === 1);
   }
+  ok('printing survives being used twice (beforeprint fires only once per document)',
+    await p.evaluate(async () => { doPrint(); await new Promise(r => setTimeout(r, 900));
+      doPrint(); await new Promise(r => setTimeout(r, 900));
+      return document.querySelectorAll('[data-action="printIt"]').length === 1
+          && document.querySelectorAll('.modal').length === 0; }));
+  ok('no regex lookbehind anywhere (a parse error would blank the whole app)',
+    await p.evaluate(() => !/\(\?<[=!]/.test(Array.from(document.scripts).map(s => s.textContent).join(''))));
   ok('summary no longer offers saving a session', await p.locator('[data-action="saveNow"]').count() === 0);
   ok('summary says the work lives only in this browser',
     /kept in this browser/i.test(await p.textContent('#stepBody')));
@@ -425,8 +432,12 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   const werrs = [];
   w.on('pageerror', e => werrs.push(e.message));
   await w.goto(APP); await w.waitForTimeout(500);
-  ok('an empty session offers worked examples', await w.locator('#stepBody .excard').count() === 3);
-  await w.click('#stepBody .excard'); await w.waitForTimeout(500);
+  ok('the solve page does not carry the example cards', await w.locator('#stepBody .excard').count() === 0);
+  ok('it offers one small link to them instead',
+    await w.locator('#stepBody [data-action="goGuide"][data-g="examples"]').count() === 1);
+  await w.click('#stepBody [data-action="goGuide"][data-g="examples"]'); await w.waitForTimeout(450);
+  ok('that link reaches the worked examples', await w.locator('#guide-examples .excard').count() === 3);
+  await w.click('#guide-examples .excard'); await w.waitForTimeout(500);
   const exState = await w.evaluate(() => ({
     example: S.example, framings: S.framings.length, step: S.step,
     title: S.problem.title, ifr: !!S.problem.ifr,

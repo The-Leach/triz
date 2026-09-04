@@ -58,12 +58,14 @@ const ok = (l, c) => { (c ? pass++ : fail++); console.log((c ? 'PASS  ' : 'FAIL 
         saves[0].data.includes('Hosted save test') && saves[0].data.includes('Pre-check documents at intake'));
     }
 
-    ok('[' + mode + '] the summary explains itself when saving is unavailable',
-      /Saving files is not available/i.test(await p.textContent('#stepBody')) === (mode !== 'granted'));
+    const note = await p.textContent('#stepBody');
+    ok('[' + mode + '] the summary names exactly what is unavailable',
+      mode === 'granted' ? /^(?!.*Saving files)/s.test(note) && /Printing is not available/i.test(note)
+                         : /Saving files and printing are not available/i.test(note));
 
-    ok('[' + mode + '] copy and print remain available either way',
-      await p.locator('[data-action="copyMd"]').count() === 1 &&
-      await p.locator('[data-action="printIt"]').count() === 1);
+    ok('[' + mode + '] copy is always available', await p.locator('[data-action="copyMd"]').count() === 1);
+    ok('[' + mode + '] print is not offered on a hosted page, where it is blocked',
+      await p.locator('[data-action="printIt"]').count() === 0);
     ok('[' + mode + '] no JavaScript errors', errs.length === 0);
     if (errs.length) console.log(errs.join('\n'));
     await ctx.close();

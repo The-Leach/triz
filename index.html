@@ -550,7 +550,12 @@ function sessionHasFraming(){ return !!F(); }
    the user has already written to a problem statement. */
 function firstWindowLine(){
   const order=['sysNow','subNow','supNow','sysPast','subPast','supPast'];
-  for(const k of order){ const v=(S.windows[k]||'').trim(); if(v) return v.split(/(?<=[.!?])\s/)[0].slice(0,180); }
+  /* Deliberately no lookbehind here: an unsupported regex literal is a parse
+     error, which would blank the whole app rather than break one function. */
+  for(const k of order){
+    const v=(S.windows[k]||'').trim();
+    if(v){ const m=v.match(/^[^.!?]*[.!?]/); return (m?m[0]:v).slice(0,180); }
+  }
   return '';
 }
 function framingLabel(f){
@@ -587,6 +592,16 @@ function persist(){
   }catch(e){
     if(SAVE.ok){ SAVE.ok=false; SAVE.dismissed=false; renderSaveWarning(); }
     return false;
+  }
+}
+/* Find out at start-up whether this browser will store anything, rather than
+   letting the user type for a while before discovering it will not. */
+function probeStorage(){
+  try{
+    localStorage.setItem('trizNav.probe','1');
+    localStorage.removeItem('trizNav.probe');
+  }catch(e){
+    SAVE.ok = false; SAVE.dismissed = false;
   }
 }
 function renderSaveWarning(){
@@ -892,12 +907,8 @@ function step1(){
       '<li>Name the thing that suffers — the customer, the case, the shift, the margin.</li>'+
       '<li>Put a number on it if you have one. It makes the contradiction obvious later.</li></ul>'+
     '</div></details>'+
-    '<div class="tiny muted" style="margin-top:-4px">Struggling to state it? <button class="linkish" data-action="goWindows">Try Nine Windows first</button> \u2014 it moves your attention off the symptom.</div>'+
-    (!S.problem.title.trim() && !S.example ?
-      '<hr class="sep">'+
-      '<div class="eyebrow" style="margin-bottom:6px">Or start from a finished one</div>'+
-      '<p class="tiny muted" style="margin-bottom:12px">If the vocabulary is new, reading a solved problem is faster than being taught the method. Each of these is a complete session you can open, read and edit into your own.</p>'+
-      exampleCards() : '')+
+    '<div class="tiny muted" style="margin-top:-4px">Struggling to state it? <button class="linkish" data-action="goWindows">Try Nine Windows first</button> \u2014 it moves your attention off the symptom. Or <button class="linkish" data-action="goGuide" data-g="examples">see a worked example</button>.</div>'+
+
     '<hr class="sep">'+
     '<label class="fld"><span class="lab">The problem, in one sentence</span>'+
       '<span class="hint">What goes wrong, to whom, and how often?</span>'+
@@ -1322,10 +1333,13 @@ function step5(){
     '<div class="row" style="margin-top:16px">'+
       '<button class="btn primary" data-action="copyMd">Copy working sheet</button>'+
       (canDownload()?'<button class="btn" data-action="downloadMd">Download .md</button>':'')+
-      '<button class="btn" data-action="printIt">Print / PDF</button>'+
+      (canPrint()?'<button class="btn" data-action="printIt">Print / PDF</button>':'')+
       '<button class="btn ghost" data-action="newSession">Start a new problem</button>'+
     '</div>'+
-    (canDownload()?'':'<div class="tiny muted" style="margin-top:10px">Saving files is not available in this view &mdash; use <b>Copy working sheet</b> or <b>Print / PDF</b> to take your work with you.</div>')+
+    ((canDownload() && canPrint())?'':'<div class="tiny muted" style="margin-top:10px">'+
+      (!canDownload() && !canPrint() ? 'Saving files and printing are'
+        : !canDownload() ? 'Saving files is' : 'Printing is')+
+      ' not available in this embedded view &mdash; use <b>Copy working sheet</b> to take your work with you, or open the page in its own browser tab.</div>')+
     '<div class="tiny muted" style="margin-top:10px">Your working sheet is kept in this browser as you go. It is not saved anywhere else, so copy, download or print it before you finish.</div>'+
     foot(4,null)+
     '</div>'+
@@ -1646,14 +1660,9 @@ document.addEventListener('click', e=>{
       {title:'Clear Nine Windows?', ok:'Clear them'})) return;
     S.windows={}; persist(); renderWindows(); toast('Nine Windows cleared'); })(); }
 
-  else if(a==='copyMd'){ const md=exportMarkdown();
-    (navigator.clipboard?navigator.clipboard.writeText(md):Promise.reject())
-      .then(()=>toast('Working sheet copied'))
-      .catch(()=>{ const ta=document.createElement('textarea'); ta.value=md; document.body.appendChild(ta); ta.select();
-        try{ document.execCommand('copy'); toast('Working sheet copied'); }catch(err){ toast('Select the text below and copy manually'); }
-        ta.remove(); }); }
+  else if(a==='copyMd'){ copyWorkingSheet(); }
   else if(a==='downloadMd'){ download('triz-working-sheet.md', exportMarkdown(), 'text/markdown'); }
-  else if(a==='printIt'){ window.print(); }
+  else if(a==='printIt'){ doPrint(); }
 });
 
 document.addEventListener('input', e=>{
@@ -1715,6 +1724,48 @@ function initRuntime(){
     .catch(()=>{ RUNTIME.downloads = null; })
     .then(()=>{ RUNTIME.resolved = true; renderAll(); });
 }
+function copyWorkingSheet(){
+  const md = exportMarkdown();
+  /* The Clipboard API is blocked by permissions policy in the published frame,
+     so the execCommand path is the one that actually runs there. */
+  (navigator.clipboard ? navigator.clipboard.writeText(md) : Promise.reject())
+    .then(()=>toast('Working sheet copied'))
+    .catch(()=>{
+      const ta=document.createElement('textarea');
+      ta.value=md; ta.setAttribute('readonly','');
+      ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); toast('Working sheet copied'); }
+      catch(err){ toast('Copy blocked \u2014 select the working sheet below and copy it'); }
+      ta.remove();
+    });
+}
+
+/* window.print() is ignored silently in a sandboxed frame -- the artifact viewer
+   sets no allow-modals -- exactly as confirm was. There is no API that reports
+   this, and beforeprint is not a usable probe: it fires only on the first print
+   of a document, so treating silence as "blocked" would disable printing for
+   anyone who prints twice. Use the signal we already have instead -- a hosted
+   page is the published frame, where printing is known to be blocked -- and keep
+   a warn-only fallback for other embeddings, which never removes the button. */
+function canPrint(){ return !RUNTIME.hosted; }
+let printProbed = false;
+function doPrint(){
+  if(printProbed){ try{ window.print(); }catch(e){} return; }
+  printProbed = true;
+  let started = false;
+  const mark = ()=>{ started = true; };
+  window.addEventListener('beforeprint', mark, {once:true});
+  try{ window.print(); }catch(e){}
+  setTimeout(()=>{
+    window.removeEventListener('beforeprint', mark);
+    if(started) return;
+    askConfirm('This browser did not open a print dialog. If the page is embedded, printing may be blocked here \u2014 copy the working sheet instead, or open the page in its own tab.',
+      {title:'Nothing opened to print', ok:'Copy the working sheet', cancel:'Close'})
+      .then(v=>{ if(v) copyWorkingSheet(); });
+  }, 800);
+}
+
 function download(fn, text, mime){
   if(RUNTIME.downloads){
     RUNTIME.downloads.save({filename:fn, data:text})
@@ -1745,8 +1796,10 @@ async function startNewSession(){
    Boot
    =================================================================== */
 loadAll();
+probeStorage();
 initRuntime();
 applyTheme();
+renderSaveWarning();
 $$('#domainSeg button').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.domain===PREFS.domain)));
 renderAll();
 </script>
