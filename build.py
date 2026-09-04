@@ -84,6 +84,21 @@ for p in principles:
                               % (p['n'], seen_examples[key], ex))
             seen_examples[key] = p['n']
 
+# A rough guard against the service examples drifting back towards "bring in an
+# expert / coach the team". It is a keyword heuristic, not a judgement of quality:
+# it only insists that each principle offers at least one structural move.
+SYSTEMIC = re.compile(r'\b(process|queue|queues|queueing|policy|policies|rule|rules|threshold|batch|'
+                      r'batches|flow|capacity|system|systems|hand-?off\w*|step|steps|route|routing|'
+                      r'trigger|schedule|scheduling|buffer|backlog|demand|constraint|interface|default|'
+                      r'standard|contract|channel|signal|loop|data|record|records|form|forms|automat\w*|'
+                      r'workflow|sla|service level|tolerance|variation|decouple\w*|intake|dwell|'
+                      r'lead time|cycle time|sampling|audit|expiry|stage|stages|control|controls)\b', re.I)
+for p in principles:
+    if not any(SYSTEMIC.search(ex) for ex in p.get('svc', [])):
+        errors.append('principle %s (%s) has no structural service example -- every principle needs at '
+                      'least one move that changes the system, not only the people'
+                      % (p['n'], p.get('name')))
+
 # ----------------------------------------------------------------- matrix
 check(len(matrix) == 39 and all(len(r) == 39 for r in matrix), 'matrix must be 39 x 39')
 populated = 0

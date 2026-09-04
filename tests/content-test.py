@@ -76,6 +76,9 @@ def preset_dead_end(d):
     d[0]['imp'], d[0]['wor'] = 29, 35
 def separation_dupe(d):
     d[0]['ps'] = d[0]['ps'] + [d[0]['ps'][0]]
+def people_only_examples(d):
+    d[0]['svc'] = ['Bring in an external coach to mentor the team',
+                   'Train everyone again next quarter and hope it sticks']
 def example_bad_factor(d):
     d[0]['session']['framings'][0]['imp'] = 44
 def example_empty_shortlist(d):
@@ -105,6 +108,8 @@ case('a quick-start preset that would dead-end is rejected',
      edit('presets.json', preset_dead_end), 'empty matrix cell')
 case('a separation strategy listing a principle twice is rejected',
      edit('separations.json', separation_dupe), 'same principle twice')
+case('a principle whose service examples only ask people to try harder is rejected',
+     edit('principles.json', people_only_examples), 'no structural service example')
 case('a worked example using a factor outside 1-39 is rejected',
      edit('examples.json', example_bad_factor), 'outside 1-39')
 case('a worked example shortlisting a principle it says nothing about is rejected',

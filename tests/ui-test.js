@@ -66,6 +66,14 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('40 principles, numbered 1-40', data.principles === 40 && data.principlesOrdered);
   ok('every principle and factor has full content', data.contentComplete);
   ok('every principle has a distinct plain-language service name', data.aliases && data.aliasesUnique);
+  ok('every principle offers at least one structural service example', await p.evaluate(() => {
+    const sys = /\b(process|queue|queues|policy|policies|rule|rules|threshold|batch|flow|capacity|system|systems|hand-?off\w*|step|steps|route|routing|trigger|schedule|buffer|backlog|demand|constraint|interface|default|standard|contract|channel|signal|loop|data|record|records|form|forms|automat\w*|workflow|sla|variation|decouple\w*|intake|dwell|sampling|audit|expiry|stage|stages|control|controls)\b/i;
+    return PRINCIPLES.every(x => x.svc.some(e => sys.test(e)));
+  }));
+  ok('the guidance warns against solving contradictions with people', await p.evaluate(() => {
+    const t = Array.from(document.scripts).map(s => s.textContent).join('');
+    return /Aim at the system, not the people/.test(t) && /ordinary and busy/.test(t);
+  }));
   ok('the physically-named principles are renamed for service use', data.physicalOnesRenamed);
   ok('matrix has 1248 populated cells', data.filled === 1248);
   ok('every matrix reference is a principle 1-40', data.badRef === 0);

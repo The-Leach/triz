@@ -68,6 +68,7 @@
    "Local cooling at the cutting point rather than chilling the whole machine"
   ],
   "svc": [
+   "Set different service levels by case type rather than one target for everything, so the average stops hiding both the fast and the stuck",
    "Give complex cases a different route, a different SLA and a different skill set from simple ones, instead of one process for all",
    "Vary branch opening hours by local footfall rather than a national standard",
    "Tailor the call script to what you already know about that customer's history",
@@ -120,13 +121,14 @@
    "Batch heat treatment of a full trolley rather than one part at a time"
   ],
   "svc": [
+   "Pool the queues, not just the tasks: one queue served by everyone beats separate queues that idle at different rates while work waits in the next one",
    "One hospital visit that combines bloods, scan and consultation instead of three separate trips",
    "Merge the identity checks of three products into a single customer check reused across all of them",
    "Run the credit check and the property search in parallel rather than in sequence",
-   "Combine the team huddle, the safety brief and the shift handover into one five-minute event",
-   "One field visit that services, inspects and upsells in the same appointment"
+   "One field visit that services, inspects and quotes in the same appointment"
   ],
   "ask": [
+   "What is queueing separately that could queue together?",
    "What does the customer currently do or receive several times that could happen once?",
    "Which two steps could happen in the same moment rather than one after the other?",
    "Where are we visiting, checking or asking twice?"
@@ -146,11 +148,11 @@
    "A single fixture that locates, clamps and gauges"
   ],
   "svc": [
-   "The delivery driver also collects returns and takes meter readings",
+   "One record that serves intake, assessment and audit, instead of three that have to be reconciled afterwards",
+   "A single intake channel that routes by the content of the request rather than a separate route per product",
+   "The delivery visit also collects returns and takes the meter reading, so one movement does three jobs",
    "The invoice doubles as the warranty certificate and the returns label",
-   "One 'front door' number that handles every enquiry type instead of eight departmental lines",
-   "Cross-train staff so any adviser can handle any product, removing internal transfers",
-   "The booking confirmation also serves as the entry pass and the receipt"
+   "The booking confirmation is also the entry pass and the receipt"
   ],
   "ask": [
    "What else could this person, document or touchpoint do while they are already here?",
@@ -198,13 +200,14 @@
    "Buoyancy or air support for heavy handling"
   ],
   "svc": [
-   "Pair a burdensome disclosure with the moment the customer receives the discount, so the weight is offset by something wanted",
-   "Balance a heavy admin task by pairing a junior with a senior who makes it quick",
-   "Offset seasonal troughs with counter-seasonal work for a different market",
-   "Carry an unpopular change on the back of a popular one announced at the same time",
-   "Let a strong partner brand carry the credibility weight your new service cannot yet carry"
+   "Fund a new control by deleting the one it supersedes, rather than adding it on top and calling the total a process",
+   "Let the part of the system that gains carry the cost: the team that benefits from clean data does the validation at the point of entry",
+   "Offset a seasonal trough with counter-seasonal demand rather than flexing headcount against it",
+   "Pair a burdensome disclosure with the moment the customer receives the discount, so the weight is carried by something they want",
+   "Let an established partner's platform carry the credibility a new service has not yet earned"
   ],
   "ask": [
+   "What part of the system gains from this, and could it carry the cost instead of the part that bears it now?",
    "What could carry the weight of this burden for us?",
    "Is there an opposing force in the environment we can borrow rather than fight?",
    "What does the customer actually want, that we could attach this to?"
@@ -276,6 +279,7 @@
   ],
   "svc": [
    "A standing surge rota that activates on a defined trigger, not on a manager's judgement",
+   "Hold a capacity buffer sized to the variation you actually see, not to the average you report",
    "A service-recovery budget frontline staff can spend without asking anyone",
    "Pre-written holding statements and comms for the four incidents you know will recur",
    "A named deputy for every single-point-of-failure role, exercised not just nominated",
@@ -355,6 +359,7 @@
   ],
   "svc": [
    "Replace a linear stage-gate programme with a short repeating loop that revisits the same questions",
+   "Replace a linear escalation ladder with a loop that returns the case to the same owner, so nothing is handed away and forgotten",
    "Circulate work around a small cell where everyone can pick it up, rather than passing it down a line",
    "Rotate duties on a cycle instead of fixing people in posts",
    "Replace sequential sign-off with one round-table where all parties decide together",
@@ -407,6 +412,7 @@
   ],
   "svc": [
    "Send the imperfect draft early rather than the perfect one late",
+   "Let 80% of the volume run straight through on a rule and hold only the exceptions for judgement",
    "Pay 90% of the claim immediately and investigate only the disputed remainder",
    "Deliberately over-staff the first week of a launch, then taper",
    "Give a partial answer now with a committed follow-up, instead of silence until you are certain",
@@ -435,6 +441,7 @@
   ],
   "svc": [
    "Triage on two axes — urgency and complexity — instead of a single priority number",
+   "Segment the queue on a second attribute — complexity as well as urgency — so one dimension cannot dominate the routing",
    "Add an asynchronous channel alongside the live one, so the queue is not the only dimension",
    "Move a meeting into a shared document, where people contribute in parallel rather than in turn",
    "Use the back of the appointment card, the footer of the receipt, the space you already own",
@@ -462,11 +469,11 @@
    "Ultrasonic cleaning reaching where brushes cannot"
   ],
   "svc": [
+   "Release work into the process in small, frequent batches rather than one weekly drop, so the queue never has to absorb a spike",
+   "Sample continuously at low volume instead of running a large periodic audit that finds problems long after they were made",
    "Replace the annual engagement survey with a weekly two-question pulse",
    "Many small nudges beat one big campaign — raise the frequency, lower the amplitude",
-   "Short daily huddles instead of a long weekly meeting",
-   "Match the customer's own rhythm — bill when they get paid, call when they are free — that is resonance",
-   "Continuous small price adjustments instead of one annual jolt"
+   "Match the customer's own rhythm — bill when they get paid, contact them when they are free — that is resonance"
   ],
   "ask": [
    "Would more, smaller, more frequent beats work better than one big event?",
@@ -490,6 +497,7 @@
   ],
   "svc": [
    "Batch interruptions — handle email in three defined windows rather than continuously",
+   "Batch the arrival of work rather than the work itself: fixed release times smooth the queue without changing a single step",
    "Published 'office hours' for internal support instead of always-on availability",
    "Scheduled release trains instead of continuous unplanned change",
    "Use the quiet periods deliberately for improvement work, training and maintenance",
@@ -516,13 +524,14 @@
   ],
   "svc": [
    "Keep the case moving on everything that does not depend on the missing input, rather than stopping the whole file",
+   "Decouple two steps with a small deliberate buffer, so a stoppage in one does not idle the other",
    "Use the customer's waiting time for something useful — complete the details while they wait",
    "Follow-the-sun coverage so work progresses across time zones overnight",
    "Remove the queue between two steps so work never rests between them",
    "Keep the scarce expert working on scarce-expert problems only"
   ],
   "ask": [
-   "Where does the work sit still, and why?",
+   "Where does work sit still — and would a buffer there stop one stoppage idling everything downstream?",
    "Can something useful happen during that wait?",
    "Is our most expensive resource ever idle — or ever doing cheap work?"
   ]
@@ -540,14 +549,14 @@
    "Flash heating or rapid quench to skip an unwanted phase"
   ],
   "svc": [
-   "A single two-hour decision workshop instead of six weeks of circulated email",
+   "Cut the number of stages a case passes through rather than speeding each one up — the harm lives in the dwell time between stages, not in the work",
+   "Time-box a stage hard and let it complete with what it has, rather than letting it expand to fill the time available",
+   "A single two-hour decision session instead of six weeks of circulated email",
    "A big-bang cutover rather than a long, expensive period of dual running",
-   "Move a redundancy or restructure announcement through quickly — a slow one does more damage than a fast one",
-   "Push a change through the window while political support is open, rather than consulting it to death",
-   "Compress diligence into a focused week with everyone in the room"
+   "Push a change through while the window is open, rather than consulting it to death"
   ],
   "ask": [
-   "Which stage here is harmful mainly because of how long it lasts?",
+   "Which stage is harmful mainly because of how long a case sits in it, rather than how long the work takes?",
    "What if we did it so fast that the harm never had time to develop?",
    "What are we drawing out that we should be ripping off?"
   ]
@@ -593,6 +602,7 @@
    "In-line gauging that adjusts the machine automatically"
   ],
   "svc": [
+   "Shorten the loop rather than enlarging the report: a signal the same day beats a dashboard next month",
    "Tell the person who took the decision what happened as a result — most frontline staff never find out",
    "Close the loop with the customer after a complaint: what changed because of you",
    "Live queue and wait-time displays that let people self-regulate",
@@ -855,6 +865,7 @@
   ],
   "svc": [
    "One shared data standard end to end, so nothing has to be translated between teams",
+   "One identifier for a customer across every system, so records never have to be matched or de-duplicated",
    "One vocabulary across departments — the same word meaning the same thing in ops, finance and sales",
    "Match the adviser to the customer's language, sector or circumstance",
    "Use the same tool and format from intake to closure, rather than converting at each stage",
@@ -933,11 +944,11 @@
    "Freeze or melt to grip, release or separate"
   ],
   "svc": [
-   "Target the transition moments — moving house, a new baby, onboarding, promotion, renewal — behaviour changes most at the phase change",
-   "The moment a prospect becomes a customer, everything about the relationship changes state: design deliberately for that instant",
-   "Use go-live as the point of maximum available energy for change that would be impossible six months later",
-   "A merger, a reorganisation or a new regulation releases energy — spend it before it dissipates",
-   "Handle the transition from 'patient' to 'discharged' as an event in its own right, not an afterthought"
+   "Define the state change itself: say exactly what must be true for a case to move from open to closed, rather than letting it drift between the two",
+   "Use the change of state to reset the data: on renewal, re-derive what you hold instead of carrying forward figures that have quietly decayed",
+   "Target the transition moments — moving house, a new baby, onboarding, renewal — because behaviour changes most at the phase change",
+   "The moment a prospect becomes a customer the whole relationship changes state: design deliberately for that instant rather than letting it happen",
+   "Handle the transition from patient to discharged as an event in its own right, with its own owner and trigger, not as an afterthought"
   ],
   "ask": [
    "Where are the transition moments here, and are we using their energy?",
@@ -986,16 +997,16 @@
    "Ozone or plasma treatment to activate a surface"
   ],
   "svc": [
-   "Concentrate talent and attention into a short burst — a war room, a tiger team, a hackathon — instead of spreading it thin for months",
-   "Enrich the information environment before a decision: better data, the real customer in the room, the actual numbers",
-   "Put the strongest coach with the weakest team for two intense weeks rather than everyone for an hour",
-   "Raise the intensity deliberately for a bounded period, then return to normal atmosphere",
-   "Bring an external expert in at full strength for a fortnight rather than a day a month for a year"
+   "Enrich what the decision runs on rather than asking people to decide harder: put the actual case file, the real numbers and the downstream cost at the decision point",
+   "Concentrate the demand instead of the effort: one high-volume clinic or batch day reaches an efficient operating point that the same work spread thinly never does",
+   "Raise the concentration of the input, not the input of the people: admit only complete, validated cases into the main flow and route the incomplete ones to a different path",
+   "Collapse a decision chain into a single sitting for a bounded period, so an approval that normally costs three weeks of hand-offs costs an afternoon",
+   "Enrich the environment the work runs in — the data, the tooling, the templates — rather than the intensity of the people using it"
   ],
   "ask": [
-   "Where would a concentrated dose of energy or expertise change the reaction entirely?",
-   "Can we enrich the environment rather than push harder on the people?",
-   "What would we do differently if we had two weeks of everyone's full attention?"
+   "Where would a concentrated dose of better inputs — data, tooling, complete cases — change the reaction more than concentrated effort would?",
+   "Can we enrich the environment the work runs in, rather than push harder on the people in it?",
+   "What is being spread thinly that would work better concentrated — demand, decisions, capacity?"
   ]
  },
  {
@@ -1012,16 +1023,16 @@
    "Inert packaging to extend shelf life"
   ],
   "svc": [
-   "A sandbox or pilot deliberately shielded from normal governance so it can survive its first weeks",
-   "A genuinely no-blame review, so learning is not burnt off by politics",
-   "Neutral facilitation, or a neutral venue, for a decision two departments cannot make together",
-   "Protected time — quiet hours, no-meeting days — so deep work is not oxidised by interruption",
-   "Ring-fence a new team's funding so it is not consumed by the existing organisation's priorities"
+   "Ring-fence a pilot's intake as well as its funding, so business-as-usual volume cannot flood it before it has stabilised",
+   "Insulate a change from the standing measurement regime for a defined period, so an expected early dip does not kill it on contact with a dashboard",
+   "Put a neutral buffer between two systems that corrupt each other's data, rather than making each one defend itself at every exchange",
+   "Give deep work a protected slot in the schedule rather than relying on individual discipline to find it",
+   "Run a genuinely no-blame review, so the learning is not oxidised by the reporting line it has to travel through"
   ],
   "ask": [
-   "What here needs shielding from the normal environment in order to survive?",
-   "Who is a neutral party that would stop this reaction going wrong?",
-   "What are we exposing to an atmosphere that will destroy it?"
+   "What needs shielding from the normal environment to survive — and is it the people, or the intake and the measurement regime?",
+   "What are we exposing to an atmosphere that will destroy it before it has stabilised?",
+   "Where would a neutral buffer stop two parts of the system corrupting each other?"
   ]
  },
  {

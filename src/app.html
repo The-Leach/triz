@@ -1125,6 +1125,7 @@ function step3(){
     (r.notes.length?r.notes.map(n=>'<div class="asks" style="border-color:var(--warn);background:var(--warn-soft)"><div class="eh" style="color:var(--warn)">Note</div><div class="tiny">'+n+'</div></div>').join(''):'')+
     '<details class="help" style="margin:14px 0 0"><summary>How to use these well</summary><div class="help-body"><ul>'+
       '<li>The principle is an <em>analogy</em>, not an instruction. &ldquo;Pneumatics&rdquo; in a call centre means fluid capacity, not compressed air.</li>'+
+      '<li>Look for the <em>structural</em> reading first \u2014 flow, queue, batch size, routing, threshold, hand-off, trigger, default. A version that only asks people to try harder or care more has moved the contradiction onto them rather than resolved it.</li>'+
       '<li>Force yourself to write something for at least the first three, even if it is bad. The bad idea is usually the doorway.</li>'+
       '<li>If a principle seems absurd, ask what would have to be true for it to work. That question does most of the work.</li>'+
       '<li>Order carries a little information \u2014 principles in a cell are conventionally read as most-frequently-used first \u2014 but this was never a strict ranking, and a lower-placed principle that sparks something beats a top-placed one that does not.</li>'+
@@ -1151,7 +1152,8 @@ function step4(){
     framingBar()+
     '<details class="help"><summary>Turning a principle into a concept</summary><div class="help-body"><ul>'+
       '<li>Write it as a change, not a wish: &ldquo;approve under \u00a3500 automatically and sample 10% weekly&rdquo;, not &ldquo;be faster&rdquo;.</li>'+
-      '<li>Name who does something differently on Monday morning.</li>'+
+      '<li>Name who does something differently on Monday morning \u2014 and what in the system makes them, so it still happens in month six.</li>'+
+      '<li>Ask what happens if the people are ordinary and busy. If the idea needs someone exceptional, unusually motivated or newly trained to work, it is a structural change waiting to be found, not a finished one.</li>'+
       '<li>Check it against your Ideal Final Result \u2014 does it move towards the thing happening by itself?</li>'+
       '<li>Ask what new problem it creates. If that new problem is smaller, you have a solution; if it is the same size, you have a trade-off and should go back a step.</li>'+
     '</ul></div></details>'+
@@ -1542,6 +1544,10 @@ function renderLearn(){
       '<dt>3. Abstract it</dt><dd>Map your specific problem onto the general one — the 39 factors, or a separation strategy. This is the step people skip, and it is the one that does the work.</dd>'+
       '<dt>4. Come back down</dt><dd>Take the general principles you are handed and translate them into something specific to you. A principle is an analogy, never an instruction.</dd>'+
     '</div>'+
+    '<h3 style="font-size:15px;margin-bottom:8px">Aim at the system, not the people</h3>'+
+    '<p class="muted">This is the failure mode to watch for in service work. Faced with a contradiction, the reflex is to reach for a person: bring in an expert, coach the team, train everyone again, put your best performer on it. Those can help, but they are rarely solutions \u2014 they are the contradiction being handed to a human to absorb. The moment that person leaves, or the volume doubles, it comes back.</p>'+
+    '<p class="muted">The moves that hold are structural: change the flow, the queue, the batch size, the routing rule, the threshold, the hand-off, the information, the trigger, the default. A useful test on any idea is <em>what happens if the people are ordinary and busy?</em> If it only works when they are exceptional or unusually motivated, it is not finished.</p>'+
+    '<p class="muted">The same test sharpens the principles themselves. <b>Concentrate the energy</b> (Strong oxidants) reads as \u201cput your best people on it\u201d and works far better as \u201cenrich what the decision runs on \u2014 the data, the complete case, the real cost.\u201d <b>Give it shelter</b> (Inert atmosphere) reads as \u201cprotect the team from politics\u201d and works better as \u201cring-fence the pilot\u2019s intake so business-as-usual volume cannot flood it.\u201d Both are the same principle; only the second changes the system.</p>'+
     '<h3 style="font-size:15px;margin-bottom:8px">Nine Windows</h3>'+
     '<p class="muted">Before hunting for a contradiction, it is often worth asking <em>where the problem actually lives</em>. Nine Windows sets the thing you are looking at against its parts and its surroundings, at three points in time. Problems are almost always stated in one box \u2014 the thing, now \u2014 and caused in another. In service work the answer is very often one cell up (something in the wider organisation) or one cell left (a decision made earlier that nobody has revisited).</p>'+
     '<h3 style="font-size:15px;margin-bottom:8px">More than one framing</h3>'+

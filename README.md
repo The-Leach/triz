@@ -151,10 +151,10 @@ printed.
 
 ```bash
 npm install playwright
-node tests/ui-test.js       # 180 end-to-end checks
+node tests/ui-test.js       # 182 end-to-end checks
 node tests/hosted-test.js   # 10 published-page save checks
 node tests/sandbox-test.js  # 12 checks inside a sandboxed iframe
-python3 tests/content-test.py   # 15 checks that bad content is rejected
+python3 tests/content-test.py   # 16 checks that bad content is rejected
 ```
 
 ### What the sandbox breaks
@@ -185,6 +185,22 @@ layout.
 Storage can refuse the app — a private window, blocked site data, a full quota.
 Rather than silently dropping the work, the page says so at the top of every
 view and offers to download or copy it before anything is lost.
+
+## Systems focus
+
+Service problems tempt a particular kind of answer: bring in an expert, coach the
+team, train everyone again, put your best performer on it. Those are the
+contradiction being handed to a person to absorb, and they come back the moment
+that person leaves or the volume doubles. The service examples throughout are
+weighted towards structural moves instead — flow, queues, batch size, routing
+rules, thresholds, hand-offs, triggers, defaults, information — and the primer
+carries a section on the distinction, with the test: *what happens if the people
+are ordinary and busy?*
+
+The validator enforces this as a floor: every principle must offer at least one
+service example that changes the system rather than only the people. It is a
+keyword heuristic rather than a judgement of quality, and it exists to stop the
+content drifting back, not to prove it is good.
 
 ## Accessibility
 
