@@ -3,14 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TRIZ Navigator</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<title>PMI - TRIZ+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- media="print" keeps this off the critical path: a blocked or slow font host
+     must never hold up first paint. It is promoted to all after the first frame. -->
+<link id="webfont" rel="stylesheet" media="print"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
 :root{
-  --bg:#f6f7f9; --panel:#ffffff; --panel-2:#fbfcfd; --ink:#16191d; --ink-2:#4a5259; --ink-3:#7c858e;
-  --line:#e2e6ea; --line-2:#eef1f4; --accent:#0f766e; --accent-ink:#ffffff; --accent-soft:#e6f2f0;
-  --alt:#7c3aed; --alt-soft:#f1ebfe; --warn:#b45309; --warn-soft:#fdf3e3;
-  --mfg:#1d4ed8; --mfg-soft:#e8eeff; --svc:#0f766e; --svc-soft:#e2f1ee;
+  --bg:#f4f6fa; --panel:#ffffff; --panel-2:#fafbfe; --ink:#131820; --ink-2:#48515f; --ink-3:#78828f;
+  --line:#e0e5ee; --line-2:#edf0f6; --accent:#1e40af; --accent-ink:#ffffff; --accent-soft:#e7ecfa;
+  --accent-2:#3b6ad4;
+  --alt:#0f766e; --alt-soft:#e2f1ee; --warn:#b45309; --warn-soft:#fdf3e3;
+  --mfg:#475569; --mfg-soft:#eef1f6; --svc:#1e40af; --svc-soft:#e7ecfa;
   --ui:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --read:"IBM Plex Serif",Georgia,"Times New Roman",serif;
   --data:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
@@ -18,11 +24,22 @@
   --maxw:1180px;
 }
 :root[data-theme="dark"]{
-  --bg:#0f1216; --panel:#161a20; --panel-2:#1b1f26; --ink:#e8ecef; --ink-2:#a9b2ba; --ink-3:#78838d;
-  --line:#272d35; --line-2:#20262d; --accent:#2dd4bf; --accent-ink:#06231f; --accent-soft:#12312d;
-  --alt:#a78bfa; --alt-soft:#241b3a; --warn:#fbbf24; --warn-soft:#332611;
-  --mfg:#93b4ff; --mfg-soft:#16233f; --svc:#2dd4bf; --svc-soft:#0f2f2b;
-  --shadow:0 1px 2px rgba(0,0,0,.4);
+  --bg:#0b1120; --panel:#131b2d; --panel-2:#182135; --ink:#e9edf5; --ink-2:#a7b2c4; --ink-3:#76808f;
+  --line:#243049; --line-2:#1c2639; --accent:#93b4ff; --accent-ink:#0a1730; --accent-soft:#17253f;
+  --accent-2:#5b8ae6;
+  --alt:#2dd4bf; --alt-soft:#0f2f2b; --warn:#fbbf24; --warn-soft:#332611;
+  --mfg:#94a3b8; --mfg-soft:#212b3d; --svc:#93b4ff; --svc-soft:#17253f;
+  --shadow:0 1px 2px rgba(0,0,0,.45);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1120; --panel:#131b2d; --panel-2:#182135; --ink:#e9edf5; --ink-2:#a7b2c4; --ink-3:#76808f;
+    --line:#243049; --line-2:#1c2639; --accent:#93b4ff; --accent-ink:#0a1730; --accent-soft:#17253f;
+    --accent-2:#5b8ae6;
+    --alt:#2dd4bf; --alt-soft:#0f2f2b; --warn:#fbbf24; --warn-soft:#332611;
+    --mfg:#94a3b8; --mfg-soft:#212b3d; --svc:#93b4ff; --svc-soft:#17253f;
+    --shadow:0 1px 2px rgba(0,0,0,.45);
+  }
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -43,8 +60,13 @@ button{font:inherit;color:inherit}
 header.top{background:var(--panel);border-bottom:1px solid var(--line)}
 .top-in{max-width:var(--maxw);margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;margin-right:auto}
-.mark{width:30px;height:30px;border-radius:8px;background:var(--accent);color:var(--accent-ink);
-  display:grid;place-items:center;font-weight:500;font-size:13px;letter-spacing:.02em;flex:none;font-family:var(--data)}
+.mark{width:32px;height:32px;flex:none;display:grid;place-items:center}
+.mark svg{display:block}
+.mk-base{fill:var(--accent)}
+.mk-half{fill:var(--accent-2)}
+.mk-plus{stroke:var(--accent-ink);stroke-width:3.4;stroke-linecap:round}
+.brand h1 .dash{color:var(--ink-3);font-weight:400;margin:0 1px}
+.brand h1 .plus{color:var(--accent);font-weight:700}
 .brand h1{font-size:16px}
 .brand .sub{font-size:11.5px;color:var(--ink-3);letter-spacing:.02em}
 .seg{display:flex;background:var(--panel-2);border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px}
@@ -355,6 +377,24 @@ h3 .alias{font-weight:550}
 .nb-alias{color:var(--accent);opacity:.85}
 @media(max-width:560px){.alias{display:block;margin:5px 0 0;white-space:normal;width:fit-content}}
 
+/* ---------- why a principle works ---------- */
+.why{border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 var(--radius) var(--radius) 0;
+  padding:10px 13px;margin-bottom:12px;font-size:13.2px;color:var(--ink-2);max-width:78ch}
+.why-h{display:block;font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:4px}
+
+/* ---------- problem statement feedback ---------- */
+.stcheck{border:1px solid var(--warn);background:var(--warn-soft);border-radius:var(--radius);
+  padding:12px 14px;margin:-6px 0 16px}
+.stcheck.ok{border-color:var(--accent);background:var(--accent-soft)}
+.stcheck.ok b{color:var(--accent);font-size:13.2px}
+.st-h{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);margin-bottom:9px}
+.st-item{font-size:13.2px;color:var(--ink-2);margin-bottom:11px}
+.st-item:last-child{margin-bottom:0}
+.st-item b{color:var(--ink);display:block;margin-bottom:2px}
+.st-word{font-family:var(--data);font-size:11.5px;font-weight:500;color:var(--warn);white-space:nowrap}
+.st-ask{margin-top:4px;font-weight:550;color:var(--ink)}
+
 @media print{
   header.top,nav.tabs,.wizfoot,.steps,.btn,details.help{display:none!important}
   body{background:#fff}
@@ -368,10 +408,16 @@ h3 .alias{font-weight:550}
 <header class="top">
   <div class="top-in">
     <div class="brand">
-      <div class="mark">TZ</div>
+      <div class="mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="32" height="32" focusable="false">
+          <rect width="32" height="32" rx="8.5" class="mk-base"/>
+          <path d="M16 0h9.5a6.5 6.5 0 0 1 6.5 6.5v19a6.5 6.5 0 0 1-6.5 6.5H16z" class="mk-half"/>
+          <path d="M16 8.6v14.8M8.6 16h14.8" class="mk-plus"/>
+        </svg>
+      </div>
       <div>
-        <h1>TRIZ Navigator</h1>
-        <div class="sub">Inventive problem solving for services <em>and</em> manufacturing</div>
+        <h1>PMI <span class="dash">-</span> TRIZ<span class="plus">+</span></h1>
+        <div class="sub">TRIZ, expanded for service as well as manufacturing</div>
       </div>
     </div>
     <span class="seg-label">Examples</span>
@@ -783,6 +829,7 @@ function principleCard(p, o){
       (o.star!==false?'<button class="star" data-action="star" data-p="'+p.n+'" aria-pressed="'+starred+'" title="Shortlist this principle">'+(starred?'★':'☆')+'</button>':'')+
     '</div>'+
     '<div class="pcard-body">'+
+      '<div class="why"><span class="why-h">Why it resolves a contradiction</span>'+esc(p.why)+'</div>'+
       '<div class="subs"><b>Classical wording:</b> '+p.subs.map(esc).join(' &middot; ')+'</div>'+
       (showSvc()?exList(p.svc,'svc'):'')+
       (showMfg()?exList(p.mfg,'mfg'):'')+
@@ -898,6 +945,41 @@ function renderExampleBar(){
 }
 
 /* ---------- step 1: frame ---------- */
+/* Advisory only. A statement that names a solution, or has no measure and no
+   subject, produces a contradiction that cannot be mapped -- but the user is
+   never blocked, because they may have good reason. */
+function checkStatement(){
+  const raw = (S.problem.title || '').trim();
+  if(raw.length < 12) return [];
+  const t = ' ' + raw.toLowerCase().replace(/[^a-z0-9%\s]/g,' ').replace(/\s+/g,' ') + ' ';
+  const hits = [];
+  STATEMENT.checks.forEach(c=>{
+    if(c.any){
+      const found = c.any.find(w=>t.indexOf(' '+w+' ')>=0 || t.indexOf(' '+w)>=0);
+      if(found) hits.push({c, found});
+    } else if(c.needsDigitOr){
+      const hasNum = /\d/.test(raw);
+      const hasWord = c.needsDigitOr.some(w=>t.indexOf(w)>=0);
+      if(!hasNum && !hasWord) hits.push({c});
+    } else if(c.needsAny){
+      if(!c.needsAny.some(w=>t.indexOf(' '+w+' ')>=0)) hits.push({c});
+    }
+  });
+  return hits;
+}
+function statementHtml(){
+  const raw = (S.problem.title||'').trim();
+  if(raw.length < 12) return '';
+  const hits = checkStatement();
+  if(!hits.length) return '<div class="stcheck ok"><b>\u2713 '+esc(STATEMENT.goodEnough)+'</b></div>';
+  return '<div class="stcheck">'+
+    '<div class="st-h">'+hits.length+' thing'+(hits.length>1?'s':'')+' worth tightening \u2014 none of it stops you continuing</div>'+
+    hits.map(h=>'<div class="st-item"><b>'+esc(h.c.label)+
+      (h.found?' <span class="st-word">&ldquo;'+esc(h.found.trim())+'&rdquo;</span>':'')+'</b>'+
+      '<div>'+esc(h.c.say)+'</div>'+
+      '<div class="st-ask">'+esc(h.c.ask)+'</div></div>').join('')+
+  '</div>';
+}
 function suggestionHtml(){
   const sug = suggestParams(S.problem.title+' '+S.problem.context, 6);
   if(!sug.length) return '';
@@ -921,6 +1003,7 @@ function step1(){
       '<span class="hint">What goes wrong, to whom, and how often?</span>'+
       '<input type="text" data-action="pf" data-k="title" value="'+esc(S.problem.title)+'" placeholder="e.g. New-customer applications wait an average of 9 days for a manager to approve them">'+
     '</label>'+
+    '<div id="stBox">'+statementHtml()+'</div>'+
     '<div class="grid2">'+
       '<label class="fld"><span class="lab">Context <span class="muted tiny">(optional)</span></span>'+
         '<span class="hint">Who is involved, what has already been tried, what is fixed and cannot change.</span>'+
@@ -1120,7 +1203,12 @@ function step3(){
   }
   return '<div class="card pad" style="margin-bottom:18px">'+
     '<div class="step-head"><h2 tabindex="-1">'+(r.list.length)+' principles to work with</h2>'+
-    '<p>Read each one, then answer the &ldquo;ask yourself&rdquo; questions <em>about your problem</em>. Star anything that produces even a half-formed idea \u2014 you will develop them next.</p></div>'+
+    '<p>'+(r.mode==='matrix'||r.mode==='reverse'
+      ? 'These are the moves that most often resolved this particular trade-off across the patent record. Each card says <em>why</em> it tends to work \u2014 read that first, because the mechanism is what transfers to your situation, not the example.'
+      : r.mode==='separation'
+      ? 'These are the moves that most often deliver this kind of separation. Each card says <em>why</em> it tends to work \u2014 read that first, because the mechanism is what transfers, not the example.'
+      : 'All forty, with the broadly useful ones first. Each card says <em>why</em> it tends to resolve contradictions \u2014 that is the part worth reading against your problem.')+
+      ' Star anything that produces even a half-formed idea \u2014 you will develop them next.</p></div>'+
     framingBar()+ head +
     (r.notes.length?r.notes.map(n=>'<div class="asks" style="border-color:var(--warn);background:var(--warn-soft)"><div class="eh" style="color:var(--warn)">Note</div><div class="tiny">'+n+'</div></div>').join(''):'')+
     '<details class="help" style="margin:14px 0 0"><summary>How to use these well</summary><div class="help-body"><ul>'+
@@ -1260,7 +1348,7 @@ function framingSummary(f){
 }
 function exportMarkdown(){
   const L=[];
-  L.push('# TRIZ working sheet');
+  L.push('# PMI - TRIZ+ working sheet');
   L.push('');
   L.push('**Problem:** '+(S.problem.title||'(not stated)'));
   if(S.problem.context) L.push('\n**Context:** '+S.problem.context);
@@ -1300,7 +1388,7 @@ function exportMarkdown(){
   });
   L.push('');
   L.push('---');
-  L.push('Generated with TRIZ Navigator \u00b7 '+new Date().toLocaleString());
+  L.push('Generated with PMI - TRIZ+ \u00b7 '+new Date().toLocaleString());
   return L.join('\n');
 }
 
@@ -1679,7 +1767,7 @@ document.addEventListener('click', e=>{
     S.windows={}; persist(); renderWindows(); toast('Nine Windows cleared'); })(); }
 
   else if(a==='copyMd'){ copyWorkingSheet(); }
-  else if(a==='downloadMd'){ download('triz-working-sheet.md', exportMarkdown(), 'text/markdown'); }
+  else if(a==='downloadMd'){ download('pmi-triz-plus-working-sheet.md', exportMarkdown(), 'text/markdown'); }
   else if(a==='printIt'){ doPrint(); }
 });
 
@@ -1687,7 +1775,8 @@ document.addEventListener('input', e=>{
   const t = e.target.closest('[data-action]'); if(!t) return;
   const a = t.dataset.action;
   if(a==='pf'){ S.problem[t.dataset.k]=t.value; persist(); refreshFooterState();
-    const box=$('#sugBox'); if(box) box.innerHTML=suggestionHtml(); }
+    const box=$('#sugBox'); if(box) box.innerHTML=suggestionHtml();
+    const st=$('#stBox'); if(st) st.innerHTML=statementHtml(); }
   else if(a==='ph'){ F().phys[t.dataset.k]=t.value; persist(); }
   else if(a==='win'){ S.windows[t.dataset.k]=t.value; persist(); }
   else if(a==='idea'){
@@ -1826,6 +1915,10 @@ async function startNewSession(){
 /* ===================================================================
    Boot
    =================================================================== */
+/* Promote the webfont only after the first frame has been painted, so the page
+   is readable in its fallback stack immediately even if the font host hangs. */
+requestAnimationFrame(()=>{ const wf=document.getElementById('webfont'); if(wf) wf.media='all'; });
+
 loadAll();
 probeStorage();
 initRuntime();

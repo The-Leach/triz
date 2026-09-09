@@ -1,7 +1,8 @@
-# TRIZ Navigator
+# PMI - TRIZ+
 
 A single-file web app for working TRIZ problems in **service and back-office
-environments as well as manufacturing**.
+environments as well as manufacturing**. The **+** marks the expansion: classical
+TRIZ with a service reading throughout.
 
 Open `index.html` in any browser. There is nothing to install, no build step, no
 server and no network access — the file works from a USB stick, an email
@@ -33,8 +34,10 @@ summary nudges you towards a second pass while you have only made one.
 The five steps:
 
 1. **Frame** the problem, with prompts for the Ideal Final Result and for
-   resources you already hold. As you type, it suggests which of the 39 factors
-   your wording seems to touch.
+   resources you already hold. As you type it suggests which of the 39 factors
+   your wording touches, and checks the statement itself: a solution in disguise
+   ("we need a new system"), language too general to work on, no measure, nobody
+   named. The advice names the offending words and never blocks you.
 2. **Find the contradiction** — a trade-off (improving A worsens B), a both-ways
    demand (one thing must be X and not-X), or open exploration if you cannot see
    one yet. Sixteen common service trade-offs are offered as one-click starting
@@ -63,6 +66,12 @@ the centre window.
 Three **worked examples** — an insurance claims backlog, a hospital discharge
 delay, an onboarding drop-off — live under Guidance, with one small link to them
 from the first step. The solve page stays focused on your own problem.
+
+Every principle also explains **why it resolves a contradiction** — the mechanism,
+not a restatement. *Beforehand cushioning* works because speed and reliability
+conflict only while failure is unhandled; prepare the recovery and you can afford
+to be fast. That is the part that transfers to your situation, so the results step
+tells you to read it first.
 
 The **40 principles** each carry **two names**: Altshuller's original, and a
 plain-language one for service work. Several of the originals describe physics and
@@ -105,6 +114,7 @@ one click away.
 | `build.py` | Validates the content, then builds `index.html` and `dist/artifact.html`. |
 | `data/TRIZ_Contradiction_Matrix.xlsx` | Source workbook the matrix was built from. |
 | `data/matrix-crosscheck.md` | Cell-by-cell comparison against an independent published copy. |
+| `content/statement-checks.json` | Advisory checks on the problem statement. |
 | `tests/ui-test.js` | End-to-end checks (Playwright). |
 | `tests/hosted-test.js` | Checks the published-page save paths against a stubbed host. |
 | `tests/content-test.py` | Proves the content validator rejects malformed content. |
@@ -135,9 +145,13 @@ rather than a sentence.
 
 ## Fonts and offline use
 
-The page links IBM Plex from Google Fonts as a progressive enhancement. With no
-network it falls back to the system stack and everything else works unchanged —
-the app has no other external dependency.
+The page links IBM Plex from Google Fonts, loaded **off the critical path**: the
+stylesheet is requested with `media="print"` and promoted after the first frame,
+so a blocked or slow font host can never hold up rendering. This matters more than
+it sounds — measured with the font host unreachable, a render-blocking link cost
+**12.8 seconds of blank screen**; non-blocking, the page paints in **132 ms** and
+falls back to the system stack. Corporate networks that proxy-block Google Fonts
+are common in exactly the sectors this tool is for.
 
 ## Saving files
 
@@ -151,7 +165,7 @@ printed.
 
 ```bash
 npm install playwright
-node tests/ui-test.js       # 182 end-to-end checks
+node tests/ui-test.js       # 193 end-to-end checks
 node tests/hosted-test.js   # 10 published-page save checks
 node tests/sandbox-test.js  # 12 checks inside a sandboxed iframe
 python3 tests/content-test.py   # 16 checks that bad content is rejected

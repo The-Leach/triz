@@ -4,6 +4,7 @@
   "name": "Segmentation",
   "alias": "Break it up",
   "ess": "Break it into independent pieces — and make the pieces smaller.",
+  "why": "Most contradictions hold only for the whole thing. Divide it and each part can satisfy a different demand, so the conflict has nowhere left to sit.",
   "subs": [
    "Divide an object into independent parts",
    "Make it easy to take apart",
@@ -32,6 +33,7 @@
   "name": "Taking out",
   "alias": "Take the trouble out",
   "ess": "Extract the one troublesome part — or extract only the part you actually need.",
+  "why": "If one element causes the harm, the real conflict is between that element and everything else — not between the two demands. Remove it and the trade-off goes with it.",
   "subs": [
    "Separate an interfering part or property",
    "Single out the only necessary part or property"
@@ -58,6 +60,7 @@
   "name": "Local quality",
   "alias": "Stop treating everything the same",
   "ess": "Stop treating everything the same. Let each part do its own job, in its own best conditions.",
+  "why": "A single setting for everything forces one compromise onto cases that need different answers. Vary it locally and each case gets its own.",
   "subs": [
    "Change from uniform to non-uniform structure",
    "Change the environment so each part is in the best conditions for it",
@@ -86,6 +89,7 @@
   "name": "Asymmetry",
   "alias": "Deliberately uneven",
   "ess": "Where symmetry is costing you, deliberately make the two sides different.",
+  "why": "Symmetry is usually inherited rather than chosen. When the two sides face different demands, forcing them to match is what creates the conflict.",
   "subs": [
    "Replace a symmetrical form with an asymmetrical one",
    "If already asymmetrical, increase the asymmetry"
@@ -112,6 +116,7 @@
   "name": "Merging",
   "alias": "Do it all in one go",
   "ess": "Bring like things together, or make operations happen at the same moment.",
+  "why": "Conflicts often live in the gaps between things rather than in the things. Bring them together and the gap — with its waiting, its hand-off and its losses — disappears.",
   "subs": [
    "Bring identical or related objects closer together, or merge them",
    "Make operations parallel, or contiguous in time"
@@ -139,6 +144,7 @@
   "name": "Universality",
   "alias": "One thing, many jobs",
   "ess": "Make one thing do several jobs, so other things can be deleted.",
+  "why": "Every extra object brings its own constraints. One thing doing several jobs removes the constraints of everything it replaces.",
   "subs": [
    "Make an object perform multiple functions",
    "Eliminate the need for other objects"
@@ -165,6 +171,7 @@
   "name": "Nested doll",
   "alias": "Tuck it inside something else",
   "ess": "Put one thing inside another, rather than beside it.",
+  "why": "Two things competing for the same space or time stop competing when one sits inside the other rather than beside it.",
   "subs": [
    "Place one object inside another, and that inside a third",
    "Pass one part through a cavity in another"
@@ -191,6 +198,7 @@
   "name": "Anti-weight",
   "alias": "Offset the burden",
   "ess": "If something is too heavy to carry, pair it with something that lifts.",
+  "why": "You cannot always remove a burden, but you rarely have to carry it yourself. There is usually a force already present that can take it.",
   "subs": [
    "Compensate weight by joining with something that provides lift",
    "Compensate weight by interaction with the environment"
@@ -218,6 +226,7 @@
   "name": "Preliminary anti-action",
   "alias": "Apply the opposite first",
   "ess": "If an action will cause harm, apply the opposite in advance.",
+  "why": "If harm is unavoidable it can still be cancelled in advance. Pre-loading the opposite means the harm arrives into a system already leaning the other way.",
   "subs": [
    "Apply a counter-action in advance of a harmful action",
    "Create stresses in advance that oppose the stresses to come"
@@ -244,6 +253,7 @@
   "name": "Preliminary action",
   "alias": "Get it ready in advance",
   "ess": "Do it before it is needed, and set things up so the moment itself is trivial.",
+  "why": "The conflict usually bites at one particular moment. Move the work out of that moment and the moment stops being contested.",
   "subs": [
    "Perform the required change before it is needed",
    "Pre-arrange things so they can act without losing time waiting"
@@ -270,6 +280,7 @@
   "name": "Beforehand cushioning",
   "alias": "Have the fix ready",
   "ess": "Assume it will fail, and put the remedy in place now.",
+  "why": "Speed and reliability conflict only while failure is unhandled. Prepare the recovery and you can afford to be fast.",
   "subs": [
    "Prepare emergency means beforehand to compensate for relatively low reliability"
   ],
@@ -296,6 +307,7 @@
   "name": "Equipotentiality",
   "alias": "Take out the level changes",
   "ess": "Change the conditions so nothing has to be lifted up and down at all.",
+  "why": "A great deal of conflict is manufactured by moving things between levels. Remove the level change and the cost of moving goes with it.",
   "subs": [
    "Change operating conditions to eliminate the need to raise or lower"
   ],
@@ -321,6 +333,7 @@
   "name": "The other way round",
   "alias": "Flip it round",
   "ess": "Invert it. Do the opposite, or swap who moves and who stays still.",
+  "why": "A contradiction is always stated from one direction. Reversing it often turns the constraint itself into the mechanism.",
   "subs": [
    "Invert the action used to solve the problem",
    "Make movable parts fixed, and fixed parts movable",
@@ -348,6 +361,7 @@
   "name": "Spheroidality — curvature",
   "alias": "Go round, not straight",
   "ess": "Trade straight lines for curves, and linear motion for rotation.",
+  "why": "A straight line has to get it right first time. A loop can come round again, which converts a precision problem into a repetition problem.",
   "subs": [
    "Replace linear parts with curved, flat surfaces with spherical",
    "Use rollers, balls, spirals, domes",
@@ -376,6 +390,7 @@
   "name": "Dynamics",
   "alias": "Make the fixed things flex",
   "ess": "Make the fixed things adjustable, so they can be optimal at every stage.",
+  "why": "A fixed setting has to be right for every condition at once — which is precisely what the contradiction says is impossible. Let it vary and each condition gets its own optimum.",
   "subs": [
    "Allow characteristics to change to be optimal at each stage",
    "Divide into elements that can change relative position",
@@ -403,6 +418,7 @@
   "name": "Partial or excessive actions",
   "alias": "Good enough, or overshoot",
   "ess": "If you cannot have exactly 100%, take slightly less or slightly more — it is usually easier.",
+  "why": "The cost is almost always in the last few percent. Backing off slightly, or overshooting and trimming, escapes an expensive exactness.",
   "subs": [
    "If 100% is hard to achieve, do slightly less or slightly more and simplify the problem"
   ],
@@ -429,6 +445,7 @@
   "name": "Another dimension",
   "alias": "Add another axis",
   "ess": "If it will not work in one dimension, add another.",
+  "why": "If two demands cannot both be met along one axis, they often can along two. The conflict was in the framing, not in the system.",
   "subs": [
    "Move into two or three dimensions instead of one",
    "Use a multi-storey arrangement instead of a single layer",
@@ -458,6 +475,7 @@
   "name": "Mechanical vibration",
   "alias": "Little and often",
   "ess": "Oscillate it. Raise the frequency. Find the natural rhythm and ride it.",
+  "why": "Amplitude and frequency trade against one another. Many small applications deliver the same total effect with far less shock to absorb.",
   "subs": [
    "Cause the object to oscillate",
    "Increase the frequency, up to ultrasonic",
@@ -486,6 +504,7 @@
   "name": "Periodic action",
   "alias": "In bursts, not constantly",
   "ess": "Stop doing it continuously. Pulse it — and use the gaps.",
+  "why": "Continuous action leaves no room for anything else. Pulsing creates gaps, and the gaps are where the competing demand can be met.",
   "subs": [
    "Replace continuous action with periodic or pulsed action",
    "If already periodic, change the frequency",
@@ -514,6 +533,7 @@
   "name": "Continuity of useful action",
   "alias": "Never let it sit idle",
   "ess": "Never let the valuable thing sit idle.",
+  "why": "Idle time is where cost accumulates without output. Removing it improves both sides of a speed-versus-cost conflict at once, rather than trading them.",
   "subs": [
    "Work continuously, with all parts always at full load",
    "Remove idle and intermediate motion"
@@ -541,6 +561,7 @@
   "name": "Skipping",
   "alias": "Get through it fast",
   "ess": "If a stage is harmful mainly because it lasts, go through it fast.",
+  "why": "Some harm is a function of duration rather than of the action itself. Go through fast enough and it never has time to form.",
   "subs": [
    "Conduct a process, or certain stages of it, at high speed"
   ],
@@ -566,6 +587,7 @@
   "name": "Blessing in disguise",
   "alias": "Turn the harm into fuel",
   "ess": "Turn the harm into the resource. Make lemons into lemonade.",
+  "why": "A harm is usually a resource in the wrong place. Redirect it and the thing you were paying to remove starts paying you instead.",
   "subs": [
    "Use harmful factors to achieve a positive effect",
    "Eliminate a harmful factor by combining it with another harmful factor",
@@ -593,6 +615,7 @@
   "name": "Feedback",
   "alias": "Close the loop",
   "ess": "Close the loop — and if there is a loop already, change its speed or strength.",
+  "why": "Control and speed conflict when the loop is too slow to steer with. Shorten the loop and you can have both.",
   "subs": [
    "Introduce feedback to improve a process or action",
    "If feedback already exists, change its magnitude or influence"
@@ -620,6 +643,7 @@
   "name": "Intermediary",
   "alias": "Put a go-between in",
   "ess": "Put something in between — and let it disappear once the job is done.",
+  "why": "When two things cannot meet directly, the conflict sits at the interface. A go-between takes the incompatibility onto itself and can be removed later.",
   "subs": [
    "Use an intermediary carrier or intermediary process",
    "Merge one object temporarily with another that is easily removed"
@@ -646,6 +670,7 @@
   "name": "Self-service",
   "alias": "Let it serve itself",
   "ess": "Make it serve itself, and make its by-products do work.",
+  "why": "Every supporting function is both a cost and a constraint. If the thing can do it itself, both disappear at once.",
   "subs": [
    "Make an object serve itself by performing auxiliary helpful functions",
    "Use waste resources, energy or substances"
@@ -672,6 +697,7 @@
   "name": "Copying",
   "alias": "Use a copy, not the original",
   "ess": "Do not use the expensive original when a cheap copy will do.",
+  "why": "The conflict is usually with the original's cost, scarcity or fragility — not with what it does. A copy keeps the function and drops the constraint.",
   "subs": [
    "Use a simple, inexpensive copy instead of a fragile or expensive object",
    "Replace an object with optical copies, at a suitable scale",
@@ -699,6 +725,7 @@
   "name": "Cheap short-living objects",
   "alias": "Make it disposable",
   "ess": "Replace one expensive, durable thing with many cheap, disposable ones.",
+  "why": "Durability is expensive and often unnecessary. Make the thing disposable and the demands that made it expensive stop applying.",
   "subs": [
    "Replace an expensive object with several cheap ones, giving up some qualities such as longevity"
   ],
@@ -724,6 +751,7 @@
   "name": "Mechanics substitution",
   "alias": "Replace the thing with a signal",
   "ess": "Replace the physical mechanism with an informational or sensory one.",
+  "why": "Physical mechanisms carry physical constraints. Move the function into information and most of those constraints do not follow it.",
   "subs": [
    "Replace a mechanical means with a sensory means",
    "Use electric, magnetic or electromagnetic fields to interact",
@@ -752,6 +780,7 @@
   "name": "Pneumatics and hydraulics",
   "alias": "Make it fluid, not rigid",
   "ess": "Use something that flows and cushions instead of something rigid.",
+  "why": "Rigid things must be sized for the worst case they will ever meet. Something that flows adapts to the load instead of resisting it.",
   "subs": [
    "Replace solid parts with gas or liquid ones — inflatable, hydrostatic, air cushion"
   ],
@@ -777,6 +806,7 @@
   "name": "Flexible shells and thin films",
   "alias": "Wrap it, don't rebuild it",
   "ess": "A thin flexible layer can do the job of a heavy structure.",
+  "why": "Strength and weight conflict in solid structures. A thin layer that holds a shape, rather than resisting force, escapes the trade entirely.",
   "subs": [
    "Use flexible shells and thin films instead of three-dimensional structures",
    "Isolate the object from its environment with flexible shells and thin films"
@@ -803,6 +833,7 @@
   "name": "Porous materials",
   "alias": "Build in deliberate gaps",
   "ess": "Build in deliberate gaps — then use them.",
+  "why": "A solid system has nowhere to absorb variation, so every disturbance propagates. Deliberate gaps give it somewhere to go.",
   "subs": [
    "Make an object porous, or add porous elements",
    "If already porous, fill the pores with a useful substance"
@@ -829,6 +860,7 @@
   "name": "Colour changes",
   "alias": "Make it obvious at a glance",
   "ess": "Change what can be seen, and by whom.",
+  "why": "Much conflict comes from not being able to see the state of things. Make it visible and the control that was costing effort becomes almost free.",
   "subs": [
    "Change the colour of an object or its surroundings",
    "Change the transparency of an object or its surroundings",
@@ -856,6 +888,7 @@
   "name": "Homogeneity",
   "alias": "Speak the same language",
   "ess": "Let things interact with things of their own kind.",
+  "why": "Interfaces between unlike things are where loss and error live. Make them the same nature and the interface stops being a place things go wrong.",
   "subs": [
    "Make objects interact with objects of the same material, or of similar properties"
   ],
@@ -882,6 +915,7 @@
   "name": "Discarding and recovering",
   "alias": "Design it to expire",
   "ess": "Design things to disappear when their job is done — and to renew themselves while running.",
+  "why": "Things outlive their purpose and become constraints on everything after them. Building in expiry stops the system accumulating its own obstacles.",
   "subs": [
    "Discard, dissolve or evaporate portions that have completed their function",
    "Restore consumable parts during operation"
@@ -908,6 +942,7 @@
   "name": "Parameter changes",
   "alias": "Turn a dial, don't redesign",
   "ess": "Turn a dial. Change a setting rather than the design.",
+  "why": "The conflict is often with a setting rather than the design. Changing state, concentration or degree can dissolve it without rebuilding anything.",
   "subs": [
    "Change the physical state",
    "Change the concentration or consistency",
@@ -936,6 +971,7 @@
   "name": "Phase transitions",
   "alias": "Use the moment it changes state",
   "ess": "Use the energy released at the moment something changes state.",
+  "why": "At the moment something changes state it is briefly free: energy is released and constraints are suspended. Change is cheap there and expensive everywhere else.",
   "subs": [
    "Use phenomena that occur during phase transitions — volume change, heat loss or absorption"
   ],
@@ -961,6 +997,7 @@
   "name": "Thermal expansion",
   "alias": "Let it stretch under pressure",
   "ess": "Use the fact that different things respond differently to the same load.",
+  "why": "Two things that respond differently to the same condition produce movement for nothing. The difference does the work you were about to pay for.",
   "subs": [
    "Use expansion or contraction of materials under heat",
    "Use several materials with different coefficients of expansion"
@@ -987,6 +1024,7 @@
   "name": "Strong oxidants",
   "alias": "Concentrate the energy",
   "ess": "Enrich the environment so the reaction goes faster.",
+  "why": "When a reaction is too slow the reflex is to apply more force. Enriching what it runs on gets the same result without the force, and without the damage force does.",
   "subs": [
    "Replace normal air with enriched air",
    "Replace enriched air with pure oxygen",
@@ -1014,6 +1052,7 @@
   "name": "Inert atmosphere",
   "alias": "Give it shelter",
   "ess": "Some things only survive if you shield them from the normal environment.",
+  "why": "Some things fail because of what surrounds them, not because of what they are. Change the environment and the thing survives unchanged.",
   "subs": [
    "Replace a normal environment with an inert one",
    "Add neutral parts or inert additives to an object"
@@ -1040,6 +1079,7 @@
   "name": "Composite materials",
   "alias": "Blend, don't choose",
   "ess": "A blend can have properties that no single ingredient has.",
+  "why": "A single material has to compromise between properties. A blend can hold two that no single one can — which is what a contradiction asks for.",
   "subs": [
    "Change from uniform to composite materials"
   ],

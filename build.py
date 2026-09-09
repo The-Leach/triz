@@ -38,6 +38,7 @@ presets     = load('presets.json')
 synonyms    = load('synonyms.json')
 windows     = load('nine-windows.json')
 examples    = load('examples.json')
+statement   = load('statement-checks.json')
 if errors:
     print('\n'.join('ERROR: ' + e for e in errors)); sys.exit(1)
 
@@ -66,6 +67,10 @@ for p in principles:
           'principle %s: the service name just repeats the classical one' % p['n'])
     check(len(alias.split()) <= 6, 'principle %s: the service name should be a short handle, not a sentence' % p['n'])
     check(len(p.get('subs', [])) >= 1, 'principle %s has no classical sub-principles' % p['n'])
+    why = str(p.get('why', '')).strip()
+    check(bool(why), 'principle %s does not explain why it resolves contradictions' % p['n'])
+    check(len(why.split()) >= 12,
+          'principle %s: the reason it works should explain the mechanism, not restate the principle' % p['n'])
     # the service reading is the point of this tool, so hold it to a real minimum
     check(len(p.get('svc', [])) >= 2, 'principle %s needs at least 2 service examples' % p['n'])
     check(len(p.get('mfg', [])) >= 2, 'principle %s needs at least 2 manufacturing examples' % p['n'])
@@ -133,6 +138,15 @@ check(len(windows['windows']) == 9, 'nine windows needs exactly 9 cells')
 check({w['row'] for w in windows['windows']} == {r['id'] for r in windows['rows']}, 'window rows do not line up')
 check({w['col'] for w in windows['windows']} == {c['id'] for c in windows['cols']}, 'window columns do not line up')
 
+# ------------------------------------------------ problem-statement checks
+check(len(statement.get('checks', [])) >= 3, 'expected at least three statement checks')
+for c in statement.get('checks', []):
+    for key in ('id', 'label', 'say', 'ask'):
+        check(bool(c.get(key)), 'statement check %r has no %s' % (c.get('id'), key))
+    check(any(k in c for k in ('any', 'needsAny', 'needsDigitOr')),
+          'statement check %r has no trigger words' % c.get('id'))
+check(bool(statement.get('goodEnough')), 'statement checks need a message for a good statement')
+
 # -------------------------------------------------------- worked examples
 check(len(examples) >= 1, 'at least one worked example is expected')
 for ex in examples:
@@ -179,6 +193,7 @@ blocks = [
     js('WIN_ROWS', windows['rows']),
     js('WIN_COLS', windows['cols']),
     js('EXAMPLES', examples),
+    js('STATEMENT', statement),
 ]
 template = (ROOT / 'src' / 'app.html').read_text(encoding='utf-8')
 assert '/*__CONTENT__*/' in template, 'template has lost its content placeholder'

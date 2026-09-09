@@ -1,0 +1,34 @@
+{
+ "note": "Advisory checks on the problem statement. Each has a pattern of trigger words, a short verdict and a prompt that moves the writer forward. Nothing here blocks progress.",
+ "checks": [
+  {
+   "id":"solution",
+   "label":"This reads like a solution, not a problem",
+   "say":"You have named something to build or buy. State what goes wrong today, and let the tool find the answer — otherwise you will only ever get variations on the answer you arrived with.",
+   "ask":"What happens if you do nothing? Write that instead.",
+   "any":["we need a","we need an","we need to implement","implement a","implement an","roll out","introduce a","introduce an","new system","a system to","buy a","procure","install a","build a","build an","develop a","develop an","automate the","a new platform","a portal","an app to","a dashboard to","restructure the","reorganise","re-organise","outsource","recruit more","hire more","more staff","more resource","more headcount","training programme","upskill"]
+  },
+  {
+   "id":"vague",
+   "label":"Too general to work on",
+   "say":"Words like this describe a feeling about the problem rather than the problem. TRIZ needs the specific thing that goes wrong.",
+   "ask":"Which step, for whom, produces what wrong outcome?",
+   "any":["issues","problems with","challenges","inefficient","inefficiency","not efficient","poor performance","poor service","bad service","not good enough","lack of","needs improving","needs to improve","could be better","suboptimal","sub-optimal","not fit for purpose","broken process","culture of","siloed","silos"]
+  },
+  {
+   "id":"measure",
+   "label":"No number in it",
+   "say":"Without a measure you cannot tell which factor is really being improved, and you will not know afterwards whether anything changed.",
+   "ask":"How long, how often, how many, what percentage?",
+   "needsDigitOr":["average","per cent","percent","%","every","each week","each month","a day","a week","a month","a year","per case","per customer","per order","half","most","majority","twice","three times"]
+  },
+  {
+   "id":"subject",
+   "label":"Nobody is named",
+   "say":"A contradiction needs something that suffers it. Naming who or what is affected usually reveals which factor you are actually improving.",
+   "ask":"Who or what is worse off — a customer, a case, a shift, a margin?",
+   "needsAny":["customer","customers","client","clients","patient","patients","resident","residents","passenger","student","member","applicant","claimant","supplier","case","cases","claim","claims","application","applications","order","orders","ticket","tickets","referral","invoice","request","requests","enquiry","enquiries","complaint","complaints","staff","team","teams","adviser","nurse","clinician","officer","agent","caseworker","user","users","file","files","account","shift","margin","revenue","cost"]
+  }
+ ],
+ "goodEnough":"This reads as a workable problem statement — specific, measured, and about what goes wrong rather than what to build."
+}

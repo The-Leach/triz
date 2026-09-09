@@ -1,5 +1,5 @@
 /*
- * TRIZ Navigator — end-to-end checks.
+ * PMI - TRIZ+ — end-to-end checks.
  *
  *   npm install playwright
  *   node tests/ui-test.js
@@ -66,6 +66,8 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('40 principles, numbered 1-40', data.principles === 40 && data.principlesOrdered);
   ok('every principle and factor has full content', data.contentComplete);
   ok('every principle has a distinct plain-language service name', data.aliases && data.aliasesUnique);
+  ok('every principle explains the mechanism by which it resolves contradictions',
+    await p.evaluate(() => PRINCIPLES.every(x => x.why && x.why.split(/\s+/).length >= 12)));
   ok('every principle offers at least one structural service example', await p.evaluate(() => {
     const sys = /\b(process|queue|queues|policy|policies|rule|rules|threshold|batch|flow|capacity|system|systems|hand-?off\w*|step|steps|route|routing|trigger|schedule|buffer|backlog|demand|constraint|interface|default|standard|contract|channel|signal|loop|data|record|records|form|forms|automat\w*|workflow|sla|variation|decouple\w*|intake|dwell|sampling|audit|expiry|stage|stages|control|controls)\b/i;
     return PRINCIPLES.every(x => x.svc.some(e => sys.test(e)));
@@ -93,6 +95,30 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('can continue once stated', !(await p.isDisabled('#stepBody [data-action="step"][data-n="2"]')));
   ok('suggests relevant factors while typing', await p.locator('#sugBox [data-action="sugImp"]').count() > 0);
 
+  /* ---------- the problem statement is checked, advisorily ---------- */
+  await p.evaluate(() => { S = blankSession(); S.step = 1; renderSolve(); }); await p.waitForTimeout(300);
+  const stat = async t => { await p.fill('[data-action="pf"][data-k="title"]', t); await p.waitForTimeout(300);
+    return p.evaluate(() => checkStatement().map(h => h.c.id)); };
+  ok('a solution in disguise is spotted',
+    (await stat('We need a new workflow system to speed things up')).includes('solution'));
+  ok('a vague statement is spotted',
+    (await stat('There are issues with the claims process')).includes('vague'));
+  ok('a missing measure is spotted',
+    (await stat('Claims take too long for customers')).includes('measure'));
+  ok('a missing subject is spotted',
+    (await stat('Average handling takes 19 days and rushing it doubles the rework')).includes('subject'));
+  const clean = await stat('New customer applications wait an average of 9 days for approval, and errors rise when we rush them');
+  ok('a good statement raises nothing', clean.length === 0);
+  ok('a good statement is confirmed as such', await p.locator('#stBox .stcheck.ok').count() === 1);
+  await p.fill('[data-action="pf"][data-k="title"]', 'We need a new portal'); await p.waitForTimeout(300);
+  ok('the advice is shown, with the offending words named',
+    await p.locator('#stBox .st-item').count() >= 1 && await p.locator('#stBox .st-word').count() >= 1);
+  ok('the advice never blocks progress',
+    !(await p.isDisabled('#stepBody [data-action="step"][data-n="2"]')));
+  await p.fill('[data-action="pf"][data-k="title"]',
+    'New customer applications wait nine days for approval and errors rise when we rush them');
+  await p.waitForTimeout(300);
+
   /* ---------- technical contradiction ---------- */
   await p.click('#stepBody [data-action="step"][data-n="2"]'); await p.waitForTimeout(250);
   await p.click('[data-action="ctype"][data-t="technical"]'); await p.waitForTimeout(250);
@@ -101,6 +127,13 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('preset fills both factors', (await p.locator('.selected-param .t').count()) === 2);
   await p.click('#stepBody [data-action="step"][data-n="3"]'); await p.waitForTimeout(350);
   ok('matrix returns principle cards', await p.locator('#view-solve .pcard').count() > 0);
+
+  /* ---------- the why is on the card, and the results say why they were chosen ---------- */
+  ok('every card carries its mechanism', await p.evaluate(() =>
+    document.querySelectorAll('#view-solve .pcard .why').length ===
+    document.querySelectorAll('#view-solve .pcard').length));
+  ok('the results explain why these principles were offered',
+    /why it tends to work/.test(await p.textContent('#stepBody')));
 
   /* ---------- the service name is shown beside the classical one ---------- */
   ok('principle cards show both names', await p.locator('#view-solve .pcard .alias').count() > 0);
@@ -395,7 +428,7 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   const [dl2] = await Promise.all([p.waitForEvent('download'), p.click('[data-action="downloadMd"]')]);
   const mdFile = require('fs').readFileSync(await dl2.path(), 'utf8');
   ok('markdown download is well formed and carries the work',
-    mdFile.startsWith('# TRIZ working sheet') && mdFile.includes('Pre-check at intake'));
+    mdFile.startsWith('# PMI - TRIZ+ working sheet') && mdFile.includes('Pre-check at intake'));
 
   /* ---------- one framing is nudged towards a second ---------- */
   ok('a single framing is nudged to try another',
