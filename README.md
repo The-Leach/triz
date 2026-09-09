@@ -1,253 +1,182 @@
 # PMI - TRIZ+
 
-A single-file web app for working TRIZ problems in **service and back-office
-environments as well as manufacturing**. The **+** marks the expansion: classical
-TRIZ with a service reading throughout.
+Classical TRIZ, expanded so it works in service and back-office environments as
+well as manufacturing. The **+** marks the expansion.
 
-Open `index.html` in any browser. There is nothing to install, no build step, no
-server and no network access — the file works from a USB stick, an email
-attachment or a shared drive. Everything you type stays in your own browser.
+**[index.html](index.html) is the app.** Open it in any browser. There is nothing
+to install: no server, no build, no account, no network. It works from a USB
+stick, an email attachment or a shared drive, and nothing you type leaves your
+browser.
 
-## Why
+---
 
-TRIZ is domain-neutral in its logic and thoroughly industrial in its vocabulary.
-Altshuller derived the 39 factors from engineering patents, so they are named
-things like *weight of moving object*, *thermal expansion* and *strong oxidants*.
-That wording is why the method rarely survives contact with a claims department,
-a ward or a contact centre — not because the underlying patterns do not apply.
+## Why it exists
 
-This tool keeps the classical names, because that is what keeps the contradiction
-matrix valid, and adds a plain reading of each one for work where the "product"
-is a case, a customer or a decision. Every one of the 40 principles carries
-worked examples from both worlds, and a domain switch in the header controls
-which set you see.
+TRIZ's logic is domain-neutral; only its vocabulary is industrial. Altshuller
+derived the 39 factors from engineering patents, so they are named things like
+*weight of moving object* and *thermal expansion*. That wording is why the method
+rarely survives contact with a claims department or a ward — not because the
+underlying patterns do not apply.
+
+This keeps the classical names, because that is what keeps the contradiction
+matrix valid, and adds a service reading of everything:
+
+- Each of the **39 factors** gains a plain reading for when the "product" is a
+  case, a patient or a claim — plus its **polarity**, whether improving it means
+  more or less. For the loss and harm factors "improving" means *reducing*, which
+  is the easiest way to use the matrix backwards without noticing.
+- Each of the **40 principles** gains a second, plainer **name**. *Anti-weight* is
+  "Offset the burden"; *Equipotentiality* is "Take out the level changes";
+  *Mechanical vibration* is "Little and often". The original is always kept and
+  shown first.
+- Each principle also explains **why it resolves a contradiction** — the
+  mechanism, not a restatement. That is the part that transfers to your problem.
+- The service examples are weighted towards **structural** change — flow, queues,
+  batch size, routing, thresholds, hand-offs — rather than asking people to try
+  harder. The test the guidance offers: *what happens if the people are ordinary
+  and busy?*
 
 ## What it does
 
-**Solve a problem** — a five-step guided flow, and the centre of the app. One
-problem can carry **several framings** — the same trouble written as a trade-off,
-as a both-ways demand, and as open exploration — each with its own shortlist and
-concepts. Running two or three is the intended way to use it: they route to
-different principles, and they all land in one working sheet at the end. The
-summary nudges you towards a second pass while you have only made one.
+**Solve a problem** — a five-step flow, and the centre of the app. One problem can
+carry several **framings** (the same trouble as a trade-off, as a both-ways
+demand, as open exploration), each with its own shortlist. Running two or three is
+the intended way to use it: they route to different principles and all land in one
+working sheet.
 
-The five steps:
+1. **Frame** it. As you type, the app checks the statement — a solution in
+   disguise ("we need a new system"), language too general to work on, no measure,
+   nobody named — and suggests which factors your wording touches. The advice
+   names the offending words and never blocks you.
+2. **Find the contradiction** — a trade-off, a both-ways demand, or open
+   exploration.
+3. **Get principles** from the matrix or from the four separation strategies.
+   Blank cells are handled openly: it falls back to the reverse pair and says so,
+   and when both directions are blank it offers the nearby pairs the matrix *does*
+   cover rather than filler.
+4. **Develop** the shortlist into concepts scored on impact, effort and risk.
+   Writing an idea shortlists that principle automatically.
+5. **Summarise** — every framing in one working sheet, to copy, download or print.
 
-1. **Frame** the problem, with prompts for the Ideal Final Result and for
-   resources you already hold. As you type it suggests which of the 39 factors
-   your wording touches, and checks the statement itself: a solution in disguise
-   ("we need a new system"), language too general to work on, no measure, nobody
-   named. The advice names the offending words and never blocks you.
-2. **Find the contradiction** — a trade-off (improving A worsens B), a both-ways
-   demand (one thing must be X and not-X), or open exploration if you cannot see
-   one yet. Sixteen common service trade-offs are offered as one-click starting
-   points.
-3. **Get principles** — from the contradiction matrix, or from the four
-   separation strategies for physical contradictions. Blank cells are handled
-   explicitly: the tool falls back to the reverse pair and says so, and when both
-   directions are blank it stops guessing and offers the *nearby pairs the matrix
-   does cover*, plus a route into a physical contradiction instead. A dead end
-   becomes a reframing prompt rather than ten filler principles.
-4. **Develop** the shortlisted principles into concepts, scored on impact,
-   effort and risk, with a prompt to name the new problem each one creates.
-   Writing an idea against a principle shortlists it automatically — the writing
-   is the act of choosing it — while removing one stays a deliberate click.
-5. **Summarise** — ordered by impact then ease, exportable as Markdown, a file
-   or print/PDF.
+**Nine Windows** — the thing, its parts and its surroundings, across before / now
+/ next. Problems are stated in the centre box and usually caused elsewhere. What
+you write can be turned straight into a starting contradiction.
 
-**Nine Windows** — the system operator: the thing, its parts and its surroundings,
-across before / now / next. Problems are stated in the centre box and usually
-caused somewhere else; this is the quickest way to find out where. What you write
-feeds the exported working sheet, and can be turned straight into a starting
-contradiction — it suggests the factors your notes point at, flags when the cause
-appears to sit outside the process or in the past, and seeds the problem line from
-the centre window.
+**Contradiction matrix** — the full 39 × 39 grid, keyboard-operable, every cell
+clickable.
 
-Three **worked examples** — an insurance claims backlog, a hospital discharge
-delay, an onboarding drop-off — live under Guidance, with one small link to them
-from the first step. The solve page stays focused on your own problem.
+**Guidance & reference** — how TRIZ works, the 40 principles, the 39 factors, and
+three worked examples (a claims backlog, a discharge delay, an onboarding
+drop-off) you can open and edit into your own.
 
-Every principle also explains **why it resolves a contradiction** — the mechanism,
-not a restatement. *Beforehand cushioning* works because speed and reliability
-conflict only while failure is unhandled; prepare the recovery and you can afford
-to be fast. That is the part that transfers to your situation, so the results step
-tells you to read it first.
+## Where your work lives
 
-The **40 principles** each carry **two names**: Altshuller's original, and a
-plain-language one for service work. Several of the originals describe physics and
-say nothing to someone running a service — *Anti-weight* is "Offset the burden",
-*Equipotentiality* is "Take out the level changes", *Spheroidality — curvature* is
-"Go round, not straight", *Mechanical vibration* is "Little and often". The
-original is always kept, because it is the name the matrix and the whole TRIZ
-literature use; the second name is there to make the move thinkable. Both appear
-wherever a principle is named, including the exported working sheet, and search
-matches either. Each principle also has its classical wording, service examples,
-manufacturing examples and three questions to ask yourself, plus a random-spark
-button for when you have no contradiction to work from. The **39 factors** each
-carry their engineering meaning, their service reading, and their polarity —
-whether improving means more or less, stated in plain words. Both live under
-Guidance & reference.
+In your browser, on that machine, and nowhere else. There is no saved-work
+feature by design. The Summary step is where you take it out — copy it, download
+it as Markdown, or print it. A bar above the steps offers **Start a new problem**
+from any step. If the browser refuses to store anything (a private window, full
+storage), the app says so at the top of every view rather than pretending.
 
-**Contradiction matrix** — the full 39 × 39 grid, clickable, with each cell
-opening the recommended principles in full. Any pair can be handed straight to
-the wizard.
-
-**Guidance & reference** — everything that is there to be read rather than worked
-through, in four sections: **How TRIZ works** (a short, honest primer including
-the method's limits), **The 40 principles**, **The 39 factors**, and **Worked
-examples**. The two catalogues are reference material — you do not work through
-them, because Solve a problem brings you the handful that fit your contradiction.
-
-There is no saved-work feature. The working sheet is kept in this browser as you
-go, and the summary is the single place you take it away from: copy it, download
-it as Markdown, or print it. A bar above the steps shows what you are working on
-and offers **Start a new problem** from any step, so a reset is never more than
-one click away.
-
-## Repository contents
-
-| Path | Purpose |
-| --- | --- |
-| `index.html` | The built application — open it directly. **Generated; do not edit.** |
-| `content/*.json` | The content: factor readings, principle examples, matrix, prompts, worked examples. **Edit here.** |
-| `src/app.html` | The template: markup, styles and logic, with one content placeholder. |
-| `build.py` | Validates the content, then builds `index.html` and `dist/artifact.html`. |
-| `data/TRIZ_Contradiction_Matrix.xlsx` | Source workbook the matrix was built from. |
-| `data/matrix-crosscheck.md` | Cell-by-cell comparison against an independent published copy. |
-| `content/statement-checks.json` | Advisory checks on the problem statement. |
-| `tests/ui-test.js` | End-to-end checks (Playwright). |
-| `tests/hosted-test.js` | Checks the published-page save paths against a stubbed host. |
-| `tests/content-test.py` | Proves the content validator rejects malformed content. |
-| `tests/sandbox-test.js` | Runs the page inside a sandboxed iframe, as the published version does. |
+---
 
 ## Editing the content
 
-The content is the part worth changing — the service reading of each factor, the
-worked examples, the Nine Windows prompts, the search synonyms. It lives in
-`content/*.json` as plain data, so it can be edited without touching JavaScript.
+The content is the part worth changing, and it is plain JSON — no JavaScript
+needed:
+
+| File | Holds |
+| --- | --- |
+| `content/principles.json` | The 40 principles: both names, the mechanism, examples, prompts |
+| `content/factors.json` | The 39 factors: service reading, polarity, search keywords |
+| `content/matrix.json` | The 39 × 39 contradiction matrix |
+| `content/examples.json` | The three worked examples |
+| `content/statement-checks.json` | The advisory checks on the problem statement |
+| `content/nine-windows.json`, `separations.json`, `presets.json`, `synonyms.json` | The remaining prompts and lookups |
 
 ```bash
-python3 build.py --check    # validate the content, write nothing
-python3 build.py            # validate, then rebuild index.html and dist/artifact.html
+python3 build.py --check   # validate only
+python3 build.py           # validate, then rebuild index.html
 ```
 
-Nothing is written unless every check passes, so a malformed edit cannot reach a
-published page. The validator enforces, among other things: 39 factors and 40
-principles correctly numbered; every principle carrying at least two service
-examples, two manufacturing examples and two prompt questions; no example reused
-across two principles; every matrix reference resolving to a principle 1-40 with
-no cell repeating one; an empty diagonal; the landmark and corrected matrix cells
-unchanged; every quick-start preset landing on a populated cell; and every worked
-example referencing real factors and recording something for each principle it
-shortlists. Every principle must also carry a service name that is distinct from
-its classical one, unique across the forty, and short enough to be a handle
-rather than a sentence.
+Nothing is written unless every check passes, so a malformed edit cannot reach the
+app. The validator enforces, among other things: 39 factors and 40 principles
+correctly numbered; a distinct service name and a real explanation on every
+principle; at least two service examples, two manufacturing examples and two
+prompts each; no example reused across two principles; at least one *structural*
+service example per principle; every matrix reference resolving to a principle
+1–40 with no cell repeating one; and every worked example referencing real factors.
 
-## Fonts and offline use
+`src/app.html` is the template — markup, styles and logic, with one placeholder
+where the content is injected. **`index.html` is generated; do not edit it.**
 
-The page links IBM Plex from Google Fonts, loaded **off the critical path**: the
-stylesheet is requested with `media="print"` and promoted after the first frame,
-so a blocked or slow font host can never hold up rendering. This matters more than
-it sounds — measured with the font host unreachable, a render-blocking link cost
-**12.8 seconds of blank screen**; non-blocking, the page paints in **132 ms** and
-falls back to the system stack. Corporate networks that proxy-block Google Fonts
-are common in exactly the sectors this tool is for.
-
-## Saving files
-
-Opened as a local file, the export buttons download directly. Published as a
-hosted page, a page is not allowed to download on its own, so saving goes
-through the host's downloads capability; where that is unavailable the buttons
-are hidden rather than left dead, and the working sheet can still be copied or
-printed.
-
-## Running the tests
+## Running the checks
 
 ```bash
 npm install playwright
-node tests/ui-test.js       # 193 end-to-end checks
-node tests/hosted-test.js   # 10 published-page save checks
-node tests/sandbox-test.js  # 12 checks inside a sandboxed iframe
-python3 tests/content-test.py   # 16 checks that bad content is rejected
+./tests/run.sh
 ```
 
-### What the sandbox breaks
+233 checks across four suites: end-to-end behaviour, the published-page save
+paths, a sandboxed-iframe suite, and a suite that proves the content validator
+actually rejects bad content.
 
-Three things behave differently in the published frame, and all three failed
-silently before they were found: `window.confirm` returns `false` without asking,
-`window.print()` is ignored outright, and the Clipboard API is blocked by
-permissions policy. Confirmation is now asked in the page; printing is not
-offered where it cannot work, and the summary says why; copying falls back to
-`execCommand` and reports either way.
+The sandbox suite matters more than its size suggests. A published page runs
+inside a sandboxed iframe where `window.confirm` returns `false` without asking,
+`window.print()` is ignored outright, and the Clipboard API is blocked. Each of
+those failed *silently* while working perfectly from a local file. The app now
+asks for confirmation in the page, does not offer printing where it cannot work,
+and falls back for copying — and this suite drives all of it under the real
+condition.
 
-`sandbox-test.js` matters more than its size suggests. The published page runs
-inside a sandboxed iframe where `window.confirm` is suppressed and returns
-`false` without asking, so anything guarded by a native confirm becomes a silent
-no-op there while working perfectly from a local file. The app asks for
-confirmation in the page instead, and this suite drives every destructive action
-under the real condition.
+## Fonts and offline use
 
-The suite covers data integrity (39 factors with polarity, 40 principles, 1248
-populated matrix cells, all references in range), each of the three solve paths,
-multiple framings and their isolation, migration of older stored sessions,
-dead-end reframing, Nine Windows, keyboard navigation and labelling of the
-matrix, focus management, search, saving, export, theme switching and mobile
-layout.
+The page links IBM Plex from Google Fonts **off the critical path**: requested
+with `media="print"` and promoted after the first frame, so a blocked or slow font
+host can never hold up rendering. Measured with the host unreachable, a
+render-blocking link cost **12.8 seconds of blank screen**; non-blocking, the page
+paints in **132 ms** and falls back to the system stack. Corporate networks that
+proxy-block Google Fonts are common in exactly the sectors this is for.
 
-## If the browser will not save
-
-Storage can refuse the app — a private window, blocked site data, a full quota.
-Rather than silently dropping the work, the page says so at the top of every
-view and offers to download or copy it before anything is lost.
-
-## Systems focus
-
-Service problems tempt a particular kind of answer: bring in an expert, coach the
-team, train everyone again, put your best performer on it. Those are the
-contradiction being handed to a person to absorb, and they come back the moment
-that person leaves or the volume doubles. The service examples throughout are
-weighted towards structural moves instead — flow, queues, batch size, routing
-rules, thresholds, hand-offs, triggers, defaults, information — and the primer
-carries a section on the distinction, with the test: *what happens if the people
-are ordinary and busy?*
-
-The validator enforces this as a floor: every principle must offer at least one
-service example that changes the system rather than only the people. It is a
-keyword heuristic rather than a judgement of quality, and it exists to stop the
-content drifting back, not to prove it is good.
+It is the only external reference in the file. Everything else is inlined.
 
 ## Accessibility
 
-The matrix is fully keyboard-operable — arrow keys move between cells, Home and
-End jump along a row, Enter opens one — with a roving tabindex, scoped row and
-column headers, and a spoken label per cell naming both factors and the
-principles it holds. Step changes move focus to the new heading. Motion respects
-`prefers-reduced-motion`.
+The matrix is fully keyboard-operable — arrow keys between cells, Home and End
+along a row, Enter to open — with a roving tabindex, scoped headers and a spoken
+label per cell naming both factors and the principles it holds. Step changes move
+focus to the new heading. Motion respects `prefers-reduced-motion`.
 
 ## Provenance and accuracy
 
-The 39 factors, the 40 inventive principles and the contradiction matrix are
-Genrich Altshuller's classical TRIZ and are in the public domain. The service and
-back-office readings of the 39 factors, all worked examples, the prompt questions
-and the guidance text were written for this tool.
+The 39 factors, the 40 principles and the contradiction matrix are Genrich
+Altshuller's classical TRIZ and are in the public domain. The service readings,
+the second names, the mechanisms, all worked examples and the guidance text were
+written for this tool.
 
-The matrix was extracted from the workbook in `data/` and verified
-programmatically — 1248 populated cells, an empty diagonal, every reference
-resolving to a principle between 1 and 40, and no cell recommending the same
-principle twice — then **cross-checked cell by cell against an independently
-published copy**. The two agree on 97.44% of the 1,482 off-diagonal cells,
+The matrix was extracted from `data/TRIZ_Contradiction_Matrix.xlsx`, verified
+programmatically, then **cross-checked cell by cell against an independently
+published copy**. The two agree on **97.44%** of the 1,482 off-diagonal cells,
 including the landmark entries every published matrix shares.
 
 One cell was corrected: `[19, 9]` read `8, 35, 35` in the workbook, which is
-impossible, and now carries the independent copy's `8, 15, 35`. The 26 remaining
-single-value disagreements are recorded in `data/matrix-crosscheck.md` rather than
-silently resolved — published copies of the matrix have drifted apart over decades
-of transcription, and without a third authoritative source there is no basis for
-preferring one reading. The landmark cells, the absence of duplicates, and the
-corrected value are all asserted in the test suite.
+impossible. The 26 remaining single-value disagreements are recorded in
+[`data/matrix-crosscheck.md`](data/matrix-crosscheck.md) rather than silently
+resolved — published copies have drifted apart over decades of transcription, and
+without a third authoritative source there is no basis for preferring one reading.
 
-Two things the app is careful not to overstate, and says so in its own primer:
-the ordering of principles within a cell is a convention (most-frequently-used
-first), never a strict ranking; and the principles attached to each separation
-strategy are a later convention whose exact membership differs between TRIZ
-authors, not Altshuller's own mapping.
+Two things the app is careful not to overstate, and says so in its own primer: the
+order of principles within a cell is a convention (most-frequently-used first),
+never a strict ranking; and the principles attached to each separation strategy
+are a later convention whose membership differs between TRIZ authors, not
+Altshuller's own mapping.
+
+## Repository layout
+
+```
+index.html                 the app — generated, do not edit
+src/app.html               template: markup, styles, logic
+content/*.json             the content
+build.py                   validates the content, builds index.html
+tests/run.sh               runs every check
+data/                      matrix source workbook and the cross-check record
+```

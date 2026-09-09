@@ -1,0 +1,6 @@
+# Generated at publish time by build.py — index.html is the tracked deliverable
+dist/
+
+node_modules/
+__pycache__/
+*.pyc
