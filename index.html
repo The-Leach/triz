@@ -397,6 +397,8 @@ h3 .alias{font-weight:550}
 .st-ask{margin-top:4px;font-weight:550;color:var(--ink)}
 
 /* ---------- guidance carried into the summary ---------- */
+details.guide-open{border-color:var(--accent)}
+details.guide-open > summary{color:var(--accent)}
 .gline{border-top:1px solid var(--line-2);padding:11px 0}
 .gline:first-of-type{border-top:0;padding-top:2px}
 .gline.on{border-left:3px solid var(--warn);padding-left:11px;margin-left:-14px}
@@ -1376,6 +1378,18 @@ function windowsBridge(){
 /* The principles a framing suggested, with the reasoning behind them, are worth
    keeping even when nobody has written a concept yet. Someone picking the sheet
    up in a fortnight should be able to carry on thinking from it. */
+/* Content carries markup and HTML entities for the page. Markdown wants neither,
+   so an "&mdash;" was leaking into the exported sheet as literal text. */
+function plain(t){
+  return String(t==null?'':t)
+    .replace(/<[^>]+>/g,'')
+    .replace(/&#8209;/g,'-')
+    .replace(/&mdash;/g,'\u2014').replace(/&ndash;/g,'\u2013')
+    .replace(/&ldquo;|&rdquo;/g,'"').replace(/&lsquo;|&rsquo;/g,"'")
+    .replace(/&nbsp;/g,' ').replace(/&amp;/g,'&')
+    .replace(/&[a-z]+;/g,'')
+    .trim();
+}
 function guidanceLines(f){
   const L=[], r=recommended(f);
   if(r.mode==='deadend'){
@@ -1392,18 +1406,18 @@ function guidanceLines(f){
     const p=P_BY_N[x.n], on=starred.indexOf(x.n)>=0;
     L.push('');
     L.push('#### '+p.n+'. '+p.name+' \u00b7 '+p.alias+(on?'  \u2605 shortlisted':''));
-    L.push('*'+p.ess+'*');
+    L.push('*'+plain(p.ess)+'*');
     L.push('');
-    L.push('**Why it resolves a contradiction.** '+p.why);
+    L.push('**Why it resolves a contradiction.** '+plain(p.why));
     if(on){
       const ex = showSvc()? p.svc : p.mfg;
       L.push('');
       L.push((showSvc()?'**In a service or office.**':'**In manufacturing.**'));
-      ex.forEach(e=>L.push('- '+e.replace(/<[^>]+>/g,'')));
+      ex.forEach(e=>L.push('- '+plain(e)));
     }
     L.push('');
     L.push('**Ask yourself**');
-    p.ask.forEach(q=>L.push('- '+q));
+    p.ask.forEach(q=>L.push('- '+plain(q)));
   });
   return L;
 }
@@ -1411,9 +1425,9 @@ function guidanceHtml(f){
   const r=recommended(f);
   if(r.mode==='deadend') return '<div class="tiny muted">The matrix had no entry for this pair, so no principles were suggested.</div>';
   const starred=f.stars.slice();
-  return '<details class="help"><summary>The '+r.list.length+' principle'+(r.list.length>1?'s':'')+
+  return '<details class="help guide-open" open><summary>The '+r.list.length+' principle'+(r.list.length>1?'s':'')+
       ' this framing suggested, and why each one works</summary><div class="help-body">'+
-    '<p class="tiny" style="margin-top:0">Worth keeping even without concepts yet: the reasoning is what you carry forward. All of this is in the working sheet below.</p>'+
+    '<p class="tiny" style="margin-top:0">Kept whether or not you wrote concepts: the reasoning is what you carry forward, and all of it is in the working sheet below. Collapse this if you only want the concepts.</p>'+
     r.list.map(x=>{
       const p=P_BY_N[x.n], on=starred.indexOf(x.n)>=0;
       return '<div class="gline'+(on?' on':'')+'">'+
@@ -1430,9 +1444,9 @@ function framingSummary(f){
   if(f.ctype==='technical' && f.imp && f.wor){
     L.push('Trade-off: improving **'+f.imp+'. '+PARAM_BY_N[f.imp].name+'** worsens **'+f.wor+'. '+PARAM_BY_N[f.wor].name+'**');
     L.push('');
-    L.push('- Improving *'+PARAM_BY_N[f.imp].name+'* \u2014 '+PARAM_BY_N[f.imp].svc.replace(/<[^>]+>/g,''));
-    L.push('  '+PARAM_BY_N[f.imp].pol.replace(/<[^>]+>/g,''));
-    L.push('- Worsening *'+PARAM_BY_N[f.wor].name+'* \u2014 '+PARAM_BY_N[f.wor].svc.replace(/<[^>]+>/g,''));
+    L.push('- Improving *'+PARAM_BY_N[f.imp].name+'* \u2014 '+plain(PARAM_BY_N[f.imp].svc));
+    L.push('  '+plain(PARAM_BY_N[f.imp].pol));
+    L.push('- Worsening *'+PARAM_BY_N[f.wor].name+'* \u2014 '+plain(PARAM_BY_N[f.wor].svc));
     const c=cell(f.imp,f.wor), rc=cell(f.wor,f.imp);
     const nm = n => n+' '+P_BY_N[n].name+' ('+P_BY_N[n].alias+')';
     L.push('Matrix principles: '+(c.length?c.map(nm).join('; ')
@@ -1441,7 +1455,7 @@ function framingSummary(f){
   } else if(f.ctype==='physical'){
     const sp=SEPARATIONS.find(x=>x.id===f.phys.sep);
     L.push('Physical contradiction: **'+(f.phys.element||'?')+'** must be **'+(f.phys.a||'?')+'** and also **'+(f.phys.b||'?')+'**');
-    if(sp){ L.push('Strategy: **'+sp.name+'** \u2014 '+sp.how.replace(/<[^>]+>/g,'')); }
+    if(sp){ L.push('Strategy: **'+sp.name+'** \u2014 '+plain(sp.how)); }
   } else {
     L.push('Open exploration across all forty principles.');
   }
@@ -1481,7 +1495,7 @@ function exportMarkdown(){
       const c=f.concepts[n]||{}, p=P_BY_N[n];
       L.push('');
       L.push('### Principle '+n+' \u2014 '+p.name+' \u00b7 '+p.alias);
-      L.push('_'+p.ess+'_');
+      L.push('_'+plain(p.ess)+'_');
       if(f.ideas[n]) L.push('\nFirst thought: '+f.ideas[n]);
       if(c.text) L.push('\nConcept: '+c.text);
       const sc=[c.impact?'Impact '+c.impact:null,c.effort?'Effort '+c.effort:null,c.risk?'Risk '+c.risk:null].filter(Boolean);

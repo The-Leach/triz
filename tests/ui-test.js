@@ -440,7 +440,11 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('the sheet explains what improving the factor means', /Improving this means/.test(carrySheet));
   ok('the sheet ends with how to carry it forward',
     carrySheet.includes('Carrying this forward') && carrySheet.includes('ordinary and busy'));
-  ok('the guidance is on screen too, collapsed', await p.locator('#stepBody .gline').count() > 0);
+  ok('the guidance is visible on screen without opening anything',
+    await p.locator('#stepBody .gline').count() > 0 &&
+    await p.locator('#stepBody .gline').first().isVisible() &&
+    await p.evaluate(() => !!document.querySelector('#stepBody details.guide-open[open]')));
+  ok('no HTML entities leak into the exported sheet', !/&[a-z#0-9]+;/.test(carrySheet));
   const noConcepts = await p.evaluate(() => {
     const f = F(); const keep = {stars: f.stars.slice(), concepts: f.concepts};
     f.stars = []; f.concepts = {}; f.carried = true; S.step = 5; renderSolve();
