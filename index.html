@@ -196,8 +196,9 @@ details.help .help-body li{margin-bottom:.3em}
 .pcard-head .pt{flex:1;min-width:0}
 .pcard-head h3{font-size:15px;margin-bottom:3px}
 .pcard-head .ess{font-size:13.2px;color:var(--ink-2)}
-.star{border:1px solid var(--line);background:var(--panel-2);border-radius:8px;width:32px;height:32px;
-  cursor:pointer;flex:none;display:grid;place-items:center;font-size:15px;color:var(--ink-3);line-height:1}
+.star{border:1px solid var(--line);background:var(--panel-2);border-radius:999px;padding:5px 13px;
+  cursor:pointer;flex:none;font-size:12.5px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.star:hover{border-color:var(--accent);color:var(--accent)}
 .star[aria-pressed="true"]{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
 .pcard-body{padding:0 16px 16px;border-top:1px solid var(--line-2);padding-top:14px}
 .exblock{margin-bottom:12px}
@@ -394,6 +395,17 @@ h3 .alias{font-weight:550}
 .st-item b{color:var(--ink);display:block;margin-bottom:2px}
 .st-word{font-family:var(--data);font-size:11.5px;font-weight:500;color:var(--warn);white-space:nowrap}
 .st-ask{margin-top:4px;font-weight:550;color:var(--ink)}
+
+/* ---------- guidance carried into the summary ---------- */
+.gline{border-top:1px solid var(--line-2);padding:11px 0}
+.gline:first-of-type{border-top:0;padding-top:2px}
+.gline.on{border-left:3px solid var(--warn);padding-left:11px;margin-left:-14px}
+.gl-h{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-bottom:5px}
+.gl-h b{font-size:13.5px;color:var(--ink)}
+.gl-star{font-size:11px;font-weight:700;color:var(--warn);white-space:nowrap}
+.gl-why{font-size:13px;color:var(--ink-2);margin-bottom:6px;max-width:78ch}
+.gl-ask{margin:0;padding-left:18px}
+.gl-ask li{font-size:12.8px;color:var(--ink-3);margin-bottom:2px}
 
 @media print{
   header.top,nav.tabs,.wizfoot,.steps,.btn,details.help{display:none!important}
@@ -836,7 +848,8 @@ function principleCard(p, o){
         '<span class="alias">'+esc(p.alias)+'</span>'+
         (o.rank?' <span class="rankpill">'+esc(o.rank)+'</span>':'')+'</h3>'+
         '<div class="ess">'+esc(p.ess)+'</div></div>'+
-      (o.star!==false?'<button class="star" data-action="star" data-p="'+p.n+'" aria-pressed="'+starred+'" title="Shortlist this principle">'+(starred?'★':'☆')+'</button>':'')+
+      (o.star!==false?'<button class="star" data-action="star" data-p="'+p.n+'" aria-pressed="'+starred+'">'+
+        (starred?'★ Shortlisted':'☆ Shortlist')+'</button>':'')+
     '</div>'+
     '<div class="pcard-body">'+
       '<div class="why"><span class="why-h">Why it resolves a contradiction</span>'+esc(p.why)+'</div>'+
@@ -1146,8 +1159,8 @@ function nearbyPairs(imp, wor, limit){
   relatedFactors(wor,8).forEach(p=>push(imp, p.n, 'a neighbouring factor that worsens'));
   return out.slice(0, limit||6);
 }
-function recommended(){
-  const f = F(), notes = [];
+function recommended(fr){
+  const f = fr || F(), notes = [];
   if(f.ctype==='technical'){
     const c = cell(f.imp,f.wor);
     if(c.length) return {mode:'matrix', notes, list:c.map((n,i)=>({n, rank:'Matrix rank '+(i+1)}))};
@@ -1228,19 +1241,34 @@ function step3(){
       '<li>If a principle seems absurd, ask what would have to be true for it to work. That question does most of the work.</li>'+
       '<li>Order carries a little information \u2014 principles in a cell are conventionally read as most-frequently-used first \u2014 but this was never a strict ranking, and a lower-placed principle that sparks something beats a top-placed one that does not.</li>'+
     '</ul></div></details>'+
-    '<div class="row" style="margin-top:14px"><span class="tiny muted">Shortlisted in this framing: <b id="starCount">'+f.stars.length+'</b></span>'+
+    '<div class="row" style="margin-top:14px"><span class="tiny muted">Shortlisted in this framing: <b id="starCount">'+f.stars.length+'</b>'+
+      (f.stars.length?'':' \u2014 continue without picking and they will all be carried through for you')+'</span>'+
       '<button class="btn ghost sm" data-action="addFraming" style="margin-left:auto">+ Frame it another way</button></div>'+
-    foot(2, 4, 'Develop shortlisted ideas')+
+    foot(2, 4, f.stars.length? 'Develop '+f.stars.length+' shortlisted' : 'Take '+Math.min(r.list.length,CARRY_CAP)+' forward')+
     '</div>'+
     '<div class="plist">'+ r.list.map(x=>principleCard(P_BY_N[x.n], {rank:x.rank})).join('') +'</div>';
 }
 
+const CARRY_CAP = 8;
+/* Forgetting to shortlist should not cost you the step. If nothing was picked,
+   carry the suggested principles through once and say so -- removing is a click,
+   and the flag means a framing deliberately emptied stays empty. */
+function autoCarry(f){
+  if(f.stars.length || f.carried) return 0;
+  const list = recommended(f).list;
+  if(!list.length) return 0;
+  f.carried = true;
+  f.stars = list.slice(0, CARRY_CAP).map(x=>x.n);
+  persist();
+  return list.length;
+}
 function step4(){
   const f = F();
+  const offered = autoCarry(f);
   if(!f.stars.length){
     return '<div class="card pad"><div class="step-head"><h2 tabindex="-1">Develop ideas</h2>'+
-      '<p>Nothing shortlisted in this framing yet.</p></div>'+ framingBar()+
-      '<div class="empty">Go back to the principles and star the ones that gave you something.<br>Three or four is plenty.</div>'+
+      '<p>Nothing to develop in this framing.</p></div>'+ framingBar()+
+      '<div class="empty">This framing suggested no principles \u2014 go back and name a contradiction the matrix covers,<br>or remove this framing and try another angle.</div>'+
       foot(3,5,'Skip to summary')+'</div>';
   }
   const opts = (v,list)=>list.map(x=>'<option value="'+x+'"'+(v===x?' selected':'')+'>'+x+'</option>').join('');
@@ -1248,6 +1276,13 @@ function step4(){
     '<div class="step-head"><h2 tabindex="-1">Develop and sift</h2>'+
     '<p>Turn each spark into something a colleague could act on, then score it. Be honest about effort \u2014 a cheap idea that ships beats a brilliant one that does not.</p></div>'+
     framingBar()+
+    (offered? '<div class="asks" style="border-color:var(--accent);background:var(--accent-soft)">'+
+      '<div class="eh" style="color:var(--accent)">Carried through for you</div>'+
+      '<div class="tiny">You had not shortlisted anything, so '+
+      (offered>CARRY_CAP ? 'the first '+CARRY_CAP+' of the '+offered+' principles this framing suggested are here'
+                         : 'the '+f.stars.length+' principle'+(f.stars.length>1?'s':'')+' this framing suggested '+(f.stars.length>1?'are':'is')+' here')+
+      '. Remove anything that is not useful \u2014 that keeps the sheet honest rather than long.'+
+      (offered>CARRY_CAP? ' Go back to step 3 to pick different ones.':'')+'</div></div>' : '')+
     '<details class="help"><summary>Turning a principle into a concept</summary><div class="help-body"><ul>'+
       '<li>Write it as a change, not a wish: &ldquo;approve under \u00a3500 automatically and sample 10% weekly&rdquo;, not &ldquo;be faster&rdquo;.</li>'+
       '<li>Name who does something differently on Monday morning \u2014 and what in the system makes them, so it still happens in month six.</li>'+
@@ -1338,10 +1373,66 @@ function windowsBridge(){
     '</div></div>';
 }
 
+/* The principles a framing suggested, with the reasoning behind them, are worth
+   keeping even when nobody has written a concept yet. Someone picking the sheet
+   up in a fortnight should be able to carry on thinking from it. */
+function guidanceLines(f){
+  const L=[], r=recommended(f);
+  if(r.mode==='deadend'){
+    L.push('The matrix had no entry for this pair in either direction, so no principles were suggested. Try one of the nearby pairs the tool offered, or restate this as a both-ways demand.');
+    return L;
+  }
+  const starred = f.stars.slice();
+  const intro = r.mode==='matrix' ? 'These are the moves that most often resolved this trade-off across the patent record.'
+    : r.mode==='reverse' ? 'The matrix was blank forward, so these come from the reverse pair. The same two forces are at work, described from the other end.'
+    : r.mode==='separation' ? 'These are the moves that most often deliver this kind of separation.'
+    : 'All forty principles, with the broadly useful ones first.';
+  L.push(intro+' Read the reasoning first: the mechanism is what transfers to your problem, not the example.');
+  r.list.forEach(x=>{
+    const p=P_BY_N[x.n], on=starred.indexOf(x.n)>=0;
+    L.push('');
+    L.push('#### '+p.n+'. '+p.name+' \u00b7 '+p.alias+(on?'  \u2605 shortlisted':''));
+    L.push('*'+p.ess+'*');
+    L.push('');
+    L.push('**Why it resolves a contradiction.** '+p.why);
+    if(on){
+      const ex = showSvc()? p.svc : p.mfg;
+      L.push('');
+      L.push((showSvc()?'**In a service or office.**':'**In manufacturing.**'));
+      ex.forEach(e=>L.push('- '+e.replace(/<[^>]+>/g,'')));
+    }
+    L.push('');
+    L.push('**Ask yourself**');
+    p.ask.forEach(q=>L.push('- '+q));
+  });
+  return L;
+}
+function guidanceHtml(f){
+  const r=recommended(f);
+  if(r.mode==='deadend') return '<div class="tiny muted">The matrix had no entry for this pair, so no principles were suggested.</div>';
+  const starred=f.stars.slice();
+  return '<details class="help"><summary>The '+r.list.length+' principle'+(r.list.length>1?'s':'')+
+      ' this framing suggested, and why each one works</summary><div class="help-body">'+
+    '<p class="tiny" style="margin-top:0">Worth keeping even without concepts yet: the reasoning is what you carry forward. All of this is in the working sheet below.</p>'+
+    r.list.map(x=>{
+      const p=P_BY_N[x.n], on=starred.indexOf(x.n)>=0;
+      return '<div class="gline'+(on?' on':'')+'">'+
+        '<div class="gl-h"><span class="badge num">'+p.n+'</span><b>'+esc(p.name)+'</b>'+
+          '<span class="alias">'+esc(p.alias)+'</span>'+
+          (on?'<span class="gl-star">\u2605 shortlisted</span>':'')+'</div>'+
+        '<div class="gl-why">'+esc(p.why)+'</div>'+
+        '<ul class="gl-ask">'+p.ask.map(q=>'<li>'+esc(q)+'</li>').join('')+'</ul>'+
+      '</div>';
+    }).join('')+'</div></details>';
+}
 function framingSummary(f){
   const L=[];
   if(f.ctype==='technical' && f.imp && f.wor){
     L.push('Trade-off: improving **'+f.imp+'. '+PARAM_BY_N[f.imp].name+'** worsens **'+f.wor+'. '+PARAM_BY_N[f.wor].name+'**');
+    L.push('');
+    L.push('- Improving *'+PARAM_BY_N[f.imp].name+'* \u2014 '+PARAM_BY_N[f.imp].svc.replace(/<[^>]+>/g,''));
+    L.push('  '+PARAM_BY_N[f.imp].pol.replace(/<[^>]+>/g,''));
+    L.push('- Worsening *'+PARAM_BY_N[f.wor].name+'* \u2014 '+PARAM_BY_N[f.wor].svc.replace(/<[^>]+>/g,''));
     const c=cell(f.imp,f.wor), rc=cell(f.wor,f.imp);
     const nm = n => n+' '+P_BY_N[n].name+' ('+P_BY_N[n].alias+')';
     L.push('Matrix principles: '+(c.length?c.map(nm).join('; ')
@@ -1350,7 +1441,7 @@ function framingSummary(f){
   } else if(f.ctype==='physical'){
     const sp=SEPARATIONS.find(x=>x.id===f.phys.sep);
     L.push('Physical contradiction: **'+(f.phys.element||'?')+'** must be **'+(f.phys.a||'?')+'** and also **'+(f.phys.b||'?')+'**');
-    if(sp) L.push('Strategy: **'+sp.name+'**');
+    if(sp){ L.push('Strategy: **'+sp.name+'** \u2014 '+sp.how.replace(/<[^>]+>/g,'')); }
   } else {
     L.push('Open exploration across all forty principles.');
   }
@@ -1383,7 +1474,9 @@ function exportMarkdown(){
     framingSummary(f).forEach(x=>L.push(x));
     const stars=f.stars.slice().sort((a,b)=>a-b);
     L.push('');
-    if(!stars.length){ L.push('_Nothing shortlisted in this framing._'); return; }
+    if(!stars.length){
+      L.push('_No concepts written for this framing yet. The principles it suggested, and the reasoning behind them, are below to carry forward._');
+    }
     stars.forEach(n=>{
       const c=f.concepts[n]||{}, p=P_BY_N[n];
       L.push('');
@@ -1395,7 +1488,22 @@ function exportMarkdown(){
       if(sc.length) L.push('\nScoring: '+sc.join(' \u00b7 '));
       if(c.newprob) L.push('\nNew problem created: '+c.newprob);
     });
+    L.push('');
+    L.push('### The principles this framing suggested');
+    L.push('');
+    guidanceLines(f).forEach(x=>L.push(x));
   });
+  L.push('');
+  L.push('---');
+  L.push('');
+  L.push('## Carrying this forward');
+  L.push('');
+  L.push('- A principle is an **analogy**, not an instruction. The mechanism is what transfers; the examples are only illustrations of it.');
+  L.push('- Look for the **structural** reading first \u2014 flow, queue, batch size, routing, threshold, hand-off, trigger, default.');
+  L.push('- Test any idea with: **what happens if the people are ordinary and busy?** If it only works when someone is exceptional or newly trained, the contradiction has been moved onto them, not resolved.');
+  L.push('- If a principle seems absurd, ask what would have to be true for it to work. That question does most of the work.');
+  if(S.problem.ifr) L.push('- Measure each idea against your Ideal Final Result: *'+S.problem.ifr+'*');
+  L.push('- The same problem framed another way routes to a different set of principles. If only one framing is here, a second pass is usually where the sharper answer comes from.');
   L.push('');
   L.push('---');
   L.push('Generated with PMI - TRIZ+ \u00b7 '+new Date().toLocaleString());
@@ -1423,7 +1531,7 @@ function step5(){
         (F().ctype!=='technical'?'<button class="btn sm" data-action="addFramingAs" data-t="technical">Try it as a trade-off</button>':'')+
         '<button class="btn ghost sm" data-action="addFraming">Another framing</button>'+
       '</div></div>' : '')+
-    (total? S.framings.map((f,i)=>{
+    (S.framings.some(f=>framingReady(f)) ? S.framings.map((f,i)=>{
       const rows = rank(f);
       return '<div class="fr-block">'+
         '<div class="fr-head"><span class="fr-n">'+(i+1)+'</span><b>'+esc(framingLabel(f))+'</b>'+
@@ -1438,9 +1546,10 @@ function step5(){
             (x.c.effort?'<span class="chip static tiny">Effort '+esc(x.c.effort)+'</span>':'')+
             (x.c.risk?'<span class="chip static tiny">Risk '+esc(x.c.risk)+'</span>':'')+'</div>'+
             '<div class="tiny" style="margin-top:5px">'+esc(x.c.text||f.ideas[x.n]||'(no concept written)')+'</div></div>';
-        }).join('')+'</div>' : '<div class="tiny muted" style="padding-left:12px">Nothing shortlisted in this framing.</div>')+
+        }).join('')+'</div>' : '<div class="tiny muted" style="padding-left:12px">No concepts written for this framing yet \u2014 the principles it suggested are below, with the reasoning behind them.</div>')+
+        '<div style="margin-top:12px">'+guidanceHtml(f)+'</div>'+
       '</div>';
-    }).join('') : '<div class="empty">Nothing shortlisted yet \u2014 go back and star a few principles.</div>')+
+    }).join('') : '<div class="empty">Nothing to summarise yet \u2014 go back and name a contradiction.</div>')+
     '<div class="row" style="margin-top:16px">'+
       '<button class="btn primary" data-action="copyMd">Copy working sheet</button>'+
       (canDownload()?'<button class="btn" data-action="downloadMd">Download .md</button>':'')+
@@ -1725,7 +1834,7 @@ document.addEventListener('click', e=>{
     if(i<0) f.stars.push(n); else f.stars.splice(i,1);
     persist();
     if(VIEW==='solve' && S.step===4){ renderSolve(); }
-    else { t.setAttribute('aria-pressed', String(i<0)); if(t.classList.contains('star')) t.textContent = i<0?'★':'☆';
+    else { t.setAttribute('aria-pressed', String(i<0)); if(t.classList.contains('star')) t.textContent = i<0?'★ Shortlisted':'☆ Shortlist';
            const sc=$('#starCount'); if(sc) sc.textContent=f.stars.length; } }
 
   else if(a==='mxcell'){ moveMxFocus(+t.dataset.i, +t.dataset.j); selectMxCell(+t.dataset.i, +t.dataset.j);
@@ -1798,8 +1907,7 @@ document.addEventListener('input', e=>{
       f.stars.push(n);
       const card=t.closest('.pcard');
       const star=card && card.querySelector('.star');
-      if(star){ star.setAttribute('aria-pressed','true'); star.textContent='\u2605';
-                star.title='Shortlisted \u2014 click to remove'; }
+      if(star){ star.setAttribute('aria-pressed','true'); star.textContent='\u2605 Shortlisted'; }
       const sc=$('#starCount'); if(sc) sc.textContent=f.stars.length;
     }
     persist(); }

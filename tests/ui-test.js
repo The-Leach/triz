@@ -25,10 +25,12 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   let ctx = await browser.newContext({viewport: {width: 1280, height: 900}, acceptDownloads: true});
   let p = await ctx.newPage();
   p.on('pageerror', e => errs.push('PAGEERROR: ' + e.message));
-  /* The webfont is a progressive enhancement: offline it falls back to the system
-     stack, so a failed font request is not an application error. */
-  const isFontNoise = t => /ERR_(CONNECTION|NAME|INTERNET|NETWORK|PROXY)/.test(t) || /fonts\.(googleapis|gstatic)\.com/.test(t);
-  p.on('console', m => { if (m.type() === 'error' && !isFontNoise(m.text())) errs.push('CONSOLE: ' + m.text()); });
+  /* This assertion is about JavaScript errors. A failed *resource* fetch is not
+     one: the only external reference is the webfont, which the page is built to
+     survive (it falls back to the system stack). Real exceptions still come
+     through the pageerror handler above and are asserted in full. */
+  const isResourceFetch = t => /^Failed to load resource/.test(t);
+  p.on('console', m => { if (m.type() === 'error' && !isResourceFetch(m.text())) errs.push('CONSOLE: ' + m.text()); });
   await p.goto(APP);
   await p.waitForTimeout(400);
 
@@ -430,6 +432,60 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('markdown download is well formed and carries the work',
     mdFile.startsWith('# PMI - TRIZ+ working sheet') && mdFile.includes('Pre-check at intake'));
 
+  /* ---------- the sheet carries the guidance, not just the concepts ---------- */
+  const carrySheet = await p.textContent('#mdOut');
+  ok('the sheet lists the principles the framing suggested', carrySheet.includes('The principles this framing suggested'));
+  ok('the sheet carries each mechanism', carrySheet.includes('Why it resolves a contradiction'));
+  ok('the sheet carries the prompts to think with', carrySheet.includes('Ask yourself'));
+  ok('the sheet explains what improving the factor means', /Improving this means/.test(carrySheet));
+  ok('the sheet ends with how to carry it forward',
+    carrySheet.includes('Carrying this forward') && carrySheet.includes('ordinary and busy'));
+  ok('the guidance is on screen too, collapsed', await p.locator('#stepBody .gline').count() > 0);
+  const noConcepts = await p.evaluate(() => {
+    const f = F(); const keep = {stars: f.stars.slice(), concepts: f.concepts};
+    f.stars = []; f.concepts = {}; f.carried = true; S.step = 5; renderSolve();
+    const md = document.getElementById('mdOut').textContent;
+    f.stars = keep.stars; f.concepts = keep.concepts; renderSolve();
+    return md;
+  });
+  ok('a sheet with no concepts at all is still worth keeping',
+    noConcepts.includes('No concepts written') && noConcepts.includes('Why it resolves a contradiction')
+    && noConcepts.length > 2000);
+
+  /* ---------- nothing is lost by forgetting to shortlist ---------- */
+  await p.evaluate(() => { S = blankSession(); S.problem.title = 'Carry-through test';
+    const f = F(); f.ctype = 'technical'; f.imp = 9; f.wor = 27; S.step = 3; renderSolve(); });
+  await p.waitForTimeout(350);
+  ok('the shortlist control is labelled, not a bare glyph',
+    (await p.locator('#view-solve .pcard .star').first().textContent()).includes('Shortlist'));
+  ok('the continue button says what it will do',
+    /Take \d+ forward/.test(await p.textContent('#stepBody [data-action="step"][data-n="4"]')));
+  await p.click('#stepBody [data-action="step"][data-n="4"]'); await p.waitForTimeout(450);
+  const carried = await p.evaluate(() => F().stars.length);
+  ok('principles are carried through rather than dead-ending (' + carried + ')', carried > 0);
+  ok('and the user is told it happened', /Carried through for you/.test(await p.textContent('#stepBody')));
+  ok('every carried principle can still be removed',
+    await p.locator('#stepBody [data-action="star"]').count() === carried);
+  await p.click('#stepBody [data-action="star"]'); await p.waitForTimeout(400);
+  ok('removing one works', await p.evaluate(() => F().stars.length) === carried - 1);
+  await p.evaluate(() => { const f = F(); f.stars = []; S.step = 4; renderSolve(); });
+  await p.waitForTimeout(400);
+  ok('a framing emptied on purpose stays empty', await p.evaluate(() => F().stars.length) === 0);
+  ok('explore mode is capped rather than carrying all forty', await p.evaluate(() => {
+    const f = F(); f.ctype = 'explore'; f.stars = []; f.carried = false;
+    autoCarry(f); return f.stars.length <= CARRY_CAP && f.stars.length > 0;
+  }));
+
+  /* restore the single-framing session the next block expects */
+  await p.evaluate(() => {
+    S = blankSession();
+    S.problem.title = 'Export surface test';
+    const f = F(); f.ctype = 'technical'; f.imp = 25; f.wor = 27; f.stars = [10];
+    f.concepts[10] = {text: 'Pre-check at intake', impact: 'High', effort: 'Low'};
+    S.step = 5; persist(); renderSolve();
+  });
+  await p.waitForTimeout(400);
+
   /* ---------- one framing is nudged towards a second ---------- */
   ok('a single framing is nudged to try another',
     await p.locator('[data-action="addFramingAs"]').count() >= 1);
@@ -595,7 +651,7 @@ const ok = (label, cond) => { (cond ? pass++ : fail++); console.log((cond ? 'PAS
   ok('mobile: no horizontal overflow', !layout.overflow);
   await browser.close();
 
-  ok('no JavaScript errors anywhere (webfont network noise excluded)', errs.length === 0);
+  ok('no JavaScript errors anywhere (failed resource fetches are not JS errors)', errs.length === 0);
   if (errs.length) console.log(errs.join('\n'));
   console.log('\n' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);

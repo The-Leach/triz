@@ -55,8 +55,16 @@ working sheet.
    and when both directions are blank it offers the nearby pairs the matrix *does*
    cover rather than filler.
 4. **Develop** the shortlist into concepts scored on impact, effort and risk.
-   Writing an idea shortlists that principle automatically.
+   Writing an idea shortlists that principle automatically, and if you shortlist
+   nothing the suggested principles are carried through for you — removing one is
+   a click, so the sheet stays honest rather than long.
 5. **Summarise** — every framing in one working sheet, to copy, download or print.
+
+The sheet carries **the guidance as well as the concepts**: every principle the
+framing suggested, why each one resolves a contradiction, the questions to ask of
+it, what improving your chosen factor actually means, and a closing note on how to
+carry it forward. Someone who ran out of time before writing any concepts still
+leaves with something worth picking up a fortnight later.
 
 **Nine Windows** — the thing, its parts and its surroundings, across before / now
 / next. Problems are stated in the centre box and usually caused elsewhere. What
@@ -116,7 +124,7 @@ npm install playwright
 ./tests/run.sh
 ```
 
-233 checks across four suites: end-to-end behaviour, the published-page save
+248 checks across four suites: end-to-end behaviour, the published-page save
 paths, a sandboxed-iframe suite, and a suite that proves the content validator
 actually rejects bad content.
 
